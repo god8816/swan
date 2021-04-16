@@ -1,0 +1,4 @@
+org.zoo.swan.common.serializer.KryoSerializer
+org.zoo.swan.common.serializer.ProtostuffSerializer
+org.zoo.swan.common.serializer.HessianSerializer
+org.zoo.swan.common.serializer.JavaSerializer

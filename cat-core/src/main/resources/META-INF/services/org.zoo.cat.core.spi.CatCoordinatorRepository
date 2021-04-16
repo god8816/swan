@@ -1,0 +1,5 @@
+org.zoo.cat.core.spi.repository.JdbcCoordinatorRepository
+org.zoo.cat.core.spi.repository.FileCoordinatorRepository
+org.zoo.cat.core.spi.repository.MongoCoordinatorRepository
+org.zoo.cat.core.spi.repository.RedisCoordinatorRepository
+org.zoo.cat.core.spi.repository.ZookeeperCoordinatorRepository
