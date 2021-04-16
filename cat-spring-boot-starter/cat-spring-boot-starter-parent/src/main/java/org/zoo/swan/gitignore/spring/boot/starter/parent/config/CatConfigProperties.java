@@ -15,16 +15,17 @@
  * limitations under the License.
  */
 
-package org.zoo.cat.spring.boot.starter.parent.config;
+package org.zoo.swan.gitignore.spring.boot.starter.parent.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.zoo.cat.common.config.CatConfig;
+import org.zoo.swan.common.config.SwanConfig;
+
 
 /**
- * CatConfigProperties starter.
+ * SwanConfigProperties starter.
  *
  * @author dzc
  */
-@ConfigurationProperties(prefix = "org.zoo.cat", ignoreInvalidFields = true)
-public class CatConfigProperties extends CatConfig {
+@ConfigurationProperties(prefix = "org.zoo.swan", ignoreInvalidFields = true)
+public class SwanConfigProperties extends SwanConfig {
 }
