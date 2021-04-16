@@ -37,12 +37,12 @@ public class SwanTransactionContext implements Serializable {
     private String transId;
     
     /**
-     * this cat action. {@linkplain SwanActionEnum}
+     * this cat action.
      */
     private int action;
 
     /**
-     * 事务参与的角色. {@linkplain SwanRoleEnum}
+     * 事务参与的角色.
      */
     private int role;
 
