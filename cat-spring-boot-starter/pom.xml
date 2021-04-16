@@ -22,20 +22,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>cat</artifactId>
+        <artifactId>swan</artifactId>
         <groupId>org.zoo</groupId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cat-spring-boot-starter</artifactId>
+    <artifactId>swan-spring-boot-starter</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>cat-spring-boot-starter-dubbo</module>
-        <module>cat-spring-boot-starter-springcloud</module>
-        <module>cat-spring-boot-starter-parent</module>
-        <module>cat-spring-boot-starter-apache-dubbo</module>
+        <module>swan-spring-boot-starter-parent</module>
     </modules>
 
     <dependencies>

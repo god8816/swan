@@ -27,16 +27,16 @@ import org.zoo.swan.core.helper.SpringBeanUtils;
 import org.zoo.swan.core.service.SwanInitService;
 
 /**
- * cat bootstrap.
+ * swan bootstrap.
  * @author dzc
  */
 public class SwanTransactionBootstrap extends SwanConfig implements ApplicationContextAware {
 
-    private final SwanInitService catInitService;
+    private final SwanInitService swanInitService;
 
     @Autowired
-    public SwanTransactionBootstrap(final SwanInitService catInitService) {
-        this.catInitService = catInitService;
+    public SwanTransactionBootstrap(final SwanInitService swanInitService) {
+        this.swanInitService = swanInitService;
     }
 
     @Override
@@ -46,6 +46,6 @@ public class SwanTransactionBootstrap extends SwanConfig implements ApplicationC
     }
 
     private void start(final SwanConfig catConfig) {
-        catInitService.initialization(catConfig);
+        swanInitService.initialization(catConfig);
     }
 }

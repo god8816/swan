@@ -37,21 +37,21 @@ public class RepositoryConvertUtils {
     /**
      * Convert byte [ ].
      *
-     * @param catTransaction   the tcc transaction
+     * @param swanTransaction   the tcc transaction
      * @param objectSerializer the object serializer
      * @return the byte [ ]
      * @throws SwanException the tcc exception
      */
-    public static byte[] convert(final SwanTransaction catTransaction, final ObjectSerializer objectSerializer) throws SwanException {
+    public static byte[] convert(final SwanTransaction swanTransaction, final ObjectSerializer objectSerializer) throws SwanException {
         CoordinatorRepositoryAdapter adapter = new CoordinatorRepositoryAdapter();
-        adapter.setTransId(catTransaction.getTransId());
-        adapter.setLastTime(catTransaction.getLastTime());
-        adapter.setCreateTime(catTransaction.getCreateTime());
-        adapter.setRetriedCount(catTransaction.getRetriedCount());
-        adapter.setTargetClass(catTransaction.getTargetClass());
-        adapter.setTargetMethod(catTransaction.getTargetMethod());
-        adapter.setPattern(catTransaction.getPattern());
-        adapter.setVersion(catTransaction.getVersion());
+        adapter.setTransId(swanTransaction.getTransId());
+        adapter.setLastTime(swanTransaction.getLastTime());
+        adapter.setCreateTime(swanTransaction.getCreateTime());
+        adapter.setRetriedCount(swanTransaction.getRetriedCount());
+        adapter.setTargetClass(swanTransaction.getTargetClass());
+        adapter.setTargetMethod(swanTransaction.getTargetMethod());
+        adapter.setPattern(swanTransaction.getPattern());
+        adapter.setVersion(swanTransaction.getVersion());
         return objectSerializer.serialize(adapter);
     }
 
@@ -65,18 +65,18 @@ public class RepositoryConvertUtils {
      */
     @SuppressWarnings("unchecked")
     public static SwanTransaction transformBean(final byte[] contents, final ObjectSerializer objectSerializer) throws SwanException {
-        SwanTransaction catTransaction = new SwanTransaction();
+        SwanTransaction swanTransaction = new SwanTransaction();
         final CoordinatorRepositoryAdapter adapter = objectSerializer.deSerialize(contents, CoordinatorRepositoryAdapter.class);
-        List<SwanParticipant> catParticipants = objectSerializer.deSerialize(adapter.getContents(), ArrayList.class);
-        catTransaction.setLastTime(adapter.getLastTime());
-        catTransaction.setRetriedCount(adapter.getRetriedCount());
-        catTransaction.setCreateTime(adapter.getCreateTime());
-        catTransaction.setTransId(adapter.getTransId());
-        catTransaction.setPattern(adapter.getPattern());
-        catTransaction.setTargetClass(adapter.getTargetClass());
-        catTransaction.setTargetMethod(adapter.getTargetMethod());
-        catTransaction.setVersion(adapter.getVersion());
-        return catTransaction;
+        List<SwanParticipant> swanParticipants = objectSerializer.deSerialize(adapter.getContents(), ArrayList.class);
+        swanTransaction.setLastTime(adapter.getLastTime());
+        swanTransaction.setRetriedCount(adapter.getRetriedCount());
+        swanTransaction.setCreateTime(adapter.getCreateTime());
+        swanTransaction.setTransId(adapter.getTransId());
+        swanTransaction.setPattern(adapter.getPattern());
+        swanTransaction.setTargetClass(adapter.getTargetClass());
+        swanTransaction.setTargetMethod(adapter.getTargetMethod());
+        swanTransaction.setVersion(adapter.getVersion());
+        return swanTransaction;
     }
 
 }

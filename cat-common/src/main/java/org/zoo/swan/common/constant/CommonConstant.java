@@ -55,12 +55,12 @@ public final class CommonConstant {
     /**
      * The constant DB_SUFFIX.
      */
-    public final static String DB_SUFFIX = "cat_";
+    public final static String DB_SUFFIX = "swan_";
 
     /**
      * The constant RECOVER_REDIS_KEY_PRE.
      */
-    public final static String RECOVER_REDIS_KEY_PRE = "cat:transaction:%s";
+    public final static String RECOVER_REDIS_KEY_PRE = "swan:transaction:%s";
 
     /**
      * The constant CAT_TRANSACTION_CONTEXT.

@@ -25,6 +25,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
+import org.zoo.swan.core.bootstrap.SwanTransactionBootstrap;
+import org.zoo.swan.core.service.SwanInitService;
 import org.zoo.swan.gitignore.spring.boot.starter.parent.config.SwanConfigProperties;
 
 /**
@@ -59,11 +61,8 @@ public class SwanAutoConfiguration {
         swanTransactionBootstrap.setScheduledInitDelay(swanConfigProperties.getScheduledInitDelay());
         swanTransactionBootstrap.setScheduledThreadMax(swanConfigProperties.getScheduledThreadMax());
         swanTransactionBootstrap.setSerializer(swanConfigProperties.getSerializer());
-        swanTransactionBootstrap.setSwanFileConfig(swanConfigProperties.getSwanFileConfig());
         swanTransactionBootstrap.setSwanDbConfig(swanConfigProperties.getSwanDbConfig());
         swanTransactionBootstrap.setSwanRedisConfig(swanConfigProperties.getSwanRedisConfig());
-        swanTransactionBootstrap.setSwanZookeeperConfig(swanConfigProperties.getSwanZookeeperConfig());
-        swanTransactionBootstrap.setSwanMongoConfig(swanConfigProperties.getSwanMongoConfig());
         swanTransactionBootstrap.setConsumerThreads(swanConfigProperties.getConsumerThreads());
         swanTransactionBootstrap.setLoadFactor(swanConfigProperties.getLoadFactor());
         swanTransactionBootstrap.setAsyncThreads(swanConfigProperties.getAsyncThreads());

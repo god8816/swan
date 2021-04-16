@@ -18,7 +18,7 @@
 package org.zoo.swan.common.exception;
 
 /**
- * CatException.
+ * SwanException.
  *
  * @author dzc
  */
