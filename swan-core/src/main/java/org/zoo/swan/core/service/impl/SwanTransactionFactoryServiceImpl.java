@@ -35,12 +35,12 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
- * CatTransactionFactoryServiceImpl.
+ * swanTransactionFactoryServiceImpl.
  *
  * @author dzc
  */
 @SuppressWarnings("rawtypes")
-@Service("catTransactionFactoryService")
+@Service("swanTransactionFactoryService")
 public class SwanTransactionFactoryServiceImpl implements SwanTransactionFactoryService  {
 
     /**
@@ -49,10 +49,10 @@ public class SwanTransactionFactoryServiceImpl implements SwanTransactionFactory
     private static final Logger LOGGER = LoggerFactory.getLogger(SwanTransactionFactoryServiceImpl.class);
     
     @Autowired
-    private SwanConfig catConfig;
+    private SwanConfig swanConfig;
     
     /**
-     * acquired CatTransactionHandler.
+     * acquired SwanTransactionHandler.
      *
      * @param context {@linkplain SwanTransactionContext}
      * @return Class

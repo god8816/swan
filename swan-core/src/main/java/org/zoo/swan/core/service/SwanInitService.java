@@ -26,9 +26,9 @@ import org.zoo.swan.common.config.SwanConfig;
 public interface SwanInitService {
 
     /**
-     * cat init.
+     * swan init.
      *
      * @param catConfig {@linkplain SwanConfig}
      */
-    void initialization(SwanConfig catConfig);
+    void initialization(SwanConfig swanConfig);
 }

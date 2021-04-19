@@ -43,9 +43,9 @@ public interface SwanCoordinatorRepository {
      *
      * @param tableName tableName
      * @param appName appName
-     * @param catConfig {@linkplain SwanConfig}
+     * @param swanConfig {@linkplain SwanConfig}
      */
-    void init(String tableName,String appName, SwanConfig catConfig);
+    void init(String tableName,String appName, SwanConfig swanConfig);
 
     /**
      * set scheme.

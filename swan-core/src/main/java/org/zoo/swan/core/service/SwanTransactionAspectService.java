@@ -29,10 +29,10 @@ public interface SwanTransactionAspectService {
     /**
      * tcc saga notice 事务切面服务
      *
-     * @param catTransactionContext tcc事务上下文对象
+     * @param swanTransactionContext tcc事务上下文对象
      * @param point                 切点
      * @return object
      * @throws Throwable 异常信息
      */
-    Object invoke(SwanTransactionContext catTransactionContext, ProceedingJoinPoint point) throws Throwable;
+    Object invoke(SwanTransactionContext swanTransactionContext, ProceedingJoinPoint point) throws Throwable;
 }

@@ -27,41 +27,41 @@ import org.zoo.swan.core.service.SwanTransactionFactoryService;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
 /**
- * CatTransactionAspectServiceImpl.
+ * swanTransactionAspectServiceImpl.
  *
  * @author dzc
  */
-@Service("catTransactionAspectService")
+@Service("swanTransactionAspectService")
 @SuppressWarnings("unchecked")
 public class SwanTransactionAspectServiceImpl implements SwanTransactionAspectService {
 
-    private final SwanTransactionFactoryService catTransactionFactoryService;
+    private final SwanTransactionFactoryService swanTransactionFactoryService;
     
 
 
     /**
-     * Instantiates a new Cat transaction aspect service.
+     * Instantiates a new swan transaction aspect service.
      *
-     * @param catTransactionFactoryService the cat transaction factory service
+     * @param swanTransactionFactoryService the swan transaction factory service
      */
     @Autowired
-    public SwanTransactionAspectServiceImpl(final SwanTransactionFactoryService catTransactionFactoryService) {
-        this.catTransactionFactoryService = catTransactionFactoryService;
+    public SwanTransactionAspectServiceImpl(final SwanTransactionFactoryService swanTransactionFactoryService) {
+        this.swanTransactionFactoryService = swanTransactionFactoryService;
     }
 
     /**
-     * cat transaction aspect.
+     * swan transaction aspect.
      *
-     * @param catTransactionContext {@linkplain  SwanTransactionContext}
+     * @param swanTransactionContext {@linkplain  SwanTransactionContext}
      * @param point                   {@linkplain ProceedingJoinPoint}
      * @return object  return value
      * @throws Throwable exception
      */
     @Override
-    public Object invoke(final SwanTransactionContext catTransactionContext, final ProceedingJoinPoint point) throws Throwable {
-        final Class clazz = catTransactionFactoryService.factoryOf(point,catTransactionContext);
+    public Object invoke(final SwanTransactionContext swanTransactionContext, final ProceedingJoinPoint point) throws Throwable {
+        final Class clazz = swanTransactionFactoryService.factoryOf(point,swanTransactionContext);
         final SwanTransactionHandler txTransactionHandler =
                 (SwanTransactionHandler) SpringBeanUtils.getInstance().getBean(clazz);
-        return txTransactionHandler.handler(point, catTransactionContext);
+        return txTransactionHandler.handler(point, swanTransactionContext);
     }
 }

@@ -22,7 +22,7 @@ import org.zoo.swan.common.bean.context.SwanTransactionContext;
 
 
 /**
- * this is cat handler factory.
+ * this is swan handler factory.
  * @author dzc
  */
 @FunctionalInterface
@@ -32,7 +32,7 @@ public interface SwanTransactionFactoryService<T> {
      * factory of handler role.
      *
      * @param context {@linkplain  SwanTransactionContext}
-     * @return impl CatTransactionHandler
+     * @return impl swanTransactionHandler
      * @throws Throwable  Throwable
      */
     Class<T> factoryOf(ProceedingJoinPoint point,SwanTransactionContext context) throws Throwable;
