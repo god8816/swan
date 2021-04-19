@@ -17,21 +17,20 @@
 
 package org.zoo.swan.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-
 /**
- * The interface swan.
+ * 操作模式
  *
  * @author dzc
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
-public @interface Swan {
+public enum TransTypeEnum {
 
-	TransTypeEnum value();
+    /**
+     * 下发凭证
+     */
+	QUERY,
 
+    /**
+     * 保存
+     */
+    SAVE;
 }
