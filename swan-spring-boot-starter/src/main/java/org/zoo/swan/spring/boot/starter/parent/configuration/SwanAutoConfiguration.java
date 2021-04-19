@@ -51,22 +51,11 @@ public class SwanAutoConfiguration {
     @Qualifier("swanTransactionBootstrap")
     @Primary
     public SwanTransactionBootstrap swanTransactionBootstrap(SwanInitService swanInitService) {
-        final SwanTransactionBootstrap swanTransactionBootstrap = new SwanTransactionBootstrap(swanInitService);
-//        swanTransactionBootstrap.setBufferSize(swanConfigProperties.getBufferSize());
-//        swanTransactionBootstrap.setRetryMax(swanConfigProperties.getRetryMax());
-//        swanTransactionBootstrap.setRecoverDelayTime(swanConfigProperties.getRecoverDelayTime());
-//        swanTransactionBootstrap.setRepositorySuffix(swanConfigProperties.getRepositorySuffix());
-//        swanTransactionBootstrap.setRepositorySupport(swanConfigProperties.getRepositorySupport());
-//        swanTransactionBootstrap.setScheduledDelay(swanConfigProperties.getScheduledDelay());
-//        swanTransactionBootstrap.setScheduledInitDelay(swanConfigProperties.getScheduledInitDelay());
-//        swanTransactionBootstrap.setScheduledThreadMax(swanConfigProperties.getScheduledThreadMax());
-//        swanTransactionBootstrap.setSerializer(swanConfigProperties.getSerializer());
-//        swanTransactionBootstrap.setSwanDbConfig(swanConfigProperties.getSwanDbConfig());
-//        swanTransactionBootstrap.setSwanRedisConfig(swanConfigProperties.getSwanRedisConfig());
-//        swanTransactionBootstrap.setConsumerThreads(swanConfigProperties.getConsumerThreads());
-//        swanTransactionBootstrap.setLoadFactor(swanConfigProperties.getLoadFactor());
-//        swanTransactionBootstrap.setAsyncThreads(swanConfigProperties.getAsyncThreads());
-//        swanTransactionBootstrap.setConcurrencyScale(swanConfigProperties.getConcurrencyScale());
-        return swanTransactionBootstrap;
+         final SwanTransactionBootstrap swanTransactionBootstrap = new SwanTransactionBootstrap(swanInitService);
+         swanTransactionBootstrap.setStarted(swanConfigProperties.getStarted());
+         swanTransactionBootstrap.setSwanRedisConfig(swanConfigProperties.getSwanRedisConfig());
+         swanTransactionBootstrap.setTransIdGenerateSupport(swanConfigProperties.getTransIdGenerateSupport());
+         swanTransactionBootstrap.setRepositorySupport(swanConfigProperties.getRepositorySupport());
+         return swanTransactionBootstrap;
     }
 }

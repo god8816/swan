@@ -89,10 +89,10 @@ public class SwanTransactionSelfRecoveryScheduled implements SmartApplicationLis
      * if have some exception by schedule execute cat transaction log.
      */
     private void selfRecovery() {
-        scheduledExecutorService
-                .scheduleWithFixedDelay(() -> {
-                    
-                }, 1, 1, TimeUnit.SECONDS);
+//        scheduledExecutorService
+//                .scheduleWithFixedDelay(() -> {
+//                    
+//                }, 1, 1, TimeUnit.SECONDS);
 
     }
 
