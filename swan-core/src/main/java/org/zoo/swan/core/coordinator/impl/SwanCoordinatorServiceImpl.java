@@ -17,14 +17,12 @@
 
 package org.zoo.swan.core.coordinator.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zoo.swan.common.bean.entity.SwanTransaction;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.utils.StringUtils;
 import org.zoo.swan.core.coordinator.SwanCoordinatorService;
 import org.zoo.swan.core.helper.SpringBeanUtils;
-import org.zoo.swan.core.service.SwanApplicationService;
 import org.zoo.swan.core.spi.SwanCoordinatorRepository;
 
 /**
@@ -37,17 +35,11 @@ public class SwanCoordinatorServiceImpl implements SwanCoordinatorService {
 
     private SwanCoordinatorRepository coordinatorRepository;
 
-    private final SwanApplicationService swanApplicationService;
-
-    @Autowired
-    public SwanCoordinatorServiceImpl(final SwanApplicationService swanApplicationService) {
-        this.swanApplicationService = swanApplicationService;
-    }
-
+  
     @Override
     public void start(final SwanConfig swanConfig) {
-        final String tableName = buildRepositorySuffix(swanConfig.getRepositorySuffix());
-        final String appName = swanApplicationService.acquireName();
+        final String tableName = buildRepositorySuffix("");
+        final String appName =  ""; //swanApplicationService.acquireName();
         coordinatorRepository = SpringBeanUtils.getInstance().getBean(SwanCoordinatorRepository.class);
         coordinatorRepository.init(tableName,appName, swanConfig);
     }
@@ -61,9 +53,8 @@ public class SwanCoordinatorServiceImpl implements SwanCoordinatorService {
     private String buildRepositorySuffix(final String repositorySuffix) {
         if (StringUtils.isNoneBlank(repositorySuffix)) {
             return repositorySuffix;
-        } else {
-            return swanApplicationService.acquireName();
         }
+		return repositorySuffix; 
     }
 
 }

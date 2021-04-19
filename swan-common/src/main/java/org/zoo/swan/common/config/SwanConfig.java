@@ -18,7 +18,6 @@
 package org.zoo.swan.common.config;
 
 
-import org.zoo.swan.common.serializer.TransIdGenerate;
 
 import lombok.Data;
 
@@ -31,20 +30,10 @@ import lombok.Data;
 public class SwanConfig {
 	
     /**
-     * 补偿日志入库名称
-     */
-    private String repositorySuffix;
-	
-    /**
      * 框架开关
      */
     private Boolean started = true;
     
-    /**
-     * 选择transId UUID、SnowFlake
-     */
-    private String transIdSupport = "UUID";
-
     /**
      * 选择模式 redis
      */
@@ -58,5 +47,6 @@ public class SwanConfig {
     /**
      * Id生成策略 UUID、SnowId
      */
-    private String transIdGenerate;
+    private String transIdGenerateSupport = "UUID";
+    
 }

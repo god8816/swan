@@ -1,0 +1,2 @@
+org.zoo.swan.common.serializer.SnowFlakeGenerate
+org.zoo.swan.common.serializer.UUIdGenerate

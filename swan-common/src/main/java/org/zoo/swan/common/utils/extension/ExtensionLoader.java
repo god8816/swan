@@ -73,7 +73,7 @@ public final class ExtensionLoader<T> {
         return StreamSupport.stream(loader.spliterator(), false)
                 .filter(e -> Objects.equals(e.getClass()
                         .getAnnotation(SwanSPI.class).value(), value))
-                .findFirst().orElseThrow(() -> new SwanException("Please check your configuration"));
+                .findFirst().orElseThrow(() -> new SwanException("未发现ID生成策略请检查配置"));
     }
 
 }

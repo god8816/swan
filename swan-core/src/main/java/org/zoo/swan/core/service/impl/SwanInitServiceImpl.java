@@ -32,7 +32,7 @@ import org.zoo.swan.core.service.SwanInitService;
 import org.zoo.swan.core.spi.SwanCoordinatorRepository;
 
 /**
- * cat init service.
+ * swan init service.
  *
  * @author dzc
  */
@@ -63,12 +63,12 @@ public class SwanInitServiceImpl implements SwanInitService {
      */
     @Override
     public void initialization(final SwanConfig swanConfig) {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> LOGGER.info("cat shutdown now")));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> LOGGER.info("swan shutdown now")));
         try {
             loadSpiSupport(swanConfig);
             swanCoordinatorService.start(swanConfig);
         } catch (Exception ex) {
-            LogUtil.error(LOGGER, " cat init exception:{}", ex::getMessage);
+            LogUtil.error(LOGGER, " swan init exception:{}", ex::getMessage);
             System.exit(1);
         }
         new SwanLogo().logo();
@@ -80,9 +80,9 @@ public class SwanInitServiceImpl implements SwanInitService {
      * @param swanConfig {@linkplain SwanConfig}
      */
     private void loadSpiSupport(final SwanConfig swanConfig) {
-        //spi serialize
+        //spi id
         final TransIdGenerate transIdGenerate = ExtensionLoader.getExtensionLoader(TransIdGenerate.class)
-                .getActivateExtension(swanConfig.getTransIdGenerate());
+                .getActivateExtension(swanConfig.getTransIdGenerateSupport());
 
         //spi repository
         final SwanCoordinatorRepository repository = ExtensionLoader.getExtensionLoader(SwanCoordinatorRepository.class)
