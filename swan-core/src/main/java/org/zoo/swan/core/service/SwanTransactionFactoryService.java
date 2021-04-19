@@ -31,7 +31,8 @@ public interface SwanTransactionFactoryService<T> {
     /**
      * factory of handler role.
      *
-     * @param context {@linkplain  SwanTransactionContext}
+     * @param point point
+     * @param   context context
      * @return impl swanTransactionHandler
      * @throws Throwable  Throwable
      */

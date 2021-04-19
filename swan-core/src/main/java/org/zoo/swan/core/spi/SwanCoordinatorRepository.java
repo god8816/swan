@@ -33,7 +33,7 @@ public interface SwanCoordinatorRepository {
      * acquired by id.
      *
      * @param id pk
-     * @return {@linkplain SwanTransaction}
+     * @return  
      */
     SwanTransaction findById(String id);
 
@@ -43,7 +43,7 @@ public interface SwanCoordinatorRepository {
      *
      * @param tableName tableName
      * @param appName appName
-     * @param swanConfig {@linkplain SwanConfig}
+     * @param swanConfig  
      */
     void init(String tableName,String appName, SwanConfig swanConfig);
 
@@ -56,6 +56,7 @@ public interface SwanCoordinatorRepository {
     
     /**
      * 设置ID生成策略
+     * @param transIdGenerate transIdGenerate
      */
     void setTransIdGenerate(TransIdGenerate transIdGenerate);
 

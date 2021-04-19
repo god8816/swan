@@ -27,8 +27,7 @@ public interface SwanInitService {
 
     /**
      * swan init.
-     *
-     * @param catConfig {@linkplain SwanConfig}
+     * @param swanConfig  swanConfig
      */
     void initialization(SwanConfig swanConfig);
 }
