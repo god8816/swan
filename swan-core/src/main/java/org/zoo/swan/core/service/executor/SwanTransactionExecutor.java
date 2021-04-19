@@ -54,18 +54,18 @@ public class SwanTransactionExecutor {
     public SwanTransaction preTry(final ProceedingJoinPoint point) {
         LogUtil.debug(LOGGER, () -> "......swan transaction starter....");
         //build tccTransaction
-        final SwanTransaction catTransaction = buildCatTransaction(point,"");
+        final SwanTransaction swanTransaction = buildCatTransaction(point,"");
       
-        return catTransaction;
+        return swanTransaction;
     }
    
 
     private SwanTransaction buildCatTransaction(final ProceedingJoinPoint point,final String transId) {
-        SwanTransaction catTransaction;
+        SwanTransaction swanTransaction;
         if (StringUtils.isNoneBlank(transId)) {
-            catTransaction = new SwanTransaction(transId);
+            swanTransaction = new SwanTransaction(transId);
         } else {
-            catTransaction = new SwanTransaction();
+            swanTransaction = new SwanTransaction();
         }
       
         Method method = JoinPointUtils.getMethod(point);

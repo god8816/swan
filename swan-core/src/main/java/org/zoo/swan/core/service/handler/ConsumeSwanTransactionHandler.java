@@ -23,7 +23,7 @@ import org.zoo.swan.common.bean.context.SwanTransactionContext;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
 /**
- * ConsumeCatTransactionHandler.
+ * ConsumeSwanTransactionHandler.
  *
  * @author dzc
  */

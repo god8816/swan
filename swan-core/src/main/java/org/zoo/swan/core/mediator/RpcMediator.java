@@ -65,11 +65,11 @@ public class RpcMediator {
      * @return the cat transaction context
      */
     public SwanTransactionContext acquire(RpcAcquire rpcAcquire) {
-        SwanTransactionContext catTransactionContext = null;
+        SwanTransactionContext swanTransactionContext = null;
         final String context = rpcAcquire.acquire(CommonConstant.CAT_TRANSACTION_CONTEXT);
         if (StringUtils.isNoneBlank(context)) {
-            catTransactionContext = GsonUtils.getInstance().fromJson(context, SwanTransactionContext.class);
+            swanTransactionContext = GsonUtils.getInstance().fromJson(context, SwanTransactionContext.class);
         }
-        return catTransactionContext;
+        return swanTransactionContext;
     }
 }

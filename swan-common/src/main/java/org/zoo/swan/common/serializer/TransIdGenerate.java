@@ -30,7 +30,7 @@ public interface TransIdGenerate {
 
     /**
      * 获取全局ID
-     * @throws SwanException the cat exception
+     * @throws SwanException 
      */
     String getTransId() throws SwanException;
 

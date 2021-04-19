@@ -59,14 +59,14 @@ public class SwanInitServiceImpl implements SwanInitService {
     /**
      * swan initialization.
      *
-     * @param catConfig {@linkplain SwanConfig}
+     * @param swanConfig {@linkplain SwanConfig}
      */
     @Override
-    public void initialization(final SwanConfig catConfig) {
+    public void initialization(final SwanConfig swanConfig) {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> LOGGER.info("cat shutdown now")));
         try {
-            loadSpiSupport(catConfig);
-            swanCoordinatorService.start(catConfig);
+            loadSpiSupport(swanConfig);
+            swanCoordinatorService.start(swanConfig);
         } catch (Exception ex) {
             LogUtil.error(LOGGER, " cat init exception:{}", ex::getMessage);
             System.exit(1);

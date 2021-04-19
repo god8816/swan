@@ -23,41 +23,40 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 /**
- * this is {linkplain org.zoo.cat.annotation.Cat} aspect handler.
- *
+ * 
  * @author dzc
  */
 @Aspect
-public abstract class AbstractCatTransactionAspect {
+public abstract class AbstractSwanTransactionAspect {
 
-    private SwanTransactionInterceptor catTransactionInterceptor;
+    private SwanTransactionInterceptor swanTransactionInterceptor;
 
     /**
-     * Sets cat transaction interceptor.
+     * Sets transaction interceptor.
      *
-     * @param catTransactionInterceptor the cat transaction interceptor
+     * @param SwanTransactionInterceptor the  transaction interceptor
      */
-    protected void setCatTransactionInterceptor(final SwanTransactionInterceptor catTransactionInterceptor) {
-        this.catTransactionInterceptor = catTransactionInterceptor;
+    protected void setSwanTransactionInterceptor(final SwanTransactionInterceptor swanTransactionInterceptor) {
+        this.swanTransactionInterceptor = swanTransactionInterceptor;
     }
 
     /**
-     * this is point cut with {linkplain org.zoo.cat.annotation.Cat }.
+     * this is point cut with  
      */
-    @Pointcut("@annotation(org.zoo.cat.annotation.Cat)")
-    public void catInterceptor() {
+    @Pointcut("@annotation(org.zoo.swan.annotation.Swan)")
+    public void swanInterceptor() {
     }
 
     /**
-     * this is around in {linkplain org.zoo.cat.annotation.Cat }.
+     * this is around in {linkplain org.zoo.swan.annotation.Swan }.
      *
      * @param proceedingJoinPoint proceedingJoinPoint
      * @return Object object
      * @throws Throwable Throwable
      */
-    @Around("catInterceptor()")
+    @Around("swanInterceptor()")
     public Object interceptTccMethod(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        return catTransactionInterceptor.interceptor(proceedingJoinPoint);
+        return swanTransactionInterceptor.interceptor(proceedingJoinPoint);
     }
 
     /**

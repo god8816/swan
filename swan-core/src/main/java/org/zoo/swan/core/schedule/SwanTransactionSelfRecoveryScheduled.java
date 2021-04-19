@@ -48,7 +48,7 @@ public class SwanTransactionSelfRecoveryScheduled implements SmartApplicationLis
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(SwanTransactionSelfRecoveryScheduled.class);
 
-    private final SwanConfig catConfig;
+    private final SwanConfig swanConfig;
 
     private volatile AtomicBoolean isInit = new AtomicBoolean(false);
 
@@ -57,8 +57,8 @@ public class SwanTransactionSelfRecoveryScheduled implements SmartApplicationLis
     private SwanCoordinatorRepository catCoordinatorRepository; 
 
     @Autowired(required = false)
-    public SwanTransactionSelfRecoveryScheduled(final SwanConfig catConfig) {
-        this.catConfig = catConfig;
+    public SwanTransactionSelfRecoveryScheduled(final SwanConfig swanConfig) {
+        this.swanConfig = swanConfig;
     }
 
     @Override

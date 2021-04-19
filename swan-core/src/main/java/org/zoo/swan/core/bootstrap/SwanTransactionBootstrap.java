@@ -45,7 +45,7 @@ public class SwanTransactionBootstrap extends SwanConfig implements ApplicationC
         start(this);
     }
 
-    private void start(final SwanConfig catConfig) {
-        swanInitService.initialization(catConfig);
+    private void start(final SwanConfig swanConfig) {
+        swanInitService.initialization(swanConfig);
     }
 }

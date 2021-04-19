@@ -36,7 +36,7 @@ import java.lang.reflect.Method;
 @Component
 public class ParticipantSwanTransactionHandler implements SwanTransactionHandler {
 
-    private final SwanTransactionExecutor catTransactionExecutor;
+    private final SwanTransactionExecutor swanTransactionExecutor;
     
 
     /**
@@ -46,13 +46,13 @@ public class ParticipantSwanTransactionHandler implements SwanTransactionHandler
      */
     @Autowired
     public ParticipantSwanTransactionHandler(final SwanTransactionExecutor catTransactionExecutor) {
-        this.catTransactionExecutor = catTransactionExecutor;
+        this.swanTransactionExecutor = catTransactionExecutor;
     }
 
 
 	@Override
     public Object handler(final ProceedingJoinPoint point, final SwanTransactionContext context) throws Throwable {
-     	SwanTransaction catTransaction = null;
+     	SwanTransaction swanTransaction = null;
      	final SwanTransaction currentTransaction;
         
         Method method = ((MethodSignature) (point.getSignature())).getMethod();

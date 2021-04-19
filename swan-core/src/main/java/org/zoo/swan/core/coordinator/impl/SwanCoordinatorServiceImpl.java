@@ -28,7 +28,7 @@ import org.zoo.swan.core.service.SwanApplicationService;
 import org.zoo.swan.core.spi.SwanCoordinatorRepository;
 
 /**
- * impl catCoordinatorService.
+ * impl swanCoordinatorService.
  *
  * @author dzc
  */
@@ -37,19 +37,19 @@ public class SwanCoordinatorServiceImpl implements SwanCoordinatorService {
 
     private SwanCoordinatorRepository coordinatorRepository;
 
-    private final SwanApplicationService catApplicationService;
+    private final SwanApplicationService swanApplicationService;
 
     @Autowired
-    public SwanCoordinatorServiceImpl(final SwanApplicationService catApplicationService) {
-        this.catApplicationService = catApplicationService;
+    public SwanCoordinatorServiceImpl(final SwanApplicationService swanApplicationService) {
+        this.swanApplicationService = swanApplicationService;
     }
 
     @Override
-    public void start(final SwanConfig catConfig) {
-        final String tableName = buildRepositorySuffix(catConfig.getRepositorySuffix());
-        final String appName = catApplicationService.acquireName();
+    public void start(final SwanConfig swanConfig) {
+        final String tableName = buildRepositorySuffix(swanConfig.getRepositorySuffix());
+        final String appName = swanApplicationService.acquireName();
         coordinatorRepository = SpringBeanUtils.getInstance().getBean(SwanCoordinatorRepository.class);
-        coordinatorRepository.init(tableName,appName, catConfig);
+        coordinatorRepository.init(tableName,appName, swanConfig);
     }
 
 
@@ -62,7 +62,7 @@ public class SwanCoordinatorServiceImpl implements SwanCoordinatorService {
         if (StringUtils.isNoneBlank(repositorySuffix)) {
             return repositorySuffix;
         } else {
-            return catApplicationService.acquireName();
+            return swanApplicationService.acquireName();
         }
     }
 

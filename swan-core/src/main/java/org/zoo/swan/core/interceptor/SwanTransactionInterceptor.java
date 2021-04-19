@@ -20,7 +20,7 @@ package org.zoo.swan.core.interceptor;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
- * The CatTransactionInterceptor.
+ * The SwanTransactionInterceptor.
  *
  * @author dzc
  */
@@ -29,7 +29,7 @@ public interface SwanTransactionInterceptor {
 
 
     /**
-     * cat interceptor handler.
+     * SwanTransactionInterceptor handler.
      *
      * @param pjp tcc point cut.
      * @return Object object
