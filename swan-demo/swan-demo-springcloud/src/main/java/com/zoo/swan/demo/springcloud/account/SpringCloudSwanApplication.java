@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @author dzc
  */
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
-public class SpringCloudSwanAccountApplication {
+public class SpringCloudSwanApplication {
 
     /**
      * The entry point of application.
@@ -34,7 +34,7 @@ public class SpringCloudSwanAccountApplication {
      * @param args the input arguments
      */
     public static void main(final String[] args) {
-        SpringApplication.run(SpringCloudSwanAccountApplication.class, args);
+        SpringApplication.run(SpringCloudSwanApplication.class, args);
     }
 
 }
