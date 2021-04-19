@@ -15,30 +15,26 @@
  * limitations under the License.
  */
 
-package com.zoo.cat.demo.springcloud.account.controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-
-
-import java.math.BigDecimal;
+package com.zoo.swan.demo.springcloud.account;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
- * AccountController.
+ * The type SpringCloud tcc account application.
+ *
  * @author dzc
  */
-@RestController
-@RequestMapping("/account")
-public class AccountController {
+@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
+public class SpringCloudSwanAccountApplication {
 
-
-    @RequestMapping("/findByUserId")
-    public BigDecimal findByUserId(@RequestParam("userId") String userId) {
-        return null;
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(final String[] args) {
+        SpringApplication.run(SpringCloudSwanAccountApplication.class, args);
     }
-
-
-
 
 }
