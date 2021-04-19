@@ -36,7 +36,7 @@ import org.zoo.swan.core.spi.SwanCoordinatorRepository;
  *
  * @author dzc
  */
-@Service("catInitService")
+@Service("swanInitService")
 public class SwanInitServiceImpl implements SwanInitService {
 
     /**
@@ -44,20 +44,20 @@ public class SwanInitServiceImpl implements SwanInitService {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(SwanInitServiceImpl.class);
 
-    private final SwanCoordinatorService catCoordinatorService;
+    private final SwanCoordinatorService swanCoordinatorService;
 
     /**
-     * Instantiates a new Cat init service.
+     * Instantiates a new Swan init service.
      *
-     * @param catCoordinatorService the cat coordinator service
+     * @param swanCoordinatorService the swan coordinator service
      */
     @Autowired
-    public SwanInitServiceImpl(final SwanCoordinatorService catCoordinatorService) {
-        this.catCoordinatorService = catCoordinatorService;
+    public SwanInitServiceImpl(final SwanCoordinatorService swanCoordinatorService) {
+        this.swanCoordinatorService = swanCoordinatorService;
     }
 
     /**
-     * cat initialization.
+     * swan initialization.
      *
      * @param catConfig {@linkplain SwanConfig}
      */
@@ -66,7 +66,7 @@ public class SwanInitServiceImpl implements SwanInitService {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> LOGGER.info("cat shutdown now")));
         try {
             loadSpiSupport(catConfig);
-            catCoordinatorService.start(catConfig);
+            swanCoordinatorService.start(catConfig);
         } catch (Exception ex) {
             LogUtil.error(LOGGER, " cat init exception:{}", ex::getMessage);
             System.exit(1);
@@ -77,16 +77,16 @@ public class SwanInitServiceImpl implements SwanInitService {
     /**
      * load spi.
      *
-     * @param catConfig {@linkplain SwanConfig}
+     * @param swanConfig {@linkplain SwanConfig}
      */
-    private void loadSpiSupport(final SwanConfig catConfig) {
+    private void loadSpiSupport(final SwanConfig swanConfig) {
         //spi serialize
         final TransIdGenerate transIdGenerate = ExtensionLoader.getExtensionLoader(TransIdGenerate.class)
-                .getActivateExtension(catConfig.getTransIdGenerate());
+                .getActivateExtension(swanConfig.getTransIdGenerate());
 
         //spi repository
         final SwanCoordinatorRepository repository = ExtensionLoader.getExtensionLoader(SwanCoordinatorRepository.class)
-                .getActivateExtension(catConfig.getRepositorySupport());
+                .getActivateExtension(swanConfig.getRepositorySupport());
 
         repository.setTransIdGenerate(transIdGenerate);
 

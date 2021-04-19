@@ -20,7 +20,7 @@ package org.zoo.swan.common.config;
 import lombok.Data;
 
 /**
- * The CatRedisConfig.
+ * The SwanRedisConfig.
  *
  * @author dzc
  */

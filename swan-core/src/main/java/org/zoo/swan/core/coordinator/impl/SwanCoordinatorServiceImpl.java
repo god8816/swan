@@ -32,7 +32,7 @@ import org.zoo.swan.core.spi.SwanCoordinatorRepository;
  *
  * @author dzc
  */
-@Service("catCoordinatorService")
+@Service("swanCoordinatorService")
 public class SwanCoordinatorServiceImpl implements SwanCoordinatorService {
 
     private SwanCoordinatorRepository coordinatorRepository;

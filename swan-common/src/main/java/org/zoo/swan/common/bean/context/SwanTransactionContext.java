@@ -37,7 +37,7 @@ public class SwanTransactionContext implements Serializable {
     private String transId;
     
     /**
-     * this cat action.
+     * this swan action.
      */
     private int action;
 
