@@ -1,0 +1,44 @@
+server:
+  port: 8885
+  address: 0.0.0.0
+  servlet:
+    context-path: /test
+    
+spring: 
+    application:
+      name: account-service
+   
+      
+       # repositorySupport : redis
+       #         hostName  : 192.168.1.68
+       #         port      :  6379
+       #         password  :
+
+
+       # repositorySupport : zookeeper
+       #         host      : 92.168.1.73:2181
+       #         sessionTimeOut      :  100000
+       #         rootPath  : /tcc
+
+       # repositorySupport : mongodb
+       #       mongoDbUrl  : 192.168.1.68:27017
+       #       mongoDbName  :  happylife
+       #       mongoUserName  : xiaoyu
+       #       mongoUserPwd   : 123456
+
+       # repositorySupport : file
+       #         path      : /account
+       #         prefix    :  account
+
+
+logging:
+    level:
+        root: error
+        org.springframework.web: info
+        org.apache.ibatis: info
+        org.zoo.cat.bonuspoint: debug
+        org.zoo.cat.lottery: debug
+        org.zoo.cat: debug
+        io.netty: info
+    path: "./logs"
+
