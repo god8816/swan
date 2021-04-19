@@ -2,8 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>swan-spring-boot-starter</artifactId>
+
+   <parent>
+        <artifactId>swan</artifactId>
         <groupId>org.zoo</groupId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
@@ -12,10 +13,14 @@
     <artifactId>swan-spring-boot-starter</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
 
         <dependency>
-            <groupId>org.zoo</groupId>
-            <artifactId>swan-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
         <!--自动配置-->
@@ -25,6 +30,15 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.zoo</groupId>
+            <artifactId>swan-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

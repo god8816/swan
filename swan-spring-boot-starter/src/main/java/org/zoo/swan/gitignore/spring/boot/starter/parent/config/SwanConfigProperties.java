@@ -20,7 +20,6 @@ package org.zoo.swan.gitignore.spring.boot.starter.parent.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.zoo.swan.common.config.SwanConfig;
 
-
 /**
  * SwanConfigProperties starter.
  *
