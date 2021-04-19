@@ -19,7 +19,6 @@ package org.zoo.swan.core.mediator;
 
 import org.zoo.swan.common.bean.context.SwanTransactionContext;
 import org.zoo.swan.common.constant.CommonConstant;
-import org.zoo.swan.common.enums.SwanRoleEnum;
 import org.zoo.swan.common.utils.GsonUtils;
 import org.zoo.swan.common.utils.StringUtils;
 

@@ -19,7 +19,6 @@ package org.zoo.swan.core.coordinator;
 
 import org.zoo.swan.common.bean.entity.SwanTransaction;
 import org.zoo.swan.common.config.SwanConfig;
-import org.zoo.swan.common.enums.SwanActionEnum;
 
 /**
  * this is save transaction log service.
@@ -36,14 +35,6 @@ public interface SwanCoordinatorService {
     void start(SwanConfig swanConfig) throws Exception;
 
     /**
-     * save tccTransaction.
-     *
-     * @param swanTransaction {@linkplain SwanTransaction }
-     * @return id
-     */
-    String save(SwanTransaction swanTransaction);
-
-    /**
      * find by transId.
      *
      * @param transId  transId
@@ -51,34 +42,5 @@ public interface SwanCoordinatorService {
      */
     SwanTransaction findByTransId(String transId);
 
-    /**
-     * remove transaction.
-     *
-     * @param id  transaction pk.
-     * @return true success
-     */
-    boolean remove(String id);
-
-    /**
-     * update.
-     * @param swanTransaction {@linkplain SwanTransaction }
-     */
-    void update(SwanTransaction swanTransaction);
-
-    /**
-     * update TccTransaction .
-     * this is only update Participant field.
-     * @param swanTransaction  {@linkplain SwanTransaction }
-     * @return rows
-     */
-    int updateParticipant(SwanTransaction swanTransaction);
-
-    /**
-     * update TccTransaction status.
-     * @param id  pk.
-     * @param status   {@linkplain SwanActionEnum}
-     * @return rows
-     */
-    int updateStatus(String id, Integer status);
-
+  
 }

@@ -15,37 +15,22 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.common.bean.entity;
+package org.zoo.swan.common.serializer;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
-
+import org.zoo.swan.annotation.SwanSPI;
+import org.zoo.swan.common.exception.SwanException;
+import org.zoo.swan.common.utils.IdWorkerUtils;
 
 /**
- * TccInvocation 封装方法调用点.
+ * SnowFlakeGenerate  生成雪花全局ID
+ *
  * @author dzc
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class SwanInvocation implements Serializable {
+@SwanSPI("SnowId")
+public class SnowFlakeGenerate implements TransIdGenerate {
 
-    private static final long serialVersionUID = -5108578223428529356L;
-
-    @Getter
-    private Class targetClass;
-
-    @Getter
-    private String methodName;
-
-    @Getter
-    private Class[] parameterTypes;
-
-    @Getter
-    private Object[] args;
-
+	@Override
+	public String getTransId() throws SwanException {
+		return IdWorkerUtils.getInstance().createUUID();
+	}
 }

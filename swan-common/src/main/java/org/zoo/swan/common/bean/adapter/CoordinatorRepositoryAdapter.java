@@ -35,67 +35,11 @@ public class CoordinatorRepositoryAdapter {
      */
     private String transId;
 
-    /**
-     * 事务状态. {@linkplain SwanActionEnum}
-     */
-    private int status;
-
-    /**
-     * 事务类型. {@linkplain SwanRoleEnum}
-     */
-    private int role;
-
-    /**
-     * 重试次数.
-     */
-    private volatile int retriedCount;
+   
 
     /**
      * 创建时间.
      */
     private Date createTime;
-
-    /**
-     * 更新时间.
-     */
-    private Date lastTime;
-
-    /**
-     * 版本号 乐观锁控制.
-     */
-    private Integer version = 1;
-
-    /**
-     * 模式.
-     */
-    private Integer pattern;
-
-    /**
-     * 序列化后的二进制信息.
-     */
-    private byte[] contents;
-
-
-
-    /**
-     * 调用接口名称.
-     */
-    private String targetClass;
-
-
-    /**
-     * 调用方法名称.
-     */
-    private String targetMethod;
-
-    /**
-     * confirm方法.
-     */
-    private String confirmMethod;
-
-    /**
-     * cancel方法.
-     */
-    private String cancelMethod;
 
 }

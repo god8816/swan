@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zoo.swan.common.config.SwanConfig;
-import org.zoo.swan.common.serializer.ObjectSerializer;
+import org.zoo.swan.common.serializer.TransIdGenerate;
 import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.common.utils.extension.ExtensionLoader;
 import org.zoo.swan.core.coordinator.SwanCoordinatorService;
@@ -81,14 +81,14 @@ public class SwanInitServiceImpl implements SwanInitService {
      */
     private void loadSpiSupport(final SwanConfig catConfig) {
         //spi serialize
-        final ObjectSerializer serializer = ExtensionLoader.getExtensionLoader(ObjectSerializer.class)
-                .getActivateExtension(catConfig.getSerializer());
+        final TransIdGenerate transIdGenerate = ExtensionLoader.getExtensionLoader(TransIdGenerate.class)
+                .getActivateExtension(catConfig.getTransIdGenerate());
 
         //spi repository
         final SwanCoordinatorRepository repository = ExtensionLoader.getExtensionLoader(SwanCoordinatorRepository.class)
                 .getActivateExtension(catConfig.getRepositorySupport());
 
-        repository.setSerializer(serializer);
+        repository.setTransIdGenerate(transIdGenerate);
 
         SpringBeanUtils.getInstance().registerBean(SwanCoordinatorRepository.class.getName(), repository);
     }

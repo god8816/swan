@@ -26,7 +26,7 @@ import java.util.Optional;
 
 
 /**
- * RepositorySupportEnum.
+ * 支持介质.
  * @author dzc
  */
 @RequiredArgsConstructor
@@ -34,29 +34,9 @@ import java.util.Optional;
 public enum RepositorySupportEnum {
 
     /**
-     * Db compensate cache type enum.
+     * Redis 
      */
-    DB("db"),
-
-    /**
-     * File compensate cache type enum.
-     */
-    FILE("file"),
-
-    /**
-     * Redis compensate cache type enum.
-     */
-    REDIS("redis"),
-
-    /**
-     * Mongodb compensate cache type enum.
-     */
-    MONGODB("mongodb"),
-
-    /**
-     * Zookeeper compensate cache type enum.
-     */
-    ZOOKEEPER("zookeeper");
+    REDIS("redis");
 
     private final String support;
 
@@ -71,6 +51,6 @@ public enum RepositorySupportEnum {
                 Arrays.stream(RepositorySupportEnum.values())
                         .filter(v -> Objects.equals(v.getSupport(), support))
                         .findFirst();
-        return repositorySupportEnum.orElse(RepositorySupportEnum.DB);
+        return repositorySupportEnum.orElse(RepositorySupportEnum.REDIS);
     }
 }

@@ -15,20 +15,46 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.common.config;
-import lombok.Data;
+package org.zoo.swan.common.enums;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
- * EN: Cat log config
- * CN: Cat 日志自动清理配置
+ * 全局key生成方案
  * @author dzc
  */
-@Data
-public class SwanLogConfig {
+@RequiredArgsConstructor
+@Getter
+public enum TransIdEnum {
+
     /**
-     * EN：scheduledPool scheduledLogDelay unit SECONDS.
-     * CN：清理补偿日志定时器执行时间间隔（默认7天）
+     * UUID.
      */
-    private int scheduledLogDelay = 604800;
-    
+	UUID("UUID"),
+
+    /**
+     * SnowFlake
+     */
+	SnowId("SnowFlake");
+
+  
+
+    private final String serialize;
+
+    /**
+     * ID 生成方案
+     */
+    public static TransIdEnum acquire(final String serialize) {
+        Optional<TransIdEnum> serializeEnum =
+                Arrays.stream(TransIdEnum.values())
+                        .filter(v -> Objects.equals(v.getSerialize(), serialize))
+                        .findFirst();
+        return serializeEnum.orElse(TransIdEnum.UUID);
+    }
+
 }

@@ -25,25 +25,13 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.SmartApplicationListener;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-import org.zoo.swan.annotation.TransTypeEnum;
-import org.zoo.swan.common.bean.entity.SwanTransaction;
 import org.zoo.swan.common.config.SwanConfig;
-import org.zoo.swan.common.enums.SwanActionEnum;
-import org.zoo.swan.common.enums.SwanRoleEnum;
-import org.zoo.swan.common.utils.CollectionUtils;
-import org.zoo.swan.common.utils.LogUtil;
-import org.zoo.swan.core.concurrent.threadpool.SwanThreadFactory;
-import org.zoo.swan.core.helper.SpringBeanUtils;
-import org.zoo.swan.core.service.recovery.SwanTransactionRecoveryService;
 import org.zoo.swan.core.spi.SwanCoordinatorRepository;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -66,9 +54,7 @@ public class SwanTransactionSelfRecoveryScheduled implements SmartApplicationLis
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    private SwanCoordinatorRepository catCoordinatorRepository;
-
-    private SwanTransactionRecoveryService catTransactionRecoveryService;
+    private SwanCoordinatorRepository catCoordinatorRepository; 
 
     @Autowired(required = false)
     public SwanTransactionSelfRecoveryScheduled(final SwanConfig catConfig) {
@@ -95,11 +81,7 @@ public class SwanTransactionSelfRecoveryScheduled implements SmartApplicationLis
         if (!isInit.compareAndSet(false, true)) {
             return;
         }
-        catCoordinatorRepository = SpringBeanUtils.getInstance().getBean(SwanCoordinatorRepository.class);
-        this.scheduledExecutorService =
-                new ScheduledThreadPoolExecutor(1,
-                        SwanThreadFactory.create("cat-transaction-self-recovery", true));
-        catTransactionRecoveryService = new SwanTransactionRecoveryService(catCoordinatorRepository);
+        
         selfRecovery();
     }
 
@@ -109,26 +91,14 @@ public class SwanTransactionSelfRecoveryScheduled implements SmartApplicationLis
     private void selfRecovery() {
         scheduledExecutorService
                 .scheduleWithFixedDelay(() -> {
-                    LogUtil.debug(LOGGER, "self recovery execute delayTime:{}", catConfig::getScheduledDelay);
-                    try {
-                        final List<SwanTransaction> catTransactions = catCoordinatorRepository.listAllByDelay(acquireData());
-                        if (CollectionUtils.isEmpty(catTransactions)) {
-                            return;
-                        }
-                        for (SwanTransaction catTransaction : catTransactions) {
-                           
-            
-                        }
-                    } catch (Exception e) {
-                        LOGGER.error("cat scheduled transaction log is error:", e);
-                    } 
-                }, catConfig.getScheduledInitDelay(), catConfig.getScheduledDelay(), TimeUnit.SECONDS);
+                    
+                }, 1, 1, TimeUnit.SECONDS);
 
     }
 
     private Date acquireData() {
         return new Date(LocalDateTime.now().atZone(ZoneId.systemDefault())
-                .toInstant().toEpochMilli() - (catConfig.getRecoverDelayTime() * 1000));
+                .toInstant().toEpochMilli() - (1 * 1000));
     }
 
 

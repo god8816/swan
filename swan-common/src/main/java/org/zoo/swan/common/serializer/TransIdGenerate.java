@@ -15,30 +15,23 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.core.disruptor;
+package org.zoo.swan.common.serializer;
 
-import org.zoo.swan.core.disruptor.event.DataEvent;
-
-import com.lmax.disruptor.WorkHandler;
+import org.zoo.swan.annotation.SwanSPI;
+import org.zoo.swan.common.exception.SwanException;
 
 /**
- * DisruptorConsumer.
- * disruptor consumer work handler.
- *
- * @author chenbin sixh
+ * TransIdFactory.
+ * ID生产工厂SPI接口
+ * @author dzc
  */
-public class DisruptorConsumer<T> implements WorkHandler<DataEvent<T>> {
+@SwanSPI
+public interface TransIdGenerate {
 
-    private DisruptorConsumerFactory<T> factory;
+    /**
+     * 获取全局ID
+     * @throws SwanException the cat exception
+     */
+    String getTransId() throws SwanException;
 
-    DisruptorConsumer(final DisruptorConsumerFactory<T> factory) {
-        this.factory = factory;
-    }
-
-    @Override
-    public void onEvent(final DataEvent<T> t) {
-        if (t != null) {
-            factory.create().executor(t.getT());
-        }
-    }
 }

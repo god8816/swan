@@ -23,21 +23,17 @@ import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zoo.swan.annotation.SwanSPI;
-import org.zoo.swan.common.bean.adapter.CoordinatorRepositoryAdapter;
-import org.zoo.swan.common.bean.entity.SwanNoticeSafe;
 import org.zoo.swan.common.bean.entity.SwanTransaction;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.config.SwanRedisConfig;
 import org.zoo.swan.common.enums.RepositorySupportEnum;
-import org.zoo.swan.common.exception.SwanException;
 import org.zoo.swan.common.exception.SwanRuntimeException;
 import org.zoo.swan.common.jedis.JedisClient;
 import org.zoo.swan.common.jedis.JedisClientCluster;
 import org.zoo.swan.common.jedis.JedisClientSentinel;
 import org.zoo.swan.common.jedis.JedisClientSingle;
-import org.zoo.swan.common.serializer.ObjectSerializer;
+import org.zoo.swan.common.serializer.TransIdGenerate;
 import org.zoo.swan.common.utils.LogUtil;
-import org.zoo.swan.common.utils.RepositoryConvertUtils;
 import org.zoo.swan.common.utils.RepositoryPathUtils;
 import org.zoo.swan.common.utils.StringUtils;
 import org.zoo.swan.core.spi.SwanCoordinatorRepository;
@@ -67,114 +63,25 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisCoordinatorRepository.class);
 
-    private ObjectSerializer objectSerializer;
+
 
     private JedisClient jedisClient;
 
     private String keyPrefix;
 
-    @Override
-    public int create(final SwanTransaction swanTransaction) {
-        try {
-            final String redisKey = RepositoryPathUtils.buildRedisKey(keyPrefix, swanTransaction.getTransId());
-            jedisClient.set(redisKey, RepositoryConvertUtils.convert(swanTransaction, objectSerializer));
-            return ROWS;
-        } catch (Exception e) {
-            throw new SwanRuntimeException(e);
-        }
-    }
-
-    @Override
-    public int remove(final String id) {
-        try {
-            final String redisKey = RepositoryPathUtils.buildRedisKey(keyPrefix, id);
-            return jedisClient.del(redisKey).intValue();
-        } catch (Exception e) {
-            throw new SwanRuntimeException(e);
-        }
-    }
-
-    @Override
-    public int update(final SwanTransaction swanTransaction) throws SwanRuntimeException {
-        try {
-            final String redisKey = RepositoryPathUtils.buildRedisKey(keyPrefix, swanTransaction.getTransId());
-            swanTransaction.setVersion(swanTransaction.getVersion() + 1);
-            swanTransaction.setLastTime(new Date());
-            swanTransaction.setRetriedCount(swanTransaction.getRetriedCount());
-            jedisClient.set(redisKey, RepositoryConvertUtils.convert(swanTransaction, objectSerializer));
-            return ROWS;
-        } catch (Exception e) {
-            throw new SwanRuntimeException(e);
-        }
-    }
-
-    @Override
-    public int updateParticipant(final SwanTransaction swanTransaction) {
-        try {
-            final String redisKey = RepositoryPathUtils.buildRedisKey(keyPrefix, swanTransaction.getTransId());
-            byte[] contents = jedisClient.get(redisKey.getBytes());
-            CoordinatorRepositoryAdapter adapter = objectSerializer.deSerialize(contents, CoordinatorRepositoryAdapter.class);
-            adapter.setContents(objectSerializer.serialize(swanTransaction.getSwanParticipants()));
-            jedisClient.set(redisKey, objectSerializer.serialize(adapter));
-        } catch (SwanException e) {
-            e.printStackTrace();
-            return FAIL_ROWS;
-        }
-        return ROWS;
-    }
-
-    @Override
-    public int updateStatus(final String id, final Integer status) {
-        try {
-            final String redisKey = RepositoryPathUtils.buildRedisKey(keyPrefix, id);
-            byte[] contents = jedisClient.get(redisKey.getBytes());
-            if (contents != null) {
-                CoordinatorRepositoryAdapter adapter = objectSerializer.deSerialize(contents, CoordinatorRepositoryAdapter.class);
-                adapter.setStatus(status);
-                jedisClient.set(redisKey, objectSerializer.serialize(adapter));
-            }
-        } catch (SwanException e) {
-            e.printStackTrace();
-            return FAIL_ROWS;
-        }
-        return ROWS;
-    }
-
+  
     @Override
     public SwanTransaction findById(final String id) {
         try {
             final String redisKey = RepositoryPathUtils.buildRedisKey(keyPrefix, id);
             byte[] contents = jedisClient.get(redisKey.getBytes());
-            return RepositoryConvertUtils.transformBean(contents, objectSerializer);
+            return null;
         } catch (Exception e) {
             return null;
         }
     }
 
-    @Override
-    public List<SwanTransaction> listAll() {
-        try {
-            List<SwanTransaction> transactions = Lists.newArrayList();
-            Set<byte[]> keys = jedisClient.keys((keyPrefix + "*").getBytes());
-            for (final byte[] key : keys) {
-                byte[] contents = jedisClient.get(key);
-                if (contents != null) {
-                    transactions.add(RepositoryConvertUtils.transformBean(contents, objectSerializer));
-                }
-            }
-            return transactions;
-        } catch (Exception e) {
-            throw new SwanRuntimeException(e);
-        }
-    }
-
-    @Override
-    public List<SwanTransaction> listAllByDelay(final Date date) {
-        final List<SwanTransaction> swanTransactions = listAll();
-        return swanTransactions.stream()
-                .filter(tccTransaction -> tccTransaction.getLastTime().compareTo(date) < 0)
-                .collect(Collectors.toList());
-    }
+  
 
     @Override
     public void init(final String modelName, final String appName,final SwanConfig swanConfig) {
@@ -193,10 +100,7 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
         return RepositorySupportEnum.REDIS.getSupport();
     }
 
-    @Override
-    public void setSerializer(final ObjectSerializer objectSerializer) {
-        this.objectSerializer = objectSerializer;
-    }
+   
 
     private void buildJedisPool(final SwanRedisConfig swanRedisConfig) {
         JedisPoolConfig config = new JedisPoolConfig();
@@ -241,16 +145,11 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
         }
     }
 
-	@Override
-	public List<SwanNoticeSafe> countLogsByDelay(Date acquireData,String timeUnit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
-	public int removeLogsByDelay(Date acquireSecondsData) {
+	public void setTransIdGenerate(TransIdGenerate transIdGenerate) {
 		// TODO Auto-generated method stub
-		return 0;
+		
 	}
-
 }

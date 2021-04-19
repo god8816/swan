@@ -23,16 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.zoo.swan.common.bean.context.SwanTransactionContext;
 import org.zoo.swan.common.bean.entity.SwanTransaction;
-import org.zoo.swan.common.enums.SwanActionEnum;
-import org.zoo.swan.common.exception.SwanException;
 import org.zoo.swan.common.utils.DefaultValueUtils;
-import org.zoo.swan.core.cache.SwanTransactionGuavaCacheManager;
-import org.zoo.swan.core.concurrent.threadlocal.SwanTransactionContextLocal;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 import org.zoo.swan.core.service.executor.SwanTransactionExecutor;
-
 import java.lang.reflect.Method;
-import java.util.Objects;
 
 /**
  * Participant Handler.

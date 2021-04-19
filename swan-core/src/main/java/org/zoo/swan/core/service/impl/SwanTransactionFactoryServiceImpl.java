@@ -26,16 +26,9 @@ import org.springframework.stereotype.Service;
 import org.zoo.swan.annotation.Swan;
 import org.zoo.swan.annotation.TransTypeEnum;
 import org.zoo.swan.common.bean.context.SwanTransactionContext;
-import org.zoo.swan.common.bean.variate.SwanDegradation;
 import org.zoo.swan.common.config.SwanConfig;
-import org.zoo.swan.common.enums.SwanRoleEnum;
 import org.zoo.swan.core.service.SwanTransactionFactoryService;
-import org.zoo.swan.core.service.handler.ConsumeSwanNoticeTransactionHandler;
 import org.zoo.swan.core.service.handler.ConsumeSwanTransactionHandler;
-import org.zoo.swan.core.service.handler.LocalSwanTransactionHandler;
-import org.zoo.swan.core.service.handler.ParticipantSwanTransactionHandler;
-import org.zoo.swan.core.service.handler.StarterNoticeTransactionHandler;
-import org.zoo.swan.core.service.handler.StarterSwanTransactionHandler;
 import org.zoo.swan.core.utils.JoinPointUtils;
 
 import java.lang.reflect.Method;
@@ -77,47 +70,7 @@ public class SwanTransactionFactoryServiceImpl implements SwanTransactionFactory
          	return ConsumeSwanTransactionHandler.class;
         }
         
-        //判断正向消息补偿模式
-        if(swan.pattern().getCode()==TransTypeEnum.NOTICE.getCode()) {
-        	  if(SwanDegradation.isStartDegradation(catConfig, declaringClass.getName(), method.getName())) {
-               	if (Objects.isNull(context)) { 
-                    return StarterNoticeTransactionHandler.class;
-                } else {
-                	    //1.0 spring cloud调用
-                    if (context.getRole() == SwanRoleEnum.SPRING_CLOUD.getCode()) {
-                        context.setRole(SwanRoleEnum.START.getCode());
-                        return ConsumeSwanNoticeTransactionHandler.class;
-                    }
-                    //2.0 dubbo调用
-                    if (context.getRole() == SwanRoleEnum.LOCAL.getCode()) {
-                    	    return LocalSwanTransactionHandler.class;
-                    }else if (context.getRole() == SwanRoleEnum.START.getCode()
-                            || context.getRole() == SwanRoleEnum.INLINE.getCode()) {
-                     	return ParticipantSwanTransactionHandler.class;
-                    }
-                    return ConsumeSwanNoticeTransactionHandler.class;
-                } 
-        	  }else {
-        		   return ConsumeSwanTransactionHandler.class;
-        	  }
-        }else {
-            if (Objects.isNull(context)) {
-                return StarterSwanTransactionHandler.class;
-            } else {
-                //why this code?  because spring cloud invoke has proxy.
-                if (context.getRole() == SwanRoleEnum.SPRING_CLOUD.getCode()) {
-                    context.setRole(SwanRoleEnum.START.getCode());
-                    return ConsumeSwanTransactionHandler.class;
-                }
-                // if context not null and role is inline  is ParticipantCatTransactionHandler.
-                if (context.getRole() == SwanRoleEnum.LOCAL.getCode()) {
-                    return LocalSwanTransactionHandler.class;
-                } else if (context.getRole() == SwanRoleEnum.START.getCode()
-                        || context.getRole() == SwanRoleEnum.INLINE.getCode()) {
-                    return ParticipantSwanTransactionHandler.class;
-                }
-                return ConsumeSwanTransactionHandler.class;
-            }
-        }
+        return ConsumeSwanTransactionHandler.class;
+        	 
     }
 }

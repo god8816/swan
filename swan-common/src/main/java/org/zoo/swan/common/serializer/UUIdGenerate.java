@@ -15,30 +15,23 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.core.disruptor;
+package org.zoo.swan.common.serializer;
 
-import org.zoo.swan.core.disruptor.event.DataEvent;
+import java.util.UUID;
+
+import org.zoo.swan.annotation.SwanSPI;
+import org.zoo.swan.common.exception.SwanException;
 
 /**
- * DisruptorConsumerFactory.
- * Create a subclass implementation object via the {@link #create()} method,
- * which is called in {@link DisruptorConsumer#onEvent(DataEvent)}.
+ * UUIdGenerate.
  *
- * @author chenbin sixh
+ * @author dzc
  */
-public interface DisruptorConsumerFactory<T> {
+@SwanSPI("UUID")
+public class UUIdGenerate implements TransIdGenerate {
 
-    /**
-     * Fix name string.
-     *
-     * @return the string
-     */
-    String fixName();
-
-    /**
-     * Create disruptor consumer executor.
-     *
-     * @return the disruptor consumer executor
-     */
-    AbstractDisruptorConsumerExecutor<T> create();
+	@Override
+	public String getTransId() throws SwanException {
+		return UUID.randomUUID().toString().replaceAll("-","");
+	}
 }

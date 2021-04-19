@@ -52,38 +52,10 @@ public class SwanCoordinatorServiceImpl implements SwanCoordinatorService {
         coordinatorRepository.init(tableName,appName, catConfig);
     }
 
-    @Override
-    public String save(final SwanTransaction catTransaction) {
-        final int rows = coordinatorRepository.create(catTransaction);
-        if (rows > 0) {
-            return catTransaction.getTransId();
-        }
-        return null;
-    }
 
     @Override
     public SwanTransaction findByTransId(final String transId) {
         return coordinatorRepository.findById(transId);
-    }
-
-    @Override
-    public boolean remove(final String id) {
-        return coordinatorRepository.remove(id) > 0;
-    }
-
-    @Override
-    public void update(final SwanTransaction catTransaction) {
-        coordinatorRepository.update(catTransaction);
-    }
-
-    @Override
-    public int updateParticipant(final SwanTransaction catTransaction) {
-        return coordinatorRepository.updateParticipant(catTransaction);
-    }
-
-    @Override
-    public int updateStatus(final String id, final Integer status) {
-        return coordinatorRepository.updateStatus(id, status);
     }
 
     private String buildRepositorySuffix(final String repositorySuffix) {
