@@ -23,16 +23,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.zoo.swan.annotation.Swan;
-import org.zoo.swan.annotation.TransTypeEnum;
+import org.zoo.swan.annotation.Swan; 
 import org.zoo.swan.common.bean.context.SwanTransactionContext;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.core.service.SwanTransactionFactoryService;
 import org.zoo.swan.core.service.handler.ConsumeSwanTransactionHandler;
 import org.zoo.swan.core.utils.JoinPointUtils;
-
 import java.lang.reflect.Method;
-import java.util.Objects;
+
 
 /**
  * swanTransactionFactoryServiceImpl.
@@ -64,11 +62,6 @@ public class SwanTransactionFactoryServiceImpl implements SwanTransactionFactory
         Class<?> declaringClass =  signature.getMethod().getDeclaringClass();
         
         final Swan swan = method.getAnnotation(Swan.class);
-        final TransTypeEnum pattern = swan.pattern();
-        if(Objects.isNull(pattern)) { 
-         	LOGGER.error("事务补偿模式必须在TCC,SAGA,CC,NOTICE中选择"); 
-         	return ConsumeSwanTransactionHandler.class;
-        }
         
         return ConsumeSwanTransactionHandler.class;
         	 

@@ -33,38 +33,14 @@ import java.lang.annotation.Target;
 public @interface Swan {
 
     /**
-     * trans type enum.
-     * CN：事务处理类型
-     * @return the pattern enum
+     * 下发接口唯一凭证TransId
      */
-    TransTypeEnum pattern() default TransTypeEnum.NOTICE;
-    
-	/**
-     * EN：notice timeout Millisecond
-     * CN：通知超时时间毫秒
-     * @return timeOut 
-     */
-    int timeoutMills() default 0;
-    
-	/**
-     * EN：notice retryMax
-     * CN：最大重试次数
-     * @return retryMax 
-     */
-    int retryMax() default 10;
+	String createTransId() default "";
     
     /**
-     * EN：Confirm method string.
-     * CN：confirm提交方法
+     * 提交保存方法
      * @return the string
      */
-    String confirmMethod() default "";
-
-    /**
-     * EN：Cancel method string.
-     * CN：Cancel 提交方法
-     * @return the string
-     */
-    String cancelMethod() default "";
+    String saveMethod() default "";
 
 }

@@ -20,8 +20,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.zoo.swan.annotation.Swan;
-import org.zoo.swan.annotation.TransTypeEnum;
+import org.zoo.swan.annotation.Swan; 
 import org.zoo.swan.common.bean.entity.SwanTransaction; 
 import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.common.utils.StringUtils; 
@@ -74,10 +73,7 @@ public class SwanTransactionExecutor {
     
    
     	    final Swan swan = method.getAnnotation(Swan.class);
-        final TransTypeEnum pattern = swan.pattern();
-        if(Objects.isNull(pattern)) {
-         	LOGGER.error("事务补偿模式必须在TCC,SAGA,CC,NOTICE中选择"); 
-        }
+        
         
         return null;
     }
