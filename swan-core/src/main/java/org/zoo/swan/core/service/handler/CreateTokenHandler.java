@@ -32,6 +32,7 @@ import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
 
+
 /**
  * 下发唯一的tokenId
  * @author dzc
@@ -41,16 +42,23 @@ public class CreateTokenHandler implements SwanTransactionHandler {
 	
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateTokenHandler.class);
     
+
+    private final TokenGenerate tokenGenerate;
     
     @Autowired
     private SwanConfig swanConfig;
+    
+    @Autowired
+    public CreateTokenHandler(final TokenGenerate tokenGenerate) {
+        this.tokenGenerate = tokenGenerate;
+    }
 
     @Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {
      	try {
             final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
             HttpServletResponse request = ((ServletRequestAttributes) requestAttributes).getResponse();
-            request.setHeader(swanConfig.getTokenKey(), "");
+            request.setHeader(swanConfig.getTokenKey(), tokenGenerate.getTokenId());
         } catch (IllegalStateException ex) {
             LogUtil.warn(LOGGER, () -> "下发token异常:" + ex.getLocalizedMessage());
         }
