@@ -48,8 +48,6 @@ public class CreateTokenHandler implements SwanTransactionHandler {
     private TokenGenerate tokenGenerate;
     
    
-  
-
     @Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {
      	try {
