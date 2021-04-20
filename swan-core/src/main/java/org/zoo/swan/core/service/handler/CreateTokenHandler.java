@@ -29,6 +29,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.token.TokenGenerate;
 import org.zoo.swan.common.utils.LogUtil;
+import org.zoo.swan.common.utils.extension.ExtensionLoader;
+import org.zoo.swan.core.helper.SpringBeanUtils;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
 
@@ -41,17 +43,15 @@ import org.zoo.swan.core.service.SwanTransactionHandler;
 public class CreateTokenHandler implements SwanTransactionHandler {
 	
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateTokenHandler.class);
-    
-
-    private final TokenGenerate tokenGenerate;
-    
+      
     @Autowired
     private SwanConfig swanConfig;
     
     @Autowired
-    public CreateTokenHandler(final TokenGenerate tokenGenerate) {
-        this.tokenGenerate = tokenGenerate;
-    }
+    private TokenGenerate tokenGenerate;
+    
+   
+  
 
     @Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {

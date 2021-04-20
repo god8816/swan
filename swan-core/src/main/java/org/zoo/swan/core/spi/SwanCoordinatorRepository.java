@@ -55,9 +55,9 @@ public interface SwanCoordinatorRepository {
     
     /**
      * 设置ID生成策略
-     * @param transIdGenerate transIdGenerate
+     * @param tokenGenerate tokenGenerate
      */
-    void setTransIdGenerate(TokenGenerate transIdGenerate);
+    void setTokenGenerate(TokenGenerate tokenGenerate);
 
  
 }

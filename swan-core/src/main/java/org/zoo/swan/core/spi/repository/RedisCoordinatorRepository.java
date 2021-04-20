@@ -144,8 +144,9 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
 
 
 	@Override
-	public void setTransIdGenerate(TokenGenerate transIdGenerate) {
+	public void setTokenGenerate(TokenGenerate transIdGenerate) {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

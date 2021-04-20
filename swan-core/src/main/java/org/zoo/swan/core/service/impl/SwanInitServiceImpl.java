@@ -81,15 +81,16 @@ public class SwanInitServiceImpl implements SwanInitService {
      */
     private void loadSpiSupport(final SwanConfig swanConfig) {
         //spi id
-        final TokenGenerate transIdGenerate = ExtensionLoader.getExtensionLoader(TokenGenerate.class)
+        final TokenGenerate tokenGenerate = ExtensionLoader.getExtensionLoader(TokenGenerate.class)
                 .getActivateExtension(swanConfig.getTokenSupport());
 
         //spi repository
         final SwanCoordinatorRepository repository = ExtensionLoader.getExtensionLoader(SwanCoordinatorRepository.class)
                 .getActivateExtension(swanConfig.getRepositorySupport());
 
-        repository.setTransIdGenerate(transIdGenerate);
+        repository.setTokenGenerate(tokenGenerate);
 
         SpringBeanUtils.getInstance().registerBean(SwanCoordinatorRepository.class.getName(), repository);
+        SpringBeanUtils.getInstance().registerBean(TokenGenerate.class.getName(), tokenGenerate);
     }
 }

@@ -12,7 +12,7 @@ org:
   zoo:
     swan:
       started: false
-      trans-id-generate-support: UUID
+      token-support: SnowId
       swan-redis-config:
         host-name: 127.0.0.1
         port: 6379
