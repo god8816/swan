@@ -18,13 +18,10 @@
 package org.zoo.swan.core.service.handler;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.zoo.swan.common.bean.entity.SwanTransaction;
+import org.aspectj.lang.reflect.MethodSignature; 
+import org.springframework.stereotype.Component; 
 import org.zoo.swan.common.utils.DefaultValueUtils;
-import org.zoo.swan.core.service.SwanTransactionHandler;
-import org.zoo.swan.core.service.executor.SwanTransactionExecutor;
+import org.zoo.swan.core.service.SwanTransactionHandler; 
 import java.lang.reflect.Method;
 
 /**
@@ -35,25 +32,10 @@ import java.lang.reflect.Method;
 @Component
 public class ParticipantSwanTransactionHandler implements SwanTransactionHandler {
 
-    private final SwanTransactionExecutor swanTransactionExecutor;
-    
-
-    /**
-     * Instantiates a new Participant cat transaction handler.
-     *
-     * @param catTransactionExecutor the cat transaction executor
-     */
-    @Autowired
-    public ParticipantSwanTransactionHandler(final SwanTransactionExecutor catTransactionExecutor) {
-        this.swanTransactionExecutor = catTransactionExecutor;
-    }
-
+ 
 
 	@Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {
-     	SwanTransaction swanTransaction = null;
-     	final SwanTransaction currentTransaction;
-        
         Method method = ((MethodSignature) (point.getSignature())).getMethod();
         return DefaultValueUtils.getDefaultValue(method.getReturnType());
     }

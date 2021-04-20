@@ -18,7 +18,6 @@
 package org.zoo.swan.core.spi;
 
 import org.zoo.swan.annotation.SwanSPI;
-import org.zoo.swan.common.bean.entity.SwanTransaction;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.serializer.TransIdGenerate;
 
@@ -35,7 +34,7 @@ public interface SwanCoordinatorRepository {
      * @param id pk
      * @return  
      */
-    SwanTransaction findById(String id);
+    boolean findById(String id);
 
   
     /**

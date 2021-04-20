@@ -19,6 +19,7 @@ package com.zoo.swan.demo.springcloud.account.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zoo.swan.annotation.Swan;
+import org.zoo.swan.annotation.TransTypeEnum;
 
 /**
  * AccountController.
@@ -29,14 +30,14 @@ public class AccountController {
 
 
     @RequestMapping("/get")
-    @Swan
+    @Swan(TransTypeEnum.QUERY)
     public String get(String userId) {
         return "123";
     }
     
     
     @RequestMapping("/save")
-    @Swan
+    @Swan(TransTypeEnum.SAVE)
     public String save(String userId) {
         return "14543234";
     }

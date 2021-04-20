@@ -22,8 +22,7 @@ import com.google.common.collect.Lists;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.zoo.swan.annotation.SwanSPI;
-import org.zoo.swan.common.bean.entity.SwanTransaction;
+import org.zoo.swan.annotation.SwanSPI; 
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.config.SwanRedisConfig;
 import org.zoo.swan.common.enums.RepositorySupportEnum;
@@ -68,13 +67,13 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
 
   
     @Override
-    public SwanTransaction findById(final String id) {
+    public boolean findById(final String id) {
         try {
             final String redisKey = RepositoryPathUtils.buildRedisKey(keyPrefix, id);
             byte[] contents = jedisClient.get(redisKey.getBytes());
-            return null;
+            return false;
         } catch (Exception e) {
-            return null;
+            return false;
         }
     }
 

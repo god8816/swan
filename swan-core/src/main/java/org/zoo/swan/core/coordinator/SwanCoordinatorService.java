@@ -16,8 +16,7 @@
  */
 
 package org.zoo.swan.core.coordinator;
-
-import org.zoo.swan.common.bean.entity.SwanTransaction;
+ 
 import org.zoo.swan.common.config.SwanConfig;
 
 /**
@@ -40,7 +39,7 @@ public interface SwanCoordinatorService {
      * @param transId  transId
      * @return {@linkplain SwanTransaction }
      */
-    SwanTransaction findByTransId(String transId);
+    boolean findByTransId(String transId);
 
   
 }

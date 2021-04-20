@@ -18,7 +18,6 @@
 package org.zoo.swan.core.coordinator.impl;
 
 import org.springframework.stereotype.Service;
-import org.zoo.swan.common.bean.entity.SwanTransaction;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.utils.StringUtils;
 import org.zoo.swan.core.coordinator.SwanCoordinatorService;
@@ -46,7 +45,7 @@ public class SwanCoordinatorServiceImpl implements SwanCoordinatorService {
 
 
     @Override
-    public SwanTransaction findByTransId(final String transId) {
+    public boolean findByTransId(final String transId) {
         return coordinatorRepository.findById(transId);
     }
 

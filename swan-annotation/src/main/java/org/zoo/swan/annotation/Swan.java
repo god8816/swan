@@ -32,6 +32,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface Swan {
 
-	TransTypeEnum value();
+	TransTypeEnum value() default TransTypeEnum.QUERY;
 
 }
