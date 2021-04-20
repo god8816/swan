@@ -13,6 +13,7 @@ org:
     swan:
       started: false
       token-support: SnowId
+      token-key: YST_ADMIN_KEY
       swan-redis-config:
         host-name: 127.0.0.1
         port: 6379

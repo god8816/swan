@@ -29,8 +29,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.token.TokenGenerate;
 import org.zoo.swan.common.utils.LogUtil;
-import org.zoo.swan.common.utils.extension.ExtensionLoader;
-import org.zoo.swan.core.helper.SpringBeanUtils;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
 
