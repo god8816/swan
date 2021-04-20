@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.common.serializer;
+package org.zoo.swan.common.token;
 
 import java.util.UUID;
 
@@ -28,10 +28,10 @@ import org.zoo.swan.common.exception.SwanException;
  * @author dzc
  */
 @SwanSPI("UUID")
-public class UUIdGenerate implements TransIdGenerate {
+public class UUIdGenerate implements TokenGenerate {
 
 	@Override
-	public String getTransId() throws SwanException {
+	public String getTokenId() throws SwanException {
 		return UUID.randomUUID().toString().replaceAll("-","");
 	}
 }

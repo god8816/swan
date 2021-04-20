@@ -17,9 +17,20 @@
 
 package org.zoo.swan.core.service.handler;
 
+import javax.servlet.http.HttpServletResponse;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.zoo.swan.common.config.SwanConfig;
+import org.zoo.swan.common.token.TokenGenerate;
+import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.core.service.SwanTransactionHandler;
+
 
 /**
  * 下发唯一的tokenId
@@ -27,9 +38,22 @@ import org.zoo.swan.core.service.SwanTransactionHandler;
  */
 @Component
 public class CreateTokenHandler implements SwanTransactionHandler {
+	
+    private static final Logger LOGGER = LoggerFactory.getLogger(CreateTokenHandler.class);
+    
+    
+    @Autowired
+    private SwanConfig swanConfig;
 
     @Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {
+     	try {
+            final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+            HttpServletResponse request = ((ServletRequestAttributes) requestAttributes).getResponse();
+            request.setHeader(swanConfig.getTokenKey(), "");
+        } catch (IllegalStateException ex) {
+            LogUtil.warn(LOGGER, () -> "下发token异常:" + ex.getLocalizedMessage());
+        }
         return point.proceed();
     }
 }

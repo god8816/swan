@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.common.serializer;
+package org.zoo.swan.common.token;
 
 import org.zoo.swan.annotation.SwanSPI;
 import org.zoo.swan.common.exception.SwanException;
@@ -27,10 +27,10 @@ import org.zoo.swan.common.utils.IdWorkerUtils;
  * @author dzc
  */
 @SwanSPI("SnowId")
-public class SnowFlakeGenerate implements TransIdGenerate {
+public class SnowFlakeGenerate implements TokenGenerate {
 
 	@Override
-	public String getTransId() throws SwanException {
+	public String getTokenId() throws SwanException {
 		return IdWorkerUtils.getInstance().createUUID();
 	}
 }

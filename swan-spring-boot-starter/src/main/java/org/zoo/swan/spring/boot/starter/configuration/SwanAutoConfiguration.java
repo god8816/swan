@@ -54,7 +54,8 @@ public class SwanAutoConfiguration {
          final SwanTransactionBootstrap swanTransactionBootstrap = new SwanTransactionBootstrap(swanInitService);
          swanTransactionBootstrap.setStarted(swanConfigProperties.getStarted());
          swanTransactionBootstrap.setSwanRedisConfig(swanConfigProperties.getSwanRedisConfig());
-         swanTransactionBootstrap.setTransIdGenerateSupport(swanConfigProperties.getTransIdGenerateSupport());
+         swanTransactionBootstrap.setTokenSupport(swanConfigProperties.getTokenSupport());
+         swanTransactionBootstrap.setTokenKey(swanConfigProperties.getTokenKey());
          swanTransactionBootstrap.setRepositorySupport(swanConfigProperties.getRepositorySupport());
          return swanTransactionBootstrap;
     }

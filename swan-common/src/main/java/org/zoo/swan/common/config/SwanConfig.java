@@ -35,7 +35,7 @@ public class SwanConfig {
     private Boolean started = true;
     
     /**
-     * 选择模式 redis
+     * 存储 redis
      */
     private String repositorySupport = "redis";
    
@@ -47,6 +47,11 @@ public class SwanConfig {
     /**
      * Id生成策略 UUID、SnowId
      */
-    private String transIdGenerateSupport = "UUID";
+    private String tokenSupport = "UUID";
+    
+    /**
+     * tokenKey
+     */
+    private String tokenKey = "tokenKey";
     
 }

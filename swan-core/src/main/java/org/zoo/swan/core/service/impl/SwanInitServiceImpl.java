@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zoo.swan.common.config.SwanConfig;
-import org.zoo.swan.common.serializer.TransIdGenerate;
+import org.zoo.swan.common.token.TokenGenerate;
 import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.common.utils.extension.ExtensionLoader;
 import org.zoo.swan.core.coordinator.SwanCoordinatorService;
@@ -81,8 +81,8 @@ public class SwanInitServiceImpl implements SwanInitService {
      */
     private void loadSpiSupport(final SwanConfig swanConfig) {
         //spi id
-        final TransIdGenerate transIdGenerate = ExtensionLoader.getExtensionLoader(TransIdGenerate.class)
-                .getActivateExtension(swanConfig.getTransIdGenerateSupport());
+        final TokenGenerate transIdGenerate = ExtensionLoader.getExtensionLoader(TokenGenerate.class)
+                .getActivateExtension(swanConfig.getTokenSupport());
 
         //spi repository
         final SwanCoordinatorRepository repository = ExtensionLoader.getExtensionLoader(SwanCoordinatorRepository.class)

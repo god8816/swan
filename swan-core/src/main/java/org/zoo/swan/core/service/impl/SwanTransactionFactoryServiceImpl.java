@@ -61,10 +61,10 @@ public class SwanTransactionFactoryServiceImpl implements SwanTransactionFactory
         Method method = JoinPointUtils.getMethod(point);
         final Swan swan = method.getAnnotation(Swan.class);
         final TransTypeEnum value = swan.value();
-        if(Objects.isNull(value) && value.equals(value.QUERY)) { 
+        if(Objects.nonNull(value) && value.equals(TransTypeEnum.QUERY)) { 
          	LOGGER.debug("下发Token"); 
          	return CreateTokenHandler.class;
-        }else if(Objects.isNull(value) && value.equals(value.SAVE)) { 
+        }else if(!Objects.nonNull(value) && value.equals(TransTypeEnum.SAVE)) { 
          	LOGGER.debug("校验是否重复保存"); 
          	return CreateTokenHandler.class;
         }

@@ -19,7 +19,7 @@ package org.zoo.swan.core.spi;
 
 import org.zoo.swan.annotation.SwanSPI;
 import org.zoo.swan.common.config.SwanConfig;
-import org.zoo.swan.common.serializer.TransIdGenerate;
+import org.zoo.swan.common.token.TokenGenerate;
 
 /**
  * CoordinatorRepository.
@@ -57,7 +57,7 @@ public interface SwanCoordinatorRepository {
      * 设置ID生成策略
      * @param transIdGenerate transIdGenerate
      */
-    void setTransIdGenerate(TransIdGenerate transIdGenerate);
+    void setTransIdGenerate(TokenGenerate transIdGenerate);
 
  
 }

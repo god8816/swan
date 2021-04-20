@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.common.serializer;
+package org.zoo.swan.common.token;
 
 import org.zoo.swan.annotation.SwanSPI;
 import org.zoo.swan.common.exception.SwanException;
@@ -26,12 +26,12 @@ import org.zoo.swan.common.exception.SwanException;
  * @author dzc
  */
 @SwanSPI
-public interface TransIdGenerate {
+public interface TokenGenerate {
 
     /**
      * 获取全局ID
      * @throws SwanException 
      */
-    String getTransId() throws SwanException;
+    String getTokenId() throws SwanException;
 
 }

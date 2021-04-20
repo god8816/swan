@@ -32,7 +32,6 @@ import java.lang.reflect.Method;
 @Component
 public class ParticipantSwanTransactionHandler implements SwanTransactionHandler {
 
- 
 
 	@Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {

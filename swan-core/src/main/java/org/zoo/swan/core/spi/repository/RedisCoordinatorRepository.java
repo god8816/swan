@@ -31,7 +31,7 @@ import org.zoo.swan.common.jedis.JedisClient;
 import org.zoo.swan.common.jedis.JedisClientCluster;
 import org.zoo.swan.common.jedis.JedisClientSentinel;
 import org.zoo.swan.common.jedis.JedisClientSingle;
-import org.zoo.swan.common.serializer.TransIdGenerate;
+import org.zoo.swan.common.token.TokenGenerate;
 import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.common.utils.RepositoryPathUtils;
 import org.zoo.swan.common.utils.StringUtils;
@@ -144,7 +144,7 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
 
 
 	@Override
-	public void setTransIdGenerate(TransIdGenerate transIdGenerate) {
+	public void setTransIdGenerate(TokenGenerate transIdGenerate) {
 		// TODO Auto-generated method stub
 		
 	}
