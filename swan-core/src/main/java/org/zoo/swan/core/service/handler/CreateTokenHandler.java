@@ -22,12 +22,11 @@ import org.springframework.stereotype.Component;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
 /**
- * ConsumeSwanTransactionHandler.
- *
+ * 下发唯一的tokenId
  * @author dzc
  */
 @Component
-public class ConsumeSwanTransactionHandler implements SwanTransactionHandler {
+public class CreateTokenHandler implements SwanTransactionHandler {
 
     @Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {

@@ -23,12 +23,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.zoo.swan.annotation.Swan; 
+import org.zoo.swan.annotation.Swan;
+import org.zoo.swan.annotation.TransTypeEnum;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.core.service.SwanTransactionFactoryService;
-import org.zoo.swan.core.service.handler.ConsumeSwanTransactionHandler;
+import org.zoo.swan.core.service.handler.CreateTokenHandler;
 import org.zoo.swan.core.utils.JoinPointUtils;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 
 /**
@@ -55,14 +57,18 @@ public class SwanTransactionFactoryServiceImpl implements SwanTransactionFactory
      * @return Class
      */
     @Override
-    public Class factoryOf(final ProceedingJoinPoint point) {
-        MethodSignature signature = (MethodSignature) point.getSignature();
+    public Class factoryOf(final ProceedingJoinPoint point) { 
         Method method = JoinPointUtils.getMethod(point);
-        Class<?> declaringClass =  signature.getMethod().getDeclaringClass();
-        
         final Swan swan = method.getAnnotation(Swan.class);
-        
-        return ConsumeSwanTransactionHandler.class;
+        final TransTypeEnum value = swan.value();
+        if(Objects.isNull(value) && value.equals(value.QUERY)) { 
+         	LOGGER.debug("下发Token"); 
+         	return CreateTokenHandler.class;
+        }else if(Objects.isNull(value) && value.equals(value.SAVE)) { 
+         	LOGGER.debug("校验是否重复保存"); 
+         	return CreateTokenHandler.class;
+        }
+        return CreateTokenHandler.class;
         	 
     }
 }
