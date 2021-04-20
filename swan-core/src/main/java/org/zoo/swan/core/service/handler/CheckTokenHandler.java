@@ -17,6 +17,7 @@
 
 package org.zoo.swan.core.service.handler;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
@@ -27,13 +28,14 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.zoo.swan.common.config.SwanConfig;
+import org.zoo.swan.common.exception.SwanException;
 import org.zoo.swan.common.token.TokenGenerate;
 import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
 
 /**
- * 下发唯一的tokenId
+ * 检查下发Token是否重复
  * @author dzc
  */
 @Component
@@ -44,19 +46,15 @@ public class CheckTokenHandler implements SwanTransactionHandler {
     @Autowired
     private SwanConfig swanConfig;
     
-    @Autowired
-    private TokenGenerate tokenGenerate;
-    
-   
     @Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {
-     	try {
-            final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-            HttpServletResponse request = ((ServletRequestAttributes) requestAttributes).getResponse();
-            request.setHeader(swanConfig.getTokenKey(), tokenGenerate.getTokenId());
-        } catch (IllegalStateException ex) {
-            LogUtil.warn(LOGGER, () -> "下发token异常:" + ex.getLocalizedMessage());
+    	final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        String tokenKey = request.getHeader(swanConfig.getTokenKey());
+        if(true) {
+            return point.proceed();
         }
-        return point.proceed();
+        LogUtil.info(LOGGER, () -> "用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenKey);
+        throw new SwanException("请不要重复提交");
     }
 }

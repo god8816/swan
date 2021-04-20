@@ -60,7 +60,7 @@ public class SwanTransactionFactoryServiceImpl implements SwanTransactionFactory
         if(Objects.nonNull(value) && value.equals(TransTypeEnum.QUERY)) { 
          	LOGGER.debug("下发Token"); 
          	return CreateTokenHandler.class;
-        }else if(!Objects.nonNull(value) && value.equals(TransTypeEnum.SAVE)) { 
+        }else if(Objects.nonNull(value) && value.equals(TransTypeEnum.SAVE)) { 
          	LOGGER.debug("校验是否重复保存"); 
          	return CheckTokenHandler.class;
         }
