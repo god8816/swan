@@ -53,9 +53,9 @@ public final class CommonConstant {
     public final static String PATH_SUFFIX = "/tcc";
 
     /**
-     * The constant DB_SUFFIX.
+     * The constant REDIS_SUFFIX.
      */
-    public final static String DB_SUFFIX = "swan_";
+    public final static String REDIS_SUFFIX = "swan_";
 
     /**
      * The constant RECOVER_REDIS_KEY_PRE.

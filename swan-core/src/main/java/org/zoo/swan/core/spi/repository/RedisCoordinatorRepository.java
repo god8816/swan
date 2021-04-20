@@ -19,7 +19,13 @@ package org.zoo.swan.core.spi.repository;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import com.google.common.net.HostAndPort;
 
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.SentinelServersConfig;
+import org.redisson.config.SingleServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zoo.swan.annotation.SwanSPI; 
@@ -37,11 +43,7 @@ import org.zoo.swan.common.utils.RepositoryPathUtils;
 import org.zoo.swan.common.utils.StringUtils;
 import org.zoo.swan.core.spi.SwanCoordinatorRepository;
 
-import redis.clients.jedis.HostAndPort;
-import redis.clients.jedis.JedisCluster;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisSentinelPool;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -67,10 +69,10 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
 
   
     @Override
-    public boolean findById(final String id) {
+    public boolean isExist(final String key) {
         try {
-            final String redisKey = RepositoryPathUtils.buildRedisKey(keyPrefix, id);
-            byte[] contents = jedisClient.get(redisKey.getBytes());
+            final String redisKey = RepositoryPathUtils.buildRedisKey(keyPrefix, key);
+            byte[] contents = jedisClient.(redisKey.getBytes());
             return false;
         } catch (Exception e) {
             return false;
@@ -99,45 +101,25 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
    
 
     private void buildJedisPool(final SwanRedisConfig swanRedisConfig) {
-        JedisPoolConfig config = new JedisPoolConfig();
-        config.setMaxIdle(swanRedisConfig.getMaxIdle());
-        config.setMinIdle(swanRedisConfig.getMinIdle());
-        config.setMaxTotal(swanRedisConfig.getMaxTotal());
-        config.setMaxWaitMillis(swanRedisConfig.getMaxWaitMillis());
-        config.setTestOnBorrow(swanRedisConfig.getTestOnBorrow());
-        config.setTestOnReturn(swanRedisConfig.getTestOnReturn());
-        config.setTestWhileIdle(swanRedisConfig.getTestWhileIdle());
-        config.setMinEvictableIdleTimeMillis(swanRedisConfig.getMinEvictableIdleTimeMillis());
-        config.setSoftMinEvictableIdleTimeMillis(swanRedisConfig.getSoftMinEvictableIdleTimeMillis());
-        config.setTimeBetweenEvictionRunsMillis(swanRedisConfig.getTimeBetweenEvictionRunsMillis());
-        config.setNumTestsPerEvictionRun(swanRedisConfig.getNumTestsPerEvictionRun());
-        JedisPool jedisPool;
+     	//password 等公共信息TODO 。。。。。。。
+     	Config config = new Config(); 
         if (swanRedisConfig.getCluster()) {
-            LogUtil.info(LOGGER, () -> "build redis cluster ............");
-            final String clusterUrl = swanRedisConfig.getClusterUrl();
-            final Set<HostAndPort> hostAndPorts =
-                    Lists.newArrayList(Splitter.on(";")
-                            .split(clusterUrl))
-                            .stream()
-                            .map(HostAndPort::parseString).collect(Collectors.toSet());
-            JedisCluster jedisCluster = new JedisCluster(hostAndPorts, config);
-            jedisClient = new JedisClientCluster(jedisCluster);
+            LogUtil.info(LOGGER, () -> "构建redis cluster模式............");
+            RedissonClient redissonClient = Redisson.create(config);
+            jedisClient = new JedisClientSingle(redissonClient);
+            jedisClient = new JedisClientCluster(jedisClient);
         } else if (swanRedisConfig.getSentinel()) {
-            LogUtil.info(LOGGER, () -> "build redis sentinel ............");
-            final String sentinelUrl = swanRedisConfig.getSentinelUrl();
-            final Set<String> hostAndPorts =
-                    new HashSet<>(Lists.newArrayList(Splitter.on(";").split(sentinelUrl)));
-            JedisSentinelPool pool =
-                    new JedisSentinelPool(swanRedisConfig.getMasterName(), hostAndPorts,
-                            config, swanRedisConfig.getTimeOut(), swanRedisConfig.getPassword());
-            jedisClient = new JedisClientSentinel(pool);
-        } else {
-            if (StringUtils.isNoneBlank(swanRedisConfig.getPassword())) {
-                jedisPool = new JedisPool(config, swanRedisConfig.getHostName(), swanRedisConfig.getPort(), swanRedisConfig.getTimeOut(), swanRedisConfig.getPassword());
-            } else {
-                jedisPool = new JedisPool(config, swanRedisConfig.getHostName(), swanRedisConfig.getPort(), swanRedisConfig.getTimeOut());
-            }
-            jedisClient = new JedisClientSingle(jedisPool);
+            LogUtil.info(LOGGER, () -> "构建redis哨兵模式 ............");
+            SentinelServersConfig sentinelServersConfig = swanRedisConfig.getSentinelServersConfig();
+            config.useSentinelServers().setMasterName(sentinelServersConfig.getMasterName())
+            //TODO
+            .addSentinelAddress("","");
+            RedissonClient redissonClient = Redisson.create(config);
+            jedisClient =  new JedisClientSentinel(redissonClient);
+        } else if (swanRedisConfig.getSingle()) { 
+         	LogUtil.info(LOGGER, () -> "构建redis 单点模式............");
+         	RedissonClient redissonClient = Redisson.create(config);
+            jedisClient = new JedisClientSingle(redissonClient);
         }
     }
 

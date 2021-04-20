@@ -17,6 +17,12 @@
 
 package org.zoo.swan.common.config;
 
+import org.redisson.config.ClusterServersConfig;
+import org.redisson.config.MasterSlaveServersConfig;
+import org.redisson.config.ReplicatedServersConfig;
+import org.redisson.config.SentinelServersConfig;
+import org.redisson.config.SingleServerConfig;
+
 import lombok.Data;
 
 /**
@@ -27,54 +33,40 @@ import lombok.Data;
 @Data
 public class SwanRedisConfig {
 
+	/**
+	 * cluster集群开关
+	 * */
     private Boolean cluster = false;
-
+    
+	/**
+	 * sentinel集群开关
+	 * */
     private Boolean sentinel = false;
+    
+	/**
+	 * 单节点开关
+	 * */
+    private Boolean single = true;
 
+ 
     /**
-     * cluster url example:ip:port;ip:port.
-     */
-    private String clusterUrl;
+     * 单例模式 
+     * 配置格式：127.0.0.1:6379
+     * */
+    private SingleServerConfig singleServerConfig;
+    
+    private SentinelServersConfig sentinelServersConfig;
 
+    private MasterSlaveServersConfig masterSlaveServersConfig;
+
+    private ClusterServersConfig clusterServersConfig;
+
+    private ReplicatedServersConfig replicatedServersConfig;
+    
+    
     /**
-     * sentinel url example:ip:port;ip:port.
-     */
-    private String sentinelUrl;
-
-    private String masterName;
-
-    private String hostName;
-
-    private int port;
-
-    private String password;
-
-    private int maxTotal = 8;
-
-    private int maxIdle = 8;
-
-    private int minIdle;
-
-    private long maxWaitMillis = -1L;
-
-    private long minEvictableIdleTimeMillis = 1800000L;
-
-    private long softMinEvictableIdleTimeMillis = 1800000L;
-
-    private int numTestsPerEvictionRun = 3;
-
-    private Boolean testOnCreate = false;
-
-    private Boolean testOnBorrow = false;
-
-    private Boolean testOnReturn = false;
-
-    private Boolean testWhileIdle = false;
-
-    private long timeBetweenEvictionRunsMillis = -1L;
-
-    private boolean blockWhenExhausted = true;
-
-    private int timeOut = 10000;
+     * 布隆过滤器配置
+     * */
+    private RBloomFilterConfig rBloomFilterConfig;
 
 }

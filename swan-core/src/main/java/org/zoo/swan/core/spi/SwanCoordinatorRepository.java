@@ -29,12 +29,12 @@ import org.zoo.swan.common.token.TokenGenerate;
 public interface SwanCoordinatorRepository {
 
     /**
-     * acquired by id.
+     * key.
      *
      * @param id pk
      * @return  
      */
-    boolean findById(String id);
+    boolean isExist(String key);
 
   
     /**

@@ -15,46 +15,34 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.common.enums;
+package org.zoo.swan.common.config;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
+import org.zoo.swan.common.constant.CommonConstant;
+
+import lombok.Data;
 
 /**
- * 全局key生成方案
+ * The RBloomFilterConfig.
+ *
  * @author dzc
  */
-@RequiredArgsConstructor
-@Getter
-public enum TransIdEnum {
+@Data
+public class RBloomFilterConfig {
 
+	/**
+	 * 布隆过滤器名称
+	 * */
+    private String name = "RBLOOMNAME";
+    
     /**
-     * UUID.
-     */
-	UUID("UUID"),
-
-    /**
-     * SnowFlake
-     */
-	SnowId("SnowFlake");
-
-  
-
-    private final String serialize;
-
-    /**
-     * ID 生成方案
-     */
-    public static TransIdEnum acquire(final String serialize) {
-        Optional<TransIdEnum> serializeEnum =
-                Arrays.stream(TransIdEnum.values())
-                        .filter(v -> Objects.equals(v.getSerialize(), serialize))
-                        .findFirst();
-        return serializeEnum.orElse(TransIdEnum.UUID);
-    }
-
+     * 布隆过滤器预计统计总数
+     * */
+	private Long totalNum = 100000000L;
+	
+	/**
+     * 期望误差率
+     * */
+	private Double errorRate = 0.00001;
+   
 }
