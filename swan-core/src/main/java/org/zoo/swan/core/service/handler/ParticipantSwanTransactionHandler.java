@@ -20,7 +20,6 @@ package org.zoo.swan.core.service.handler;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature; 
 import org.springframework.stereotype.Component; 
-import org.zoo.swan.common.utils.DefaultValueUtils;
 import org.zoo.swan.core.service.SwanTransactionHandler; 
 import java.lang.reflect.Method;
 
@@ -36,7 +35,7 @@ public class ParticipantSwanTransactionHandler implements SwanTransactionHandler
 	@Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {
         Method method = ((MethodSignature) (point.getSignature())).getMethod();
-        return DefaultValueUtils.getDefaultValue(method.getReturnType());
+        return null;
     }
 
 }
