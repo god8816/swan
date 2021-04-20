@@ -32,7 +32,6 @@ import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
 
-
 /**
  * 下发唯一的tokenId
  * @author dzc
