@@ -18,7 +18,6 @@
 package org.zoo.swan.core.service.handler;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.exception.SwanException;
-import org.zoo.swan.common.token.TokenGenerate;
 import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
@@ -51,7 +49,7 @@ public class CheckTokenHandler implements SwanTransactionHandler {
     	final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         String tokenKey = request.getHeader(swanConfig.getTokenKey());
-        if(true) {
+        if(false) {
             return point.proceed();
         }
         LogUtil.info(LOGGER, () -> "用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenKey);
