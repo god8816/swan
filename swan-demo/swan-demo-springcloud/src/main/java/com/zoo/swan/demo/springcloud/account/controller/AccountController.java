@@ -17,12 +17,8 @@
 
 package com.zoo.swan.demo.springcloud.account.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zoo.swan.annotation.Swan;
-import org.zoo.swan.annotation.TransTypeEnum;
-
-import java.math.BigDecimal;
 
 /**
  * AccountController.
@@ -33,16 +29,16 @@ public class AccountController {
 
 
     @RequestMapping("/get")
-    @Swan(TransTypeEnum.QUERY)
-    public BigDecimal get(@RequestParam("userId") String userId) {
-        return null;
+    @Swan
+    public String get(String userId) {
+        return "123";
     }
     
     
     @RequestMapping("/save")
-    @Swan(TransTypeEnum.SAVE)
-    public BigDecimal save(@RequestParam("userId") String userId) {
-        return null;
+    @Swan
+    public String save(String userId) {
+        return "14543234";
     }
 
 

@@ -21,7 +21,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.zoo.swan.common.bean.context.SwanTransactionContext;
 import org.zoo.swan.common.bean.entity.SwanTransaction;
 import org.zoo.swan.common.utils.DefaultValueUtils;
 import org.zoo.swan.core.service.SwanTransactionHandler;
@@ -51,7 +50,7 @@ public class ParticipantSwanTransactionHandler implements SwanTransactionHandler
 
 
 	@Override
-    public Object handler(final ProceedingJoinPoint point, final SwanTransactionContext context) throws Throwable {
+    public Object handler(final ProceedingJoinPoint point) throws Throwable {
      	SwanTransaction swanTransaction = null;
      	final SwanTransaction currentTransaction;
         

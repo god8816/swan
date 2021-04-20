@@ -18,7 +18,6 @@
 package org.zoo.swan.core.service;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.zoo.swan.common.bean.context.SwanTransactionContext;
 
 
 /**
@@ -36,6 +35,6 @@ public interface SwanTransactionFactoryService<T> {
      * @return impl swanTransactionHandler
      * @throws Throwable  Throwable
      */
-    Class<T> factoryOf(ProceedingJoinPoint point,SwanTransactionContext context) throws Throwable;
+    Class<T> factoryOf(ProceedingJoinPoint point) throws Throwable;
 }
 

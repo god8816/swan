@@ -15,20 +15,16 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.core.mediator;
+package org.zoo.swan.spring.boot.starter.config;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.zoo.swan.common.config.SwanConfig;
 
 /**
- * The interface Rpc acquire.
+ * SwanConfigProperties starter.
  *
  * @author dzc
  */
-public interface RpcAcquire {
-
-    /**
-     * Acquire string.
-     *
-     * @param key the key
-     * @return the string
-     */
-    String acquire(String key);
+@ConfigurationProperties(prefix = "org.zoo.swan", ignoreInvalidFields = true)
+public class SwanConfigProperties extends SwanConfig {
 }

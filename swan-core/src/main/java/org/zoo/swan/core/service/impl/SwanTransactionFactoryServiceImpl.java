@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zoo.swan.annotation.Swan; 
-import org.zoo.swan.common.bean.context.SwanTransactionContext;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.core.service.SwanTransactionFactoryService;
 import org.zoo.swan.core.service.handler.ConsumeSwanTransactionHandler;
@@ -56,7 +55,7 @@ public class SwanTransactionFactoryServiceImpl implements SwanTransactionFactory
      * @return Class
      */
     @Override
-    public Class factoryOf(final ProceedingJoinPoint point,final SwanTransactionContext context) {
+    public Class factoryOf(final ProceedingJoinPoint point) {
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = JoinPointUtils.getMethod(point);
         Class<?> declaringClass =  signature.getMethod().getDeclaringClass();

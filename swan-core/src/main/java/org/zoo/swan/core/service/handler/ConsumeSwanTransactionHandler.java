@@ -19,7 +19,6 @@ package org.zoo.swan.core.service.handler;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
-import org.zoo.swan.common.bean.context.SwanTransactionContext;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
 /**
@@ -31,7 +30,7 @@ import org.zoo.swan.core.service.SwanTransactionHandler;
 public class ConsumeSwanTransactionHandler implements SwanTransactionHandler {
 
     @Override
-    public Object handler(final ProceedingJoinPoint point, final SwanTransactionContext context) throws Throwable {
+    public Object handler(final ProceedingJoinPoint point) throws Throwable {
         return point.proceed();
     }
 }

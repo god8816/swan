@@ -58,6 +58,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+        
         <!--自动配置-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

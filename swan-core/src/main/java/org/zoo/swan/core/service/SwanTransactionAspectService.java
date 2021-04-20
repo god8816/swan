@@ -18,7 +18,6 @@
 package org.zoo.swan.core.service;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.zoo.swan.common.bean.context.SwanTransactionContext;
 
 /**
  * @author dzc
@@ -27,12 +26,12 @@ import org.zoo.swan.common.bean.context.SwanTransactionContext;
 public interface SwanTransactionAspectService {
 
     /**
-     * tcc saga notice 事务切面服务
+     *  事务切面服务
      *
-     * @param swanTransactionContext tcc事务上下文对象
-     * @param point                 切点
+     * @param swanTransactionContext 
+     * @param point              切点
      * @return object
      * @throws Throwable 异常信息
      */
-    Object invoke(SwanTransactionContext swanTransactionContext, ProceedingJoinPoint point) throws Throwable;
+    Object invoke(ProceedingJoinPoint point) throws Throwable;
 }

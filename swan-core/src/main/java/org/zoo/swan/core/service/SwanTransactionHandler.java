@@ -18,7 +18,6 @@
 package org.zoo.swan.core.service;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.zoo.swan.common.bean.context.SwanTransactionContext;
 
 /**
  * swanTransactionHandler.
@@ -35,5 +34,5 @@ public interface SwanTransactionHandler {
      * @return Object
      * @throws Throwable e
      */
-    Object handler(ProceedingJoinPoint point, SwanTransactionContext swanTransactionContext) throws Throwable;
+    Object handler(ProceedingJoinPoint point) throws Throwable;
 }

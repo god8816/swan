@@ -15,35 +15,29 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.common.bean.context;
+package org.zoo.swan.core.interceptor;
 
-import lombok.Data;
-
-import java.io.Serializable;
-
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
+import org.springframework.stereotype.Component;
 
 /**
- * SwanTransactionContext.
+ * SpringCloudCatTransactionAspect.
+ *
  * @author dzc
  */
-@Data
-public class SwanTransactionContext implements Serializable {
+@Aspect
+@Component
+public class SpringCloudCatTransactionAspect extends AbstractSwanTransactionAspect implements Ordered {
 
-    private static final long serialVersionUID = -5289080166922118073L;
+    @Autowired
+    public SpringCloudCatTransactionAspect(final SwanTransactionInterceptorImpl swanTransactionInterceptorImpl) {
+        this.setSwanTransactionInterceptor(swanTransactionInterceptorImpl);
+    }
 
-    /**
-     * transId.
-     */
-    private String transId;
-    
-    /**
-     * this swan action.
-     */
-    private int action;
-
-    /**
-     * 事务参与的角色.
-     */
-    private int role;
-
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
+    }
 }

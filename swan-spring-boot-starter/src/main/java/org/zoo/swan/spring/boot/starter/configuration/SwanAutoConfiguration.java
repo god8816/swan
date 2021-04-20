@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.spring.boot.starter.parent.configuration;
+package org.zoo.swan.spring.boot.starter.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,7 +27,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
 import org.zoo.swan.core.bootstrap.SwanTransactionBootstrap;
 import org.zoo.swan.core.service.SwanInitService;
-import org.zoo.swan.gitignore.spring.boot.starter.parent.config.SwanConfigProperties;
+import org.zoo.swan.spring.boot.starter.config.SwanConfigProperties;
 
 /**
  * SwanAutoConfiguration is spring boot starter handler.
