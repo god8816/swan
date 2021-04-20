@@ -17,16 +17,14 @@
 
 package org.zoo.swan.core.service.impl;
 
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.lang.ProceedingJoinPoint; 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.LoggerFactory; 
 import org.springframework.stereotype.Service;
 import org.zoo.swan.annotation.Swan;
-import org.zoo.swan.annotation.TransTypeEnum;
-import org.zoo.swan.common.config.SwanConfig;
+import org.zoo.swan.annotation.TransTypeEnum; 
 import org.zoo.swan.core.service.SwanTransactionFactoryService;
+import org.zoo.swan.core.service.handler.CheckTokenHandler;
 import org.zoo.swan.core.service.handler.CreateTokenHandler;
 import org.zoo.swan.core.utils.JoinPointUtils;
 import java.lang.reflect.Method;
@@ -46,9 +44,7 @@ public class SwanTransactionFactoryServiceImpl implements SwanTransactionFactory
      * logger.
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(SwanTransactionFactoryServiceImpl.class);
-    
-    @Autowired
-    private SwanConfig swanConfig;
+     
     
     /**
      * acquired SwanTransactionHandler.
@@ -66,7 +62,7 @@ public class SwanTransactionFactoryServiceImpl implements SwanTransactionFactory
          	return CreateTokenHandler.class;
         }else if(!Objects.nonNull(value) && value.equals(TransTypeEnum.SAVE)) { 
          	LOGGER.debug("校验是否重复保存"); 
-         	return CreateTokenHandler.class;
+         	return CheckTokenHandler.class;
         }
         return CreateTokenHandler.class;
         	 
