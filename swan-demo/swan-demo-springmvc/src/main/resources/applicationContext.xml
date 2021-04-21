@@ -5,4 +5,5 @@
    http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:component-scan base-package="com.zoo.swan.*,org.zoo.swan.*" />
     <import resource="applicationContext-swan.xml"/>
+    <import resource="applicationContext-mvc.xml"/>
 </beans>
