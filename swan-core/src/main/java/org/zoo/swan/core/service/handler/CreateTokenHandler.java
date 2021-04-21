@@ -33,7 +33,7 @@ import org.zoo.swan.core.service.SwanTransactionHandler;
 
 
 /**
- * 下发唯一的tokenId
+ * 下发tokenId
  * @author dzc
  */
 @Component
