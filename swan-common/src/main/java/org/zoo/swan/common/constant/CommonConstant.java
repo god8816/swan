@@ -24,48 +24,12 @@ package org.zoo.swan.common.constant;
  */
 public final class CommonConstant {
 
-    private CommonConstant() {
-    }
-
-    /**
-     * The constant DB_MYSQL.
-     */
-    public final static String DB_MYSQL = "mysql";
-
-    /**
-     * The constant DB_SQLSERVER.
-     */
-    public final static String DB_SQLSERVER = "sqlserver";
-
-    /**
-     * The constant DB_ORACLE.
-     */
-    public final static String DB_ORACLE = "oracle";
-
-    /**
-     * The constant DB_POSTGRESQL.
-     */
-    public final static String DB_POSTGRESQL = "postgresql";
-
-    /**
-     * The constant PATH_SUFFIX.
-     */
-    public final static String PATH_SUFFIX = "/tcc";
-
-    /**
-     * The constant REDIS_SUFFIX.
-     */
-    public final static String REDIS_SUFFIX = "swan_";
-
+ 
     /**
      * The constant RECOVER_REDIS_KEY_PRE.
      */
     public final static String RECOVER_REDIS_KEY_PRE = "swan:transaction:%s";
 
-    /**
-     * The constant CAT_TRANSACTION_CONTEXT.
-     */
-    public final static String CAT_TRANSACTION_CONTEXT = "CAT_TRANSACTION_CONTEXT";
 
     /**
      * The constant LINE_SEPARATOR.
