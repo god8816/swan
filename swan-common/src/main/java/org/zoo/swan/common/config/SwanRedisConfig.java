@@ -67,6 +67,6 @@ public class SwanRedisConfig {
     /**
      * 布隆过滤器配置
      * */
-    private RBloomFilterConfig rBloomFilterConfig;
+    private RBloomFilterConfig rBloomFilterConfig = new RBloomFilterConfig();
 
 }

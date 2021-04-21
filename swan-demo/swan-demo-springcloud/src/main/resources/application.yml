@@ -8,7 +8,7 @@ spring:
     application:
       name: spring_cloud
    
-org:
+org: 
   zoo:
     swan:
       started: false
@@ -16,9 +16,8 @@ org:
       token-key: YST_ADMIN_KEY
       swan-redis-config:
         single: true
-        sentinel-servers-config: 
-          sentinel-addresses:
-           - 127.0.0.1:6379
+        single-server-config:
+          address: redis://127.0.0.1:6379
           
 
 

@@ -21,6 +21,7 @@ import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.config.SentinelServersConfig;
+import org.redisson.config.SingleServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zoo.swan.annotation.SwanSPI; 
@@ -105,6 +106,8 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
             jedisClient =  new JedisClientSentinel(redissonClient,swanRedisConfig);
         } else if (swanRedisConfig.getSingle()) { 
          	LogUtil.info(LOGGER, () -> "构建redis 单点模式............");
+         	SingleServerConfig singleServerConfig = swanRedisConfig.getSingleServerConfig();
+         	config.useSingleServer().setAddress(singleServerConfig.getAddress());
          	RedissonClient redissonClient = Redisson.create(config);
             jedisClient = new JedisClientSingle(redissonClient,swanRedisConfig);
         }
