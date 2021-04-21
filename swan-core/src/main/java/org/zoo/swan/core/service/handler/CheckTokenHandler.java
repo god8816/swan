@@ -17,6 +17,8 @@
 
 package org.zoo.swan.core.service.handler;
 
+import java.lang.reflect.Method;
+
 import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
@@ -26,11 +28,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.zoo.swan.annotation.Swan;
+import org.zoo.swan.annotation.TransTypeEnum;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.exception.SwanException;
 import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.core.coordinator.SwanCoordinatorService;
 import org.zoo.swan.core.service.SwanTransactionHandler;
+import org.zoo.swan.core.utils.JoinPointUtils;
 
 
 /**
@@ -50,7 +55,10 @@ public class CheckTokenHandler implements SwanTransactionHandler {
     
     @Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {
-    	final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+    	    Method method = JoinPointUtils.getMethod(point);
+        final Swan swan = method.getAnnotation(Swan.class);
+        final String errorMsg = swan.errorMsg();
+        final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         String tokenKey = request.getHeader(swanConfig.getTokenKey());
         boolean isExistStatus = swanCoordinatorService.isExist(tokenKey);
@@ -60,6 +68,6 @@ public class CheckTokenHandler implements SwanTransactionHandler {
             return point.proceed();
         }
         LogUtil.info(LOGGER, () -> "用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenKey);
-        throw new SwanException("请不要重复提交");
+        throw new SwanException(errorMsg);
     }
 }

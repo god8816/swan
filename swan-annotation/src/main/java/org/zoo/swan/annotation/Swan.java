@@ -32,6 +32,15 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface Swan {
 
+	/**
+     * 用户是选择下发TokenId、校验TokenID
+     * @return the string
+     */
 	TransTypeEnum value() default TransTypeEnum.QUERY;
-
+	
+    /**
+     * 用户重复提交提示语言
+     * @return the string
+     */
+    String errorMsg() default "请不要重复提交";
 }

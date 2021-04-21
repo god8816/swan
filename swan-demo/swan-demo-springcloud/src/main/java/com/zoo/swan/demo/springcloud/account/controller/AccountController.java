@@ -37,7 +37,7 @@ public class AccountController {
     
     
     @RequestMapping("/save")
-    @Swan(TransTypeEnum.SAVE)
+    @Swan(value=TransTypeEnum.SAVE,errorMsg="小狗狗别重复保存")
     public String save(String userId) {
     	    //修改验证不通过
         return "14543234";
