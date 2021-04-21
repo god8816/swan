@@ -1,0 +1,43 @@
+<configuration>
+    <contextName>vem-order</contextName>
+    <!--日志打印在控制台-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- 按照每天生成日志文件 -->
+    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logback.dir}/output/vem-order.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${logback.dir}/output/vem-order.log.%d{yyyy-MM-dd-HH}</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%date %-5level [%thread] %logger{50} - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+    <!--系统吞吐量日志-->
+    <appender name="runTimeCountAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logback.dir}/runTimeCount/vem-order-runTimeCount.log</File>
+        <encoder>
+            <Pattern>%date %-5level %msg%n%ex</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logback.dir}/runTimeCount/vem-order-runTimeCount.log.%d{yyyy-MM-dd}</FileNamePattern>
+        </rollingPolicy>
+    </appender>
+    <logger name="runTimeCount" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="runTimeCountAppender" />
+    </logger>
+    <logger name="com.nfsq.vem.order" level="INFO"></logger>
+    <logger name="org.springframework.context" level="INFO"></logger>
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

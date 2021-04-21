@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+       default-autowire="byName">
+
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+    <bean id="catTransactionBootstrap" class="org.zoo.cat.core.bootstrap.CatTransactionBootstrap">
+         <property name="repositorySuffix" value="undo_log"/>
+         <property name="serializer" value="kryo"/>
+         <property name="recoverDelayTime" value="10"/>
+         <property name="retryMax" value="10"/>
+         <property name="scheduledDelay" value="2"/>
+         <property name="scheduledInitDelay" value="2"/>
+         <property name="repositorySupport" value="db"/>
+         <property name="asyncThreads" value="5"/>
+         <property name="started" value="true"/>
+         <property name="catNoticeSafeConfig">
+             <bean class="org.zoo.cat.common.config.CatNoticeSafeConfig">
+                 <property name="noticeScheduledDelay" value="5"/>
+                 <property name="timesMinute" value="10"/>
+             </bean>
+         </property>
+         <property name="catDbConfig">
+             <bean class="org.zoo.cat.common.config.CatDbConfig">
+                 <property name="url" value="${mysql.jdbc.driverUrl.vem}" />
+                 <property name="username" value="${mysql.jdbc.user.vem}" />
+                 <property name="password" value="${mysql.jdbc.password.vem}" />
+             </bean>
+         </property>
+    </bean>
+    
+</beans>

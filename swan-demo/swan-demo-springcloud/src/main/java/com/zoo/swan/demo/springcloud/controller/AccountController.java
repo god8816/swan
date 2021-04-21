@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.zoo.swan.demo.springcloud.account.controller;
+package com.zoo.swan.demo.springcloud.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zoo.swan.annotation.Swan;
