@@ -26,13 +26,6 @@ import org.springframework.context.event.SmartApplicationListener;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.zoo.swan.common.config.SwanConfig;
-import org.zoo.swan.core.spi.SwanCoordinatorRepository;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -52,9 +45,7 @@ public class SwanTransactionSelfRecoveryScheduled implements SmartApplicationLis
 
     private volatile AtomicBoolean isInit = new AtomicBoolean(false);
 
-    private ScheduledExecutorService scheduledExecutorService;
-
-    private SwanCoordinatorRepository catCoordinatorRepository; 
+ 
 
     @Autowired(required = false)
     public SwanTransactionSelfRecoveryScheduled(final SwanConfig swanConfig) {
@@ -94,11 +85,6 @@ public class SwanTransactionSelfRecoveryScheduled implements SmartApplicationLis
 //                    
 //                }, 1, 1, TimeUnit.SECONDS);
 
-    }
-
-    private Date acquireData() {
-        return new Date(LocalDateTime.now().atZone(ZoneId.systemDefault())
-                .toInstant().toEpochMilli() - (1 * 1000));
     }
 
 

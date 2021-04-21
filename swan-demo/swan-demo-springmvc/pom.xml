@@ -102,6 +102,18 @@
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
         
+        <!-- aop aspect注解导包-->
+	    <dependency>
+	      <groupId>org.aspectj</groupId>
+	      <artifactId>aspectjrt</artifactId>
+	      <version>1.8.6</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.aspectj</groupId>
+	      <artifactId>aspectjweaver</artifactId>
+	      <version>1.8.9</version>
+	    </dependency>
+        
     </dependencies>
     <build>
         <finalName>swan-springmvc-demo</finalName>

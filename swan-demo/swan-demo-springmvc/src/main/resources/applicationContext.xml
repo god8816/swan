@@ -12,6 +12,6 @@
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
   
 
-    <import resource="applicationContext-swan.xml"/>
-    <import resource="applicationContext-mvc.xml"/>
+        <import resource="applicationContext-swan.xml"/>
+        <import resource="applicationContext-mvc.xml"/>
 </beans>

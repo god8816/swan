@@ -23,16 +23,16 @@ import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 /**
- * SpringCloudCatTransactionAspect.
+ * SpringCloudSwanTransactionAspect.
  *
  * @author dzc
  */
 @Aspect
 @Component
-public class SpringCloudCatTransactionAspect extends AbstractSwanTransactionAspect implements Ordered {
+public class SpringCloudSwanTransactionAspect extends AbstractSwanTransactionAspect implements Ordered {
 
     @Autowired
-    public SpringCloudCatTransactionAspect(final SwanTransactionInterceptorImpl swanTransactionInterceptorImpl) {
+    public SpringCloudSwanTransactionAspect(final SwanTransactionInterceptorImpl swanTransactionInterceptorImpl) {
         this.setSwanTransactionInterceptor(swanTransactionInterceptorImpl);
     }
 
