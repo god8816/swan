@@ -13,27 +13,17 @@
        default-autowire="byName">
 
     <aop:aspectj-autoproxy expose-proxy="true"/>
-    <bean id="catTransactionBootstrap" class="org.zoo.cat.core.bootstrap.CatTransactionBootstrap">
-         <property name="repositorySuffix" value="undo_log"/>
-         <property name="serializer" value="kryo"/>
-         <property name="recoverDelayTime" value="10"/>
-         <property name="retryMax" value="10"/>
-         <property name="scheduledDelay" value="2"/>
-         <property name="scheduledInitDelay" value="2"/>
-         <property name="repositorySupport" value="db"/>
-         <property name="asyncThreads" value="5"/>
+    <bean id="swanTransactionBootstrap" class="org.zoo.swan.core.bootstrap.SwanTransactionBootstrap">
          <property name="started" value="true"/>
-         <property name="catNoticeSafeConfig">
-             <bean class="org.zoo.cat.common.config.CatNoticeSafeConfig">
-                 <property name="noticeScheduledDelay" value="5"/>
-                 <property name="timesMinute" value="10"/>
-             </bean>
-         </property>
-         <property name="catDbConfig">
-             <bean class="org.zoo.cat.common.config.CatDbConfig">
-                 <property name="url" value="${mysql.jdbc.driverUrl.vem}" />
-                 <property name="username" value="${mysql.jdbc.user.vem}" />
-                 <property name="password" value="${mysql.jdbc.password.vem}" />
+         <property name="tokenSupport" value="UUID"/>
+         <property name="tokenKey" value="YST_ADMIN_KEY"/>
+         <property name="swanRedisConfig">
+             <bean class="org.zoo.swan.common.config.SwanRedisConfig">
+                 <property name="singleServerConfig">
+                       <bean class="org.redisson.config.SingleServerConfig">
+                          <property name="address" value="redis://127.0.0.1:6379"/>
+                       </bean>
+                 </property>
              </bean>
          </property>
     </bean>
