@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
    http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-    <display-name>vem-order</display-name>
+    <display-name>swan-demo-springmvc</display-name>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
@@ -18,19 +18,6 @@
         <param-name>log4jRefreshInterval</param-name>
         <param-value>60000</param-value>
     </context-param>
-    <!-- Character Encoding filter -->
-    <filter>  
-        <filter-name>DruidWebStatFilter</filter-name>  
-        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>  
-        <init-param>  
-            <param-name>exclusions</param-name>  
-            <param-value>/static/*,*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>  
-        </init-param>  
-    </filter>  
-    <filter-mapping>  
-        <filter-name>DruidWebStatFilter</filter-name>  
-        <url-pattern>/*</url-pattern>  
-    </filter-mapping>  
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -72,24 +59,4 @@
         <servlet-name>DispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
-    
-    <servlet>  
-      <servlet-name>DruidStatView</servlet-name>  
-      <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>  
-      <init-param>  
-            <param-name>loginUsername</param-name>  
-            <param-value>druid</param-value>  
-      </init-param>  
-      <init-param>  
-            <param-name>loginPassword</param-name>  
-            <param-value>druid8816</param-value>  
-      </init-param>  
-   </servlet>  
-   <servlet-mapping>  
-      <servlet-name>DruidStatView</servlet-name>  
-      <url-pattern>/druid/*</url-pattern>  
-   </servlet-mapping> 
-
-
 </web-app>
