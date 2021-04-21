@@ -15,9 +15,11 @@ org:
       token-support: SnowId
       token-key: YST_ADMIN_KEY
       swan-redis-config:
-        host-name: 127.0.0.1
-        port: 6379
-        password: 
+        single: true
+        sentinel-servers-config: 
+          sentinel-addresses:
+           - 127.0.0.1:6379
+          
 
 
 logging:

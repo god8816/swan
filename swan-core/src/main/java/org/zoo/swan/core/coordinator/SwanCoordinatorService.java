@@ -34,12 +34,14 @@ public interface SwanCoordinatorService {
     void start(SwanConfig swanConfig) throws Exception;
 
     /**
-     * find by transId.
-     *
-     * @param transId  transId
-     * @return {@linkplain SwanTransaction }
+     * 判断tokenId是否存在
+     * @param tokenId  tokenId
      */
-    boolean findByTransId(String transId);
+    boolean isExist(String tokenId);
 
-  
+    /**
+     * 保存tokenId
+     * @param tokenId  tokenId
+     */
+    boolean add(String tokenId);
 }

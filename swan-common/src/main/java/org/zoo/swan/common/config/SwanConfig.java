@@ -35,15 +35,15 @@ public class SwanConfig {
     private Boolean started = true;
     
     /**
+     * 服务名称
+     */
+    private String applicationName = "applicationName";
+    
+    /**
      * 存储 redis
      */
     private String repositorySupport = "redis";
-   
-    /**
-     * redis配置
-     */
-    private SwanRedisConfig swanRedisConfig;
-    
+      
     /**
      * Id生成策略 UUID、SnowId
      */
@@ -54,4 +54,8 @@ public class SwanConfig {
      */
     private String tokenKey = "tokenKey";
     
+    /**
+     * redis配置
+     */
+    private SwanRedisConfig swanRedisConfig;
 }

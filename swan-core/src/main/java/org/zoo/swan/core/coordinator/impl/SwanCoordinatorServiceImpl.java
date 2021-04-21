@@ -19,7 +19,6 @@ package org.zoo.swan.core.coordinator.impl;
 
 import org.springframework.stereotype.Service;
 import org.zoo.swan.common.config.SwanConfig;
-import org.zoo.swan.common.utils.StringUtils;
 import org.zoo.swan.core.coordinator.SwanCoordinatorService;
 import org.zoo.swan.core.helper.SpringBeanUtils;
 import org.zoo.swan.core.spi.SwanCoordinatorRepository;
@@ -37,23 +36,19 @@ public class SwanCoordinatorServiceImpl implements SwanCoordinatorService {
   
     @Override
     public void start(final SwanConfig swanConfig) {
-        final String tableName = buildRepositorySuffix("");
-        final String appName =  ""; //swanApplicationService.acquireName();
         coordinatorRepository = SpringBeanUtils.getInstance().getBean(SwanCoordinatorRepository.class);
-        coordinatorRepository.init(tableName,appName, swanConfig);
+        coordinatorRepository.init(swanConfig);
     }
 
 
     @Override
-    public boolean findByTransId(final String transId) {
-        return coordinatorRepository.findById(transId);
+    public boolean isExist(final String tokenId) {
+        return coordinatorRepository.isExist(tokenId);
     }
 
-    private String buildRepositorySuffix(final String repositorySuffix) {
-        if (StringUtils.isNoneBlank(repositorySuffix)) {
-            return repositorySuffix;
-        }
-		return repositorySuffix; 
-    }
 
+	@Override
+	public boolean add(String tokenId) {
+		return coordinatorRepository.add(tokenId);
+	}
 }

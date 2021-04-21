@@ -27,37 +27,26 @@ import org.zoo.swan.common.token.TokenGenerate;
  */
 @SwanSPI
 public interface SwanCoordinatorRepository {
+	
+    /**
+     * key保存
+     * @param key key
+     * @return  
+     */
+    boolean add(String key);
 
     /**
-     * key.
-     *
-     * @param id pk
+     * key是否存在
+     * @param key key
      * @return  
      */
     boolean isExist(String key);
 
   
     /**
-     * init.
-     *
-     * @param tableName tableName
-     * @param appName appName
+     * 环境初始化
      * @param swanConfig  
      */
-    void init(String tableName,String appName, SwanConfig swanConfig);
+    void init(SwanConfig swanConfig);
 
-    /**
-     * set scheme.
-     *
-     * @return scheme
-     */
-    String getScheme();
-    
-    /**
-     * 设置ID生成策略
-     * @param tokenGenerate tokenGenerate
-     */
-    void setTokenGenerate(TokenGenerate tokenGenerate);
-
- 
 }

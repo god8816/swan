@@ -17,7 +17,9 @@
 
 package org.zoo.swan.common.jedis;
 
+import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
+import org.zoo.swan.common.config.SwanRedisConfig;
 
 /**
  * JedisClientSentinel.
@@ -25,10 +27,32 @@ import org.redisson.api.RedissonClient;
  */
 public class JedisClientSentinel implements JedisClient {
 
-	public JedisClientSentinel(RedissonClient redissonClient) {
-		// TODO Auto-generated constructor stub
+	RedissonClient redissonClient = null;
+
+	/**布隆过滤器*/
+	RBloomFilter<String> bloomFilter = null;
+		
+	public JedisClientSentinel(RedissonClient redissonClient, SwanRedisConfig swanRedisConfig) {
+		this.redissonClient = redissonClient;
+		initBloomFilter(redissonClient,swanRedisConfig);
 	}
 
-    
+	/**初始化布隆过滤器*/
+	public RBloomFilter<String> initBloomFilter(RedissonClient redissonClient, SwanRedisConfig swanRedisConfig) {
+		RBloomFilter<String> bloomFilter = redissonClient.getBloomFilter(swanRedisConfig.getRBloomFilterConfig().getName());
+		bloomFilter.tryInit(swanRedisConfig.getRBloomFilterConfig().getTotalNum(),swanRedisConfig.getRBloomFilterConfig().getErrorRate());
+		return bloomFilter;
+	}
+
+	@Override
+	public boolean addToRBloomFilter(String key) {
+		return bloomFilter.add(key);
+	}
+
+	@Override
+	public boolean isContainsInRBloomFilter(String key) {
+		// TODO Auto-generated method stub
+		return bloomFilter.contains(key);
+	}
 
 }

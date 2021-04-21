@@ -17,9 +17,6 @@
 
 package org.zoo.swan.common.config;
 
-
-import org.zoo.swan.common.constant.CommonConstant;
-
 import lombok.Data;
 
 /**

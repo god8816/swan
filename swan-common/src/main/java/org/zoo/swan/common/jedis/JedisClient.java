@@ -17,8 +17,6 @@
 
 package org.zoo.swan.common.jedis;
 
-import java.util.Set;
-
 /**
  * JedisClient.
  *
@@ -26,6 +24,18 @@ import java.util.Set;
  */
 public interface JedisClient {
 
-   
+    /**
+     * 在布隆过滤器添加key
+     * @param key   the key
+     * @return the string
+     */
+    boolean addToRBloomFilter(String key);
+    
+    /**
+     * key是否在布隆过滤器中
+     * @param key   the key
+     * @return the string
+     */
+	boolean isContainsInRBloomFilter(String key);
 
 }

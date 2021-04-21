@@ -88,8 +88,6 @@ public class SwanInitServiceImpl implements SwanInitService {
         final SwanCoordinatorRepository repository = ExtensionLoader.getExtensionLoader(SwanCoordinatorRepository.class)
                 .getActivateExtension(swanConfig.getRepositorySupport());
 
-        repository.setTokenGenerate(tokenGenerate);
-
         SpringBeanUtils.getInstance().registerBean(SwanCoordinatorRepository.class.getName(), repository);
         SpringBeanUtils.getInstance().registerBean(TokenGenerate.class.getName(), tokenGenerate);
     }
