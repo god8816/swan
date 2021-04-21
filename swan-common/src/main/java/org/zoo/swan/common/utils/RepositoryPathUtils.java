@@ -34,7 +34,7 @@ public class RepositoryPathUtils {
      * @return the string
      */
     public static String buildRedisKey(final String keyPrefix, final String id) {
-        return String.join(":", keyPrefix, id);
+        return String.join("_", keyPrefix, id);
     }
 
   

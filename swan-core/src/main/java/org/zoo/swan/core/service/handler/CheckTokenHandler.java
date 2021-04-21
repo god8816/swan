@@ -29,6 +29,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.exception.SwanException;
 import org.zoo.swan.common.utils.LogUtil;
+import org.zoo.swan.core.coordinator.SwanCoordinatorService;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 
 
@@ -44,12 +45,18 @@ public class CheckTokenHandler implements SwanTransactionHandler {
     @Autowired
     private SwanConfig swanConfig;
     
+    @Autowired
+    private SwanCoordinatorService swanCoordinatorService;
+    
     @Override
     public Object handler(final ProceedingJoinPoint point) throws Throwable {
     	final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         String tokenKey = request.getHeader(swanConfig.getTokenKey());
-        if(false) {
+        boolean isExistStatus = swanCoordinatorService.isExist(tokenKey);
+        if(!isExistStatus) {
+         	Boolean saveStatus = swanCoordinatorService.add(tokenKey);
+         	LogUtil.warn(LOGGER, () -> "用户TokenID保存状态,"+swanConfig.getTokenKey()+"=="+tokenKey+",状态："+saveStatus);
             return point.proceed();
         }
         LogUtil.info(LOGGER, () -> "用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenKey);

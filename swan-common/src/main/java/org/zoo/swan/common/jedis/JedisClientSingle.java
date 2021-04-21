@@ -34,7 +34,7 @@ public class JedisClientSingle implements JedisClient {
 		
 	public JedisClientSingle(RedissonClient redissonClient, SwanRedisConfig swanRedisConfig) {
 		this.redissonClient = redissonClient;
-		initBloomFilter(redissonClient,swanRedisConfig);
+		bloomFilter = initBloomFilter(redissonClient,swanRedisConfig);
 	}
 
 	/**初始化布隆过滤器*/
@@ -51,7 +51,6 @@ public class JedisClientSingle implements JedisClient {
 
 	@Override
 	public boolean isContainsInRBloomFilter(String key) {
-		// TODO Auto-generated method stub
 		return bloomFilter.contains(key);
 	}
    
