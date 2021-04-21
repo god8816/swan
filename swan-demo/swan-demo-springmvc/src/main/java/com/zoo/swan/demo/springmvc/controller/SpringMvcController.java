@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.zoo.swan.demo.springcloud.controller;
+package com.zoo.swan.demo.springmvc.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zoo.swan.annotation.Swan;
@@ -26,7 +26,7 @@ import org.zoo.swan.annotation.TransTypeEnum;
  * @author dzc
  */
 @RestController
-public class AccountController {
+public class SpringMvcController {
 
 
     @RequestMapping("/get")
