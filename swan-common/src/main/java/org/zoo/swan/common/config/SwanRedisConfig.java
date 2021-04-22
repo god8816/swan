@@ -18,8 +18,6 @@
 package org.zoo.swan.common.config;
 
 import org.redisson.config.ClusterServersConfig;
-import org.redisson.config.MasterSlaveServersConfig;
-import org.redisson.config.ReplicatedServersConfig;
 import org.redisson.config.SentinelServersConfig;
 import org.redisson.config.SingleServerConfig;
 
@@ -55,13 +53,16 @@ public class SwanRedisConfig {
      * */
     private SingleServerConfig singleServerConfig;
     
+    /**
+     * 哨兵配置
+     * */
     private SentinelServersConfig sentinelServersConfig;
 
-    private MasterSlaveServersConfig masterSlaveServersConfig;
-
+    /**
+     * Cluster集群配置 
+     * */
     private ClusterServersConfig clusterServersConfig;
 
-    private ReplicatedServersConfig replicatedServersConfig;
     
     
     /**
