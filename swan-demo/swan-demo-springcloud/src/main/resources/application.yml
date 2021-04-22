@@ -11,7 +11,7 @@ spring:
 org: 
   zoo:
     swan:
-      started: false
+      started: true
       application-name: yst-tms-admin
       token-support: SnowId
       token-key: YST_ADMIN_KEY
