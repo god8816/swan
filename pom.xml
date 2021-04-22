@@ -65,11 +65,8 @@
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <dubbo.version>2.5.4</dubbo.version>
         <apache.dubbo.version>2.7.1</apache.dubbo.version>
-        <mongo.driver.version>3.5.0</mongo.driver.version>
-        <mysql-connector-java>5.1.46</mysql-connector-java>
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <guava.version>21.0</guava.version>
-        <spring.data.mongodb.version>2.0.8.RELEASE</spring.data.mongodb.version>
         <hessian.version>4.0.38</hessian.version>
         <protostuff.version>1.0.8</protostuff.version>
         <kryo.version>4.0.0</kryo.version>
@@ -105,18 +102,7 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.zoo</groupId>
-                <artifactId>swan-dubbo</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.zoo</groupId>
-                <artifactId>swan-apache-dubbo</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
+   
             <dependency>
                 <groupId>org.zoo</groupId>
                 <artifactId>swan-springcloud</artifactId>
@@ -128,31 +114,13 @@
                 <artifactId>swan-annotation</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            
             <dependency>
                 <groupId>org.zoo</groupId>
-                <artifactId>swan-spring-boot-starter-parent</artifactId>
+                <artifactId>swan-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>org.zoo</groupId>
-                <artifactId>swan-spring-boot-starter-dubbo</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.zoo</groupId>
-                <artifactId>swan-spring-boot-starter-apache-dubbo</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.zoo</groupId>
-                <artifactId>swan-spring-boot-starter-springcloud</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
+            
             <dependency>
                 <groupId>com.lmax</groupId>
                 <artifactId>disruptor</artifactId>
@@ -195,11 +163,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-mongodb</artifactId>
-                <version>${spring.data.mongodb.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>dubbo</artifactId>
                 <version>${dubbo.version}</version>
@@ -219,18 +182,7 @@
                 <artifactId>dubbo</artifactId>
                 <version>${apache.dubbo.version}</version>
             </dependency>
-            
-            <dependency>
-                <groupId>org.mongodb</groupId>
-                <artifactId>mongo-java-driver</artifactId>
-                <version>${mongo.driver.version}</version>
-            </dependency>
-            <!-- 导入Mysql数据库链接jar包 -->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql-connector-java}</version>
-            </dependency>
+           
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
@@ -378,50 +330,11 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
-                <groupId>com.caucho</groupId>
-                <artifactId>hessian</artifactId>
-                <version>${hessian.version}</version>
-            </dependency>
         
-            <dependency>
-                <groupId>com.esotericsoftware</groupId>
-                <artifactId>kryo-shaded</artifactId>
-                <version>${kryo.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.dyuproject.protostuff</groupId>
-                <artifactId>protostuff-core</artifactId>
-                <version>${protostuff.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dyuproject.protostuff</groupId>
-                <artifactId>protostuff-runtime</artifactId>
-                <version>${protostuff.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-all</artifactId>
-                <version>${nettty.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.zookeeper</groupId>
-                <artifactId>zookeeper</artifactId>
-                <version>3.4.9</version>
-            </dependency>
-
-            <!-- zkclient  -->
-            <dependency>
-                <groupId>com.101tec</groupId>
-                <artifactId>zkclient</artifactId>
-                <version>0.4</version>
-            </dependency>
             <dependency>
 			    <groupId>org.redisson</groupId>
 			    <artifactId>redisson</artifactId>
-			    <version>3.14.1</version>
+			    <version>3.12.3</version>
 			</dependency>
         </dependencies>
     </dependencyManagement>

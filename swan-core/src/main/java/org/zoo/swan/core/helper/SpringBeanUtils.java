@@ -17,9 +17,9 @@
 
 package org.zoo.swan.core.helper;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.util.StringUtils;
 import org.zoo.swan.common.utils.AssertUtils;
 
 /**

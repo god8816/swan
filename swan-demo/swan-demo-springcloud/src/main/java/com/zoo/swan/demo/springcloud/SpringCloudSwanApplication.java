@@ -19,7 +19,6 @@ package com.zoo.swan.demo.springcloud;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * The type SpringCloud tcc account application.
@@ -27,7 +26,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @author dzc
  */
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
-@EnableAspectJAutoProxy(exposeProxy = true)
 public class SpringCloudSwanApplication {
 
     /**
