@@ -34,7 +34,7 @@ public class JedisClientSentinel implements JedisClient {
 		
 	public JedisClientSentinel(RedissonClient redissonClient, SwanRedisConfig swanRedisConfig) {
 		this.redissonClient = redissonClient;
-		initBloomFilter(redissonClient,swanRedisConfig);
+		bloomFilter = initBloomFilter(redissonClient,swanRedisConfig);
 	}
 
 	/**初始化布隆过滤器*/

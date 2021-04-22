@@ -18,6 +18,10 @@
 
 package org.zoo.swan.common.utils;
 
+import java.util.List;
+
+import jodd.util.StringBand;
+
 /**
  * The type String utils.
  *
@@ -81,5 +85,20 @@ public class StringUtils {
             }
         }
         return true;
+    }
+    
+    
+    /**
+     * redis redisson 
+     * @param lists lists
+     * @return String
+     */
+    public static String redissonJoin(final List<String> lists) {
+    	    StringBuilder builder = new StringBuilder();
+        for (String str : lists) {
+         	 builder.append("\"").append(str).append("\"").append(",");
+		}
+        builder.delete(builder.length()-1, builder.length());
+        return builder.toString();
     }
 }

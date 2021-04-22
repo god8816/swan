@@ -29,7 +29,6 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.zoo.swan.annotation.Swan;
-import org.zoo.swan.annotation.TransTypeEnum;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.exception.SwanException;
 import org.zoo.swan.common.utils.LogUtil;

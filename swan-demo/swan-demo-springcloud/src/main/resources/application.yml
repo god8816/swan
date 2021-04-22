@@ -16,17 +16,22 @@ org:
       token-support: SnowId
       token-key: YST_ADMIN_KEY
       swan-redis-config:
+#       #cluster集群
         cluster: true
         cluster-servers-config:
           node-addresses:
           - redis://10.213.3.107:6379
           - redis://10.213.6.159:6379
           - redis://10.213.3.105:6379
+          - redis://10.213.3.17:6379
+          - redis://10.213.3.18:6379
+          - redis://10.213.3.19:6379
+          
           
 #        #redis单点配置      
-#        single: true
-#        single-server-config:
-#          address: redis://127.0.0.1:6379
+#         single: true
+#         single-server-config: 
+#           address: redis://127.0.0.1:6379
           
 
 

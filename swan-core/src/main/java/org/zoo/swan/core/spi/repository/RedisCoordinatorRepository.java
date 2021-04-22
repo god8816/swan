@@ -95,7 +95,8 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
         if (swanRedisConfig.getCluster()) {
             LogUtil.info(LOGGER, () -> "构建redis cluster模式............");
             ClusterServersConfig clusterServersConfig = swanRedisConfig.getClusterServersConfig();
-            config.useClusterServers().addNodeAddress(String.join(",", clusterServersConfig.getNodeAddresses()));
+            String[] addressList = new String[clusterServersConfig.getNodeAddresses().size()];
+            config.useClusterServers().addNodeAddress(clusterServersConfig.getNodeAddresses().toArray(addressList));
             config.useClusterServers().setUsername(clusterServersConfig.getUsername());
             config.useClusterServers().setPassword(clusterServersConfig.getPassword());
             config.useClusterServers().setTimeout(clusterServersConfig.getTimeout());
