@@ -12,11 +12,7 @@
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 
-
-    <aop:config proxy-target-class="false" />
-    <aop:aspectj-autoproxy />
-    <bean id="abstractSwanTransactionAspect" class="org.zoo.swan.core.interceptor.AbstractSwanTransactionAspect"></bean>
-
+    <aop:config proxy-target-class="true" />
     <bean id="swanTransactionBootstrap" class="org.zoo.swan.core.bootstrap.SwanTransactionBootstrap">
          <property name="started" value="true"/>
          <property name="tokenSupport" value="UUID"/>
