@@ -32,16 +32,6 @@ public class SwanTransactionInterceptorImpl implements SwanTransactionIntercepto
 
     @Override
     public Object interceptor(final ProceedingJoinPoint pjp) throws Throwable {
-    	    System.out.println(123);
-     	try {
-//            final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-//            catTransactionContext = RpcMediator.getInstance().acquire(key -> {
-//                HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-//                return request.getHeader(key);
-//            });
-        } catch (IllegalStateException ex) {
-            LogUtil.warn(LOGGER, () -> "can not acquire request info:" + ex.getLocalizedMessage());
-        }
      	return swanTransactionAspectService.invoke(pjp);
     }
 

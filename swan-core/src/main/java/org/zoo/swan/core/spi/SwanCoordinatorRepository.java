@@ -19,7 +19,6 @@ package org.zoo.swan.core.spi;
 
 import org.zoo.swan.annotation.SwanSPI;
 import org.zoo.swan.common.config.SwanConfig;
-import org.zoo.swan.common.token.TokenGenerate;
 
 /**
  * CoordinatorRepository.

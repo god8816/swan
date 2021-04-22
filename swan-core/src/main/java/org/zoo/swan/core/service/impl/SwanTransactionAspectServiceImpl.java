@@ -20,6 +20,7 @@ package org.zoo.swan.core.service.impl;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.core.helper.SpringBeanUtils;
 import org.zoo.swan.core.service.SwanTransactionAspectService;
 import org.zoo.swan.core.service.SwanTransactionFactoryService;
@@ -34,19 +35,12 @@ import org.zoo.swan.core.service.SwanTransactionHandler;
 @SuppressWarnings("unchecked")
 public class SwanTransactionAspectServiceImpl implements SwanTransactionAspectService {
 
-    private final SwanTransactionFactoryService swanTransactionFactoryService;
+	@Autowired
+    private SwanTransactionFactoryService swanTransactionFactoryService;
     
-
-
-    /**
-     * Instantiates a new swan transaction aspect service.
-     *
-     * @param swanTransactionFactoryService the swan transaction factory service
-     */
     @Autowired
-    public SwanTransactionAspectServiceImpl(final SwanTransactionFactoryService swanTransactionFactoryService) {
-        this.swanTransactionFactoryService = swanTransactionFactoryService;
-    }
+    private SwanConfig swanConfig;
+
 
     /**
      * swan transaction aspect.
@@ -58,9 +52,13 @@ public class SwanTransactionAspectServiceImpl implements SwanTransactionAspectSe
      */
     @Override
     public Object invoke(final ProceedingJoinPoint point) throws Throwable {
+    	    //框架关闭
+        if(swanConfig.getStarted()==false) {
+            return point.proceed();
+        }
+        
         final Class clazz = swanTransactionFactoryService.factoryOf(point);
-        final SwanTransactionHandler txTransactionHandler =
-                (SwanTransactionHandler) SpringBeanUtils.getInstance().getBean(clazz);
+        final SwanTransactionHandler txTransactionHandler =  (SwanTransactionHandler) SpringBeanUtils.getInstance().getBean(clazz);
         return txTransactionHandler.handler(point);
     }
 }
