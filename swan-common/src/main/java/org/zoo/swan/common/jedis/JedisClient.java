@@ -27,18 +27,21 @@ public interface JedisClient {
     /**
      * 在布隆过滤器添加key
      * @param key   the key
-     * @return the string
+     * @return the boolean
      */
     boolean addToRBloomFilter(String key);
     
     /**
      * key是否在布隆过滤器中
      * @param key   the key
-     * @return the string
+     * @return the boolean
      */
 	boolean isContainsInRBloomFilter(String key);
 	
 	
-	
-
+	/**
+     * 布隆过滤器复位，删老增新，提高布隆过滤器的准确度和释放资源
+     * @return the boolean
+     */
+	boolean resetRBloomFilter();	
 }

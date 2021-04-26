@@ -75,4 +75,11 @@ public class JedisClientSentinel implements JedisClient {
 		return bloomFilter.contains(key);
 	}
 
+	@Override
+	public boolean resetRBloomFilter() {
+		bloomFilter.delete();
+		initBloomFilter();	
+		return true;
+	}
+
 }

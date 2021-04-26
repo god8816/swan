@@ -71,4 +71,11 @@ public class JedisClientSingle implements JedisClient {
 		}
 		return bloomFilter.contains(key);
 	}
+
+	@Override
+	public boolean resetRBloomFilter() {
+		bloomFilter.delete();
+		initBloomFilter();	
+		return true;
+	}
 }
