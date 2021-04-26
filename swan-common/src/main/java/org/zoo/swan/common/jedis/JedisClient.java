@@ -37,5 +37,8 @@ public interface JedisClient {
      * @return the string
      */
 	boolean isContainsInRBloomFilter(String key);
+	
+	
+	
 
 }
