@@ -25,8 +25,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.SmartApplicationListener;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-import org.zoo.swan.common.config.SwanConfig;
-import org.zoo.swan.common.jedis.JedisClient;
 import org.zoo.swan.core.spi.SwanCoordinatorRepository;
 
 import java.util.concurrent.Executors;
@@ -46,8 +44,6 @@ public class SwanBloomFilterScheduled implements SmartApplicationListener {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(SwanBloomFilterScheduled.class);
 
-    private final SwanConfig swanConfig;
-
     private volatile AtomicBoolean isInit = new AtomicBoolean(false);
     
     ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(1);
@@ -55,12 +51,6 @@ public class SwanBloomFilterScheduled implements SmartApplicationListener {
     @Autowired
     private SwanCoordinatorRepository swanCoordinatorRepository;
 
- 
-
-    @Autowired(required = false)
-    public SwanBloomFilterScheduled(final SwanConfig swanConfig) {
-        this.swanConfig = swanConfig;
-    }
 
     @Override
     public int getOrder() {
@@ -91,7 +81,7 @@ public class SwanBloomFilterScheduled implements SmartApplicationListener {
     private void selfRecovery() {
 	    	scheduledThreadPool.schedule(() -> {
 	            try {
-	             	LOGGER.debug("清理swan存储");
+	             	LOGGER.info("清理swan存储");
 	             	swanCoordinatorRepository.reset();
 	            } catch (Exception e) {
 	                LOGGER.error("swan存储清理异常:", e);
