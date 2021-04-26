@@ -26,29 +26,38 @@ import org.springframework.context.event.SmartApplicationListener;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.zoo.swan.common.config.SwanConfig;
+import org.zoo.swan.common.jedis.JedisClient;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * EN:The type Cat transaction self recovery scheduled.
- * CN:定时补偿失败的请求
+ * 定时复位redis布隆过滤器
  * @author dzc
  */
 @Component
-public class SwanTransactionSelfRecoveryScheduled implements SmartApplicationListener {
+public class SwanBloomFilterScheduled implements SmartApplicationListener {
 
     /**
      * logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SwanTransactionSelfRecoveryScheduled.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SwanBloomFilterScheduled.class);
 
     private final SwanConfig swanConfig;
 
     private volatile AtomicBoolean isInit = new AtomicBoolean(false);
+    
+    ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(1);
+    
+    @Autowired
+    private JedisClient jedisClient;
 
  
 
     @Autowired(required = false)
-    public SwanTransactionSelfRecoveryScheduled(final SwanConfig swanConfig) {
+    public SwanBloomFilterScheduled(final SwanConfig swanConfig) {
         this.swanConfig = swanConfig;
     }
 
@@ -72,20 +81,19 @@ public class SwanTransactionSelfRecoveryScheduled implements SmartApplicationLis
         if (!isInit.compareAndSet(false, true)) {
             return;
         }
-        
         selfRecovery();
     }
 
     /**
-     * if have some exception by schedule execute cat transaction log.
+     * 
      */
     private void selfRecovery() {
-//        scheduledExecutorService
-//                .scheduleWithFixedDelay(() -> {
-//                    
-//                }, 1, 1, TimeUnit.SECONDS);
-
+	    	scheduledThreadPool.schedule(() -> {
+	            try {
+	             	jedisClient.resetRBloomFilter();
+	            } catch (Exception e) {
+	                LOGGER.error("cat scheduled transaction log is error:", e);
+	            } 
+	    }, 1, TimeUnit.SECONDS);
     }
-
-
 }
