@@ -79,13 +79,13 @@ public class SwanBloomFilterScheduled implements SmartApplicationListener {
      * 定时清除掉redis布隆过滤器
      */
     private void selfRecovery() {
-	    	scheduledThreadPool.schedule(() -> {
+	    	scheduledThreadPool.scheduleWithFixedDelay(() -> {
 	            try {
-	             	LOGGER.info("清理swan存储");
+	             	LOGGER.debug("清理swan存储");
 	             	swanCoordinatorRepository.reset();
 	            } catch (Exception e) {
 	                LOGGER.error("swan存储清理异常:", e);
 	            } 
-	    }, 1, TimeUnit.SECONDS);
+	    },0,24, TimeUnit.HOURS);
     }
 }
