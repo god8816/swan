@@ -35,11 +35,11 @@ public class RBloomFilterConfig {
     /**
      * 布隆过滤器预计统计总数
      * */
-	private Long totalNum = 100000000L;
+	private Long totalNum = 1000L;
 	
 	/**
      * 期望误差率
      * */
-	private Double errorRate = 0.00001;
+	private Double errorRate = 0.0000000000000001; 
    
 }
