@@ -27,6 +27,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.jedis.JedisClient;
+import org.zoo.swan.core.spi.SwanCoordinatorRepository;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -52,7 +53,7 @@ public class SwanBloomFilterScheduled implements SmartApplicationListener {
     ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(1);
     
     @Autowired
-    private JedisClient jedisClient;
+    private SwanCoordinatorRepository swanCoordinatorRepository;
 
  
 
@@ -85,14 +86,15 @@ public class SwanBloomFilterScheduled implements SmartApplicationListener {
     }
 
     /**
-     * 
+     * 定时清除掉redis布隆过滤器
      */
     private void selfRecovery() {
 	    	scheduledThreadPool.schedule(() -> {
 	            try {
-	             	jedisClient.resetRBloomFilter();
+	             	LOGGER.debug("清理swan存储");
+	             	swanCoordinatorRepository.reset();
 	            } catch (Exception e) {
-	                LOGGER.error("cat scheduled transaction log is error:", e);
+	                LOGGER.error("swan存储清理异常:", e);
 	            } 
 	    }, 1, TimeUnit.SECONDS);
     }

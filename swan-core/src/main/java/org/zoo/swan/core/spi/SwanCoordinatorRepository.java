@@ -47,5 +47,12 @@ public interface SwanCoordinatorRepository {
      * @param swanConfig  
      */
     void init(SwanConfig swanConfig);
+    
+    
+	/**
+     * 重置存储，提高准确度和释放资源
+     * @return the boolean
+     */
+	boolean reset();	
 
 }

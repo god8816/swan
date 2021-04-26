@@ -122,4 +122,15 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
             jedisClient = new JedisClientSingle(redissonClient,swanConfig);
         }
     }
+
+
+	@Override
+	public boolean reset() {
+		 try {
+	            boolean status = jedisClient.resetRBloomFilter();
+	            return status;
+	        } catch (Exception e) {
+	            return false;
+	        }
+	}
 }
