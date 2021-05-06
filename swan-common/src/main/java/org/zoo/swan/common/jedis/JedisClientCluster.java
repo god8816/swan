@@ -79,6 +79,7 @@ public class JedisClientCluster implements JedisClient {
 
 	@Override
 	public boolean resetRBloomFilter() {
+		//当布隆过滤器的容量到达1%的时候就定时清理，进一步降低重复的概率
 		if(bloomFilter.count()/bloomFilter.getSize()>0.01) {
 			bloomFilter.delete();
 			initBloomFilter();	

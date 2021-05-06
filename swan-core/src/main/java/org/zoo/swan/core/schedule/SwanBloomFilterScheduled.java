@@ -86,6 +86,6 @@ public class SwanBloomFilterScheduled implements SmartApplicationListener {
 	            } catch (Exception e) {
 	                LOGGER.error("swan存储清理异常:", e);
 	            } 
-	    },0,24, TimeUnit.HOURS);
+	    },0,1, TimeUnit.HOURS);
     }
 }
