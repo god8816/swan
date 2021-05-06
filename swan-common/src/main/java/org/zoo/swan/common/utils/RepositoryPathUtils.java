@@ -17,7 +17,6 @@
 
 package org.zoo.swan.common.utils;
 
-import org.zoo.swan.common.constant.CommonConstant;
 
 /**
  * The RepositoryPathUtils.
@@ -48,14 +47,12 @@ public class RepositoryPathUtils {
     public static String getFullFileName(final String filePath, final String id) {
         return String.format("%s/%s", filePath, id);
     }
-
+    
     /**
-     * Build redis key prefix string.
-     *
-     * @param applicationName the application name
-     * @return the string
-     */
-    public static String buildRedisKeyPrefix(final String applicationName) {
-        return String.format(CommonConstant.RECOVER_REDIS_KEY_PRE, applicationName);
+     * 创建布隆过滤器
+     * */
+    public static String buildBloomFilterKey(final String mark,final String keyPrefix, final String id) {
+        return String.join("_",mark, keyPrefix, id);
     }
+
 }

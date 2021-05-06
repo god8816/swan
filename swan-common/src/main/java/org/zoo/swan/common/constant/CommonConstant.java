@@ -24,16 +24,21 @@ package org.zoo.swan.common.constant;
  */
 public final class CommonConstant {
 
- 
-    /**
-     * The constant RECOVER_REDIS_KEY_PRE.
-     */
-    public final static String RECOVER_REDIS_KEY_PRE = "swan:transaction:%s";
-
-
     /**
      * The constant LINE_SEPARATOR.
      */
     public final static String LINE_SEPARATOR = System.getProperty("line.separator");
+    
+    
+    /**
+     * Now
+     */
+    public final static String Now = "now";
+    
+    /**
+     * History
+     */
+    public final static String History = "history";
+
 
 }
