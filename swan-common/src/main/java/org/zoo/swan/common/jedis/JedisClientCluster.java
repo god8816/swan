@@ -79,8 +79,11 @@ public class JedisClientCluster implements JedisClient {
 
 	@Override
 	public boolean resetRBloomFilter() {
-		bloomFilter.delete();
-		initBloomFilter();	
+		if(bloomFilter.count()/bloomFilter.getSize()>0.01) {
+			bloomFilter.delete();
+			initBloomFilter();	
+			LOGGER.debug("清理swan存储成功");
+		}
 		return true;
 	}
 }
