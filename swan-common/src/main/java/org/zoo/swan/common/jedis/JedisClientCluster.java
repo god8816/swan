@@ -56,7 +56,7 @@ public class JedisClientCluster implements JedisClient {
 	public synchronized RBloomFilter<String> initBloomFilter() {
 		RBloomFilter<String> bloomFilter = redissonClient.getBloomFilter(RepositoryPathUtils.buildRedisKey(swanConfig.getApplicationName(), swanConfig.getSwanRedisConfig().getRBloomFilterConfig().getName()));
 		bloomFilter.tryInit(swanConfig.getSwanRedisConfig().getRBloomFilterConfig().getTotalNum(),swanConfig.getSwanRedisConfig().getRBloomFilterConfig().getErrorRate());
-		LOGGER.info("布隆过滤器初始化成功,容错率:{},预计已经插入数量:{},容量:{},内存使用量:{}bytes",bloomFilter.getFalseProbability(),bloomFilter.count(),bloomFilter.getSize(),bloomFilter.sizeInMemory()); 
+		LOGGER.info("布隆过滤器初始化成功,容错率:{},预计已经插入数量:{},容量:{},内存使用量:{}bytes",bloomFilter.getFalseProbability(),bloomFilter.count(),bloomFilter.getSize(),bloomFilter.sizeInMemoryAsync()); 
 		this.bloomFilter = bloomFilter;
 		return bloomFilter;
 	}
