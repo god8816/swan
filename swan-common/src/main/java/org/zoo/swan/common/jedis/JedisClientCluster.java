@@ -70,13 +70,11 @@ public class JedisClientCluster implements JedisClient {
 
 	@Override
 	public boolean addToRBloomFilter(String key) {
-		initBloomFilter();
 		return nowBloomFilter.add(key);
 	}
 
 	@Override
 	public boolean isContainsInRBloomFilter(String key) {
-		initBloomFilter();
 		return nowBloomFilter.contains(key)==true?nowBloomFilter.contains(key):historyBloomFilter.contains(key);
 	}
 

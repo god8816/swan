@@ -53,7 +53,7 @@ public class JedisClientSingle implements JedisClient {
 
 	/**初始化布隆过滤器
 	 * @param swanConfig */
-	public void initBloomFilter() {
+	public synchronized void initBloomFilter() {
 		//当前布隆过滤器初始化
 		RBloomFilter<String> nowBloomFilter = redissonClient.getBloomFilter(RepositoryPathUtils.buildBloomFilterKey(DateUtils.subDay(0),swanConfig.getApplicationName(), swanConfig.getSwanRedisConfig().getRBloomFilterConfig().getName()));
 		nowBloomFilter.tryInit(swanConfig.getSwanRedisConfig().getRBloomFilterConfig().getTotalNum(),swanConfig.getSwanRedisConfig().getRBloomFilterConfig().getErrorRate());
@@ -70,13 +70,11 @@ public class JedisClientSingle implements JedisClient {
 
 	@Override
 	public boolean addToRBloomFilter(String key) {
-		initBloomFilter();
 		return nowBloomFilter.add(key);
 	}
 
 	@Override
 	public boolean isContainsInRBloomFilter(String key) {
-		initBloomFilter();
 		return nowBloomFilter.contains(key)==true?nowBloomFilter.contains(key):historyBloomFilter.contains(key);
 	}
 
