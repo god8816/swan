@@ -14,6 +14,8 @@ Swan【天鹅】
   * swan-spring-boot-starter : 支持spring boot starter模块
   
   * swan-spring-cloud-demo : spring cloud集成demo
+  
+  * swan-spring-spring-demo : spring mvc集成demo
  
 #  特征
    
