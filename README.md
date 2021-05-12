@@ -1,72 +1,43 @@
-Cat
+Swan【天鹅】
 ================
 
-#### High-Performance distributed transaction solution ( Notice ).
+#### 校验重复的框架.
 
 
-# Modules
+# 模块
+  * swan-annotation : 注解打标模块
 
-  * Cat-admin: Transaction log management background
+  * swan-common : 系统公共模块 比如：系统配置、系统常量、枚举、异常、存储模块[目前存储默认为redis]、token校验接口模块、公共类
   
-  * Cat-annotation : Framework common annotations
-  
-  * Cat-apache-dubbo : Support for the dubbo rpc framework 2.7.X
+  * swan-core : 功能实现模块 比如：token验证实现、spi加载实现、定时清理布隆过滤器实现、aop切面拦截              
 
-  * Cat-common :  Framework common class
+  * swan-spring-boot-starter : 支持spring boot starter模块
   
-  * Cat-core : Framework core package (annotation processing, log storage...)              
-  
-  * Cat-dashboard : Management background front-end
-  
-  * Cat-dubbo : Support for the dubbo framework Less than 2.7 version
-  
-  * Cat-springcloud : Support for the spring cloud rpc framework
-  
-  * Cat-spring-boot-starter : Support for the spring boot starter
-  
-  * Cat-demo : Examples using the Cat framework
+  * swan-spring-cloud-demo : spring cloud集成demo
  
-#  Features
+#  特征
    
-   *  All spring versions are supported and Seamless integration
+   *  支持spiring所有版本
    
-   *  Provides support for the springcloud dubbo RPC framework
+   *  支持spring mvc
    
-   *  Provides integration of the spring boot starter approach
+   *  支持spring boot、spring cloud
    
-   *  Support Nested transaction 
+   *  存储支持reds 支持redes单点、cluster集群、哨兵集群
    
-   *  Local transaction storage support :  oracle mysql 
-   
-   *  Transaction log serialization support : java hessian kryo protostuff
-   
-   *  Spi extension : Users can customize the storage of serialization and transaction logs
+   *  丰富的扩展支持 支持存储替换成其他产品需要自己实现 
 
-# Prerequisite 
+# 环境要求 
 
-  * You must use jdk1.8 +
+  * JDK版本jdk1.8 +
   
-  * You must be a user of the spring framework
+  * Spring 环境
   
-  * You must use one of the dubbo, and springcloud RPC frameworks 
-  
-# About 
+# 简介 
 
-   Cat is a NOTICE solution for distributed transactions, Its rapid integration, zero penetration high performance has been run by a number of companies including my own company in the production environment.
-  
-   Its performance is nearly lossless compared to your RPC framework, its confrim cancel, and its log store is conducted asynchronously using a disruptor.
-   
-   
-# Document
-[Document Support](http://note.youdao.com/noteshare?id=0a11948424121449a5ec8a6c5e8507d4)
-
-# QQ Group Support
-  QQ group num：810268021
-
-# QQ Me Support
+  Swan是一个校验重复的框架。其工作原理是下发token到请求header里面，然后前端获取header里面的key对应的value。在方法保存的时候带key、value，框架在保存之间先保存这个key，然后在保存用户方法的内容。如果用户再次保存的时候会校验value是否存在，就达到校验重复的功能。
+  目前框架存储使用的是redis 布隆过滤器，这个技术方案比较节省空间，性能也比较高。如果你的项目不用redis可以自定义sapi模块更换存储。目前key支持uuid及SnowflakeId。
+  框架是基于注解拦截，不改变项目其他绿色轻量。
+ 
+# QQ号
   QQ num：948351520
-  
- 
-
-
-
