@@ -10,6 +10,10 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
+    <context:annotation-config />
+    <context:component-scan base-package="com.zoo.swan.*,org.zoo.swan.*" />
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+   
     <bean id="swanTransactionBootstrap" class="org.zoo.swan.core.bootstrap.SwanTransactionBootstrap">
          <property name="started" value="true"/>
          <property name="tokenSupport" value="UUID"/>
