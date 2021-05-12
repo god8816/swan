@@ -19,6 +19,7 @@ package org.zoo.swan.common.token;
 
 import org.zoo.swan.annotation.SwanSPI;
 import org.zoo.swan.common.exception.SwanException;
+import org.zoo.swan.common.exception.SwanRuntimeException;
 
 /**
  * TransIdFactory.
@@ -32,6 +33,6 @@ public interface TokenGenerate {
      * 获取全局ID
      * @throws SwanException 
      */
-    String getTokenId() throws SwanException;
+    String getTokenId() throws SwanRuntimeException;
 
 }

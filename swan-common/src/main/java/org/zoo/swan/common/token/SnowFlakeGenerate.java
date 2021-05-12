@@ -18,7 +18,7 @@
 package org.zoo.swan.common.token;
 
 import org.zoo.swan.annotation.SwanSPI;
-import org.zoo.swan.common.exception.SwanException;
+import org.zoo.swan.common.exception.SwanRuntimeException;
 import org.zoo.swan.common.utils.IdWorkerUtils;
 
 /**
@@ -30,7 +30,7 @@ import org.zoo.swan.common.utils.IdWorkerUtils;
 public class SnowFlakeGenerate implements TokenGenerate {
 
 	@Override
-	public String getTokenId() throws SwanException {
+	public String getTokenId() throws SwanRuntimeException {
 		return IdWorkerUtils.getInstance().createUUID();
 	}
 }

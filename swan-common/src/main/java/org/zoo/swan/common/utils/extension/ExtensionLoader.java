@@ -18,7 +18,7 @@
 package org.zoo.swan.common.utils.extension;
 
 import org.zoo.swan.annotation.SwanSPI;
-import org.zoo.swan.common.exception.SwanException;
+import org.zoo.swan.common.exception.SwanRuntimeException;
 
 import java.util.Objects;
 import java.util.ServiceLoader;
@@ -51,13 +51,13 @@ public final class ExtensionLoader<T> {
      */
     public static <T> ExtensionLoader<T> getExtensionLoader(final Class<T> type) {
         if (type == null) {
-            throw new SwanException("type == null");
+            throw new SwanRuntimeException("type == null");
         }
         if (!type.isInterface()) {
-            throw new SwanException("Extension type(" + type + ") not interface!");
+            throw new SwanRuntimeException("Extension type(" + type + ") not interface!");
         }
         if (!withExtensionAnnotation(type)) {
-            throw new SwanException("type" + type.getName() + "not exist");
+            throw new SwanRuntimeException("type" + type.getName() + "not exist");
         }
         return new ExtensionLoader<>(type);
     }
@@ -73,7 +73,7 @@ public final class ExtensionLoader<T> {
         return StreamSupport.stream(loader.spliterator(), false)
                 .filter(e -> Objects.equals(e.getClass()
                         .getAnnotation(SwanSPI.class).value(), value))
-                .findFirst().orElseThrow(() -> new SwanException("未发现ID生成策略请检查配置"));
+                .findFirst().orElseThrow(() -> new SwanRuntimeException("未发现ID生成策略请检查配置"));
     }
 
 }

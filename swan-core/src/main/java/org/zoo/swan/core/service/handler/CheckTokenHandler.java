@@ -19,7 +19,10 @@ package org.zoo.swan.core.service.handler;
 
 import java.lang.reflect.Method;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,8 @@ import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.core.coordinator.SwanCoordinatorService;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 import org.zoo.swan.core.utils.JoinPointUtils;
+
+import com.alibaba.fastjson.JSON;
 
 
 /**
@@ -67,6 +72,13 @@ public class CheckTokenHandler implements SwanTransactionHandler {
             return point.proceed();
         }
         LogUtil.info(LOGGER, () -> "用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenKey);
-        throw new SwanException(errorMsg);
+        
+        SwanException swanException = new SwanException(-1,errorMsg);
+        String errorMsgObj = JSON.toJSONString(swanException);
+        HttpServletResponse response  = ((ServletRequestAttributes) requestAttributes).getResponse();
+		response.setContentType("application/json; charset=utf-8");
+        ServletOutputStream sos = response.getOutputStream();
+		sos.write(errorMsgObj.getBytes());
+		return null;
     }
 }

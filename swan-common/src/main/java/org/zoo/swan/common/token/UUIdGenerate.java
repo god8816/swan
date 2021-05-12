@@ -21,6 +21,7 @@ import java.util.UUID;
 
 import org.zoo.swan.annotation.SwanSPI;
 import org.zoo.swan.common.exception.SwanException;
+import org.zoo.swan.common.exception.SwanRuntimeException;
 
 /**
  * UUIdGenerate.
@@ -31,7 +32,7 @@ import org.zoo.swan.common.exception.SwanException;
 public class UUIdGenerate implements TokenGenerate {
 
 	@Override
-	public String getTokenId() throws SwanException {
+	public String getTokenId() throws SwanRuntimeException {
 		return UUID.randomUUID().toString().replaceAll("-","");
 	}
 }

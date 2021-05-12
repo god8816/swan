@@ -17,46 +17,34 @@
 
 package org.zoo.swan.common.exception;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * SwanException.
  *
  * @author dzc
  */
-public class SwanException extends RuntimeException {
+@Getter
+@Setter
+public class SwanException  {
 
     private static final long serialVersionUID = -948934144333391208L;
+    
+    private Integer code = 200;
+    
+    private String msg;
 
-    /**
-     * Instantiates a new Tcc exception.
-     */
+ 
     public SwanException() {
     }
 
-    /**
-     * Instantiates a new Tcc exception.
-     *
-     * @param message the message
-     */
-    public SwanException(final String message) {
-        super(message);
+    public SwanException(final String msg) {
+        this.msg = msg;
     }
-
-    /**
-     * Instantiates a new Tcc exception.
-     *
-     * @param message the message
-     * @param cause   the cause
-     */
-    public SwanException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
-
-    /**
-     * Instantiates a new Tcc exception.
-     *
-     * @param cause the cause
-     */
-    public SwanException(final Throwable cause) {
-        super(cause);
+ 
+    public SwanException(final Integer code ,final String msg) {
+        this.code = code;
+        this.msg = msg;
     }
 }
