@@ -18,22 +18,18 @@
 package org.zoo.swan.common.exception;
 
 /**
- * TccRuntimeException.
- *
+ * 公共异常
  * @author dzc
  */
 public class SwanRuntimeException extends RuntimeException {
 
     private static final long serialVersionUID = -1949770547060521702L;
 
-    /**
-     * Instantiates a new Tcc runtime exception.
-     */
+
     public SwanRuntimeException() {
     }
 
     /**
-     * Instantiates a new Tcc runtime exception.
      *
      * @param message the message
      */
@@ -42,7 +38,6 @@ public class SwanRuntimeException extends RuntimeException {
     }
 
     /**
-     * Instantiates a new Tcc runtime exception.
      *
      * @param message the message
      * @param cause   the cause
@@ -52,7 +47,6 @@ public class SwanRuntimeException extends RuntimeException {
     }
 
     /**
-     * Instantiates a new Tcc runtime exception.
      *
      * @param cause the cause
      */

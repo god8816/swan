@@ -31,7 +31,7 @@ public interface SwanTransactionInterceptor {
     /**
      * SwanTransactionInterceptor handler.
      *
-     * @param pjp tcc point cut.
+     * @param pjp point cut.
      * @return Object object
      * @throws Throwable Throwable
      */

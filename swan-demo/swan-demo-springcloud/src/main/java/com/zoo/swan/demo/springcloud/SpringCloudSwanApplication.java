@@ -21,7 +21,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
- * The type SpringCloud tcc account application.
+ * The type SpringCloud  application.
  *
  * @author dzc
  */

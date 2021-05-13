@@ -57,7 +57,7 @@ public abstract class AbstractSwanTransactionAspect {
      * @throws Throwable Throwable
      */
     @Around("swanInterceptor()")
-    public Object interceptTccMethod(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object interceptMethod(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         return swanTransactionInterceptor.interceptor(proceedingJoinPoint);
     }
 
