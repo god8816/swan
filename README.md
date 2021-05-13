@@ -21,9 +21,7 @@ Swan【天鹅】
    
    *  支持spiring所有版本
    
-   *  支持spring mvc
-   
-   *  支持spring boot、spring cloud
+   *  支持spring mvc、spring boot、spring cloud
    
    *  存储支持reds 支持redes单点、cluster集群、哨兵集群
    
