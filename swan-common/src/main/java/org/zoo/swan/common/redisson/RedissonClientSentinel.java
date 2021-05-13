@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.common.jedis;
+package org.zoo.swan.common.redisson;
 
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
@@ -26,14 +26,14 @@ import org.zoo.swan.common.utils.DateUtils;
 import org.zoo.swan.common.utils.RepositoryPathUtils;
 
 /**
- * JedisClientCluster.
+ * JedisClientSentinel.
  * @author dzc
  */
-public class JedisClientCluster implements JedisClient {
+public class RedissonClientSentinel implements RedissonClientInterface {
     /**
      * logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(JedisClientCluster.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedissonClientCluster.class);
 
     private RedissonClient redissonClient = null;
     
@@ -46,7 +46,7 @@ public class JedisClientCluster implements JedisClient {
 	RBloomFilter<String> historyBloomFilter = null;
 	
 	
-	public JedisClientCluster(RedissonClient redissonClient, SwanConfig swanConfig) {
+	public RedissonClientSentinel(RedissonClient redissonClient, SwanConfig swanConfig) {
 		this.redissonClient = redissonClient;
 		this.swanConfig = swanConfig;
 	}

@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-package org.zoo.swan.common.jedis;
+package org.zoo.swan.common.redisson;
 
 /**
  * JedisClient.
  *
  * @author dzc
  */
-public interface JedisClient {
+public interface RedissonClientInterface {
 
     /**
      * 在布隆过滤器添加key

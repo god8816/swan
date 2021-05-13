@@ -29,10 +29,10 @@ import org.zoo.swan.annotation.SwanSPI;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.common.config.SwanRedisConfig;
 import org.zoo.swan.common.exception.SwanRuntimeException;
-import org.zoo.swan.common.jedis.JedisClient;
-import org.zoo.swan.common.jedis.JedisClientCluster;
-import org.zoo.swan.common.jedis.JedisClientSentinel;
-import org.zoo.swan.common.jedis.JedisClientSingle;
+import org.zoo.swan.common.redisson.RedissonClientCluster;
+import org.zoo.swan.common.redisson.RedissonClientInterface;
+import org.zoo.swan.common.redisson.RedissonClientSentinel;
+import org.zoo.swan.common.redisson.RedissonClientSingle;
 import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.common.utils.RepositoryPathUtils;
 import org.zoo.swan.core.spi.SwanCoordinatorRepository;
@@ -50,7 +50,7 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisCoordinatorRepository.class);
 
-    private JedisClient jedisClient;
+    private RedissonClientInterface jedisClient;
 
     private SwanConfig swanConfig;
 
@@ -101,7 +101,7 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
             config.useClusterServers().setPassword(clusterServersConfig.getPassword());
             config.useClusterServers().setTimeout(clusterServersConfig.getTimeout());
             RedissonClient redissonClient = Redisson.create(config);
-            jedisClient = new JedisClientCluster(redissonClient,swanConfig);
+            jedisClient = new RedissonClientCluster(redissonClient,swanConfig);
         } else if (swanRedisConfig.getSentinel()) {
             LogUtil.info(LOGGER, () -> "构建redis 哨兵模式 ............");
             SentinelServersConfig sentinelServersConfig = swanRedisConfig.getSentinelServersConfig();
@@ -110,7 +110,7 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
             config.useSentinelServers().setPassword(sentinelServersConfig.getPassword());
             config.useSentinelServers().setTimeout(sentinelServersConfig.getTimeout());
             RedissonClient redissonClient = Redisson.create(config);
-            jedisClient =  new JedisClientSentinel(redissonClient,swanConfig);
+            jedisClient =  new RedissonClientSentinel(redissonClient,swanConfig);
         } else if (swanRedisConfig.getSingle()) { 
          	LogUtil.info(LOGGER, () -> "构建redis 单点模式............");
          	SingleServerConfig singleServerConfig = swanRedisConfig.getSingleServerConfig();
@@ -119,7 +119,7 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
          	config.useSingleServer().setUsername(singleServerConfig.getUsername());
          	config.useSingleServer().setTimeout(singleServerConfig.getTimeout());
          	RedissonClient redissonClient = Redisson.create(config);
-            jedisClient = new JedisClientSingle(redissonClient,swanConfig);
+            jedisClient = new RedissonClientSingle(redissonClient,swanConfig);
         }
     }
 
