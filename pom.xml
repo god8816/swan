@@ -334,7 +334,7 @@
             <dependency>
 			    <groupId>org.redisson</groupId>
 			    <artifactId>redisson</artifactId>
-			    <version>3.14.1</version>
+			    <version>3.15.4</version>
 			</dependency>
         </dependencies>
     </dependencyManagement>
