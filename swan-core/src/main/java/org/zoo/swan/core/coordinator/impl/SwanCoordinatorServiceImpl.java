@@ -17,10 +17,12 @@
 
 package org.zoo.swan.core.coordinator.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zoo.swan.common.config.SwanConfig;
 import org.zoo.swan.core.coordinator.SwanCoordinatorService;
 import org.zoo.swan.core.helper.SpringBeanUtils;
+import org.zoo.swan.core.schedule.SwanBloomFilterScheduled;
 import org.zoo.swan.core.spi.SwanCoordinatorRepository;
 
 /**
@@ -32,12 +34,16 @@ import org.zoo.swan.core.spi.SwanCoordinatorRepository;
 public class SwanCoordinatorServiceImpl implements SwanCoordinatorService {
 
     private SwanCoordinatorRepository coordinatorRepository;
+    
+    @Autowired
+    private SwanBloomFilterScheduled swanBloomFilterScheduled;
 
   
     @Override
     public void start(final SwanConfig swanConfig) {
         coordinatorRepository = SpringBeanUtils.getInstance().getBean(SwanCoordinatorRepository.class);
         coordinatorRepository.init(swanConfig);
+        swanBloomFilterScheduled.init(coordinatorRepository);
     }
 
 
