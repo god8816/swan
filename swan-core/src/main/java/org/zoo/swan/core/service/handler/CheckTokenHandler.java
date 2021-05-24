@@ -71,8 +71,10 @@ public class CheckTokenHandler implements SwanTransactionHandler {
          	Cookie[] cookies = request.getCookies();
          	if(cookies != null && cookies.length > 0){
          	     for (Cookie cookie : cookies){
-         	     	tokenValue = cookie.getValue();
-         	     	break;
+         	    	   if(cookie.getName().equals(swanConfig.getTokenKey())) {
+                	     	tokenValue = cookie.getValue();
+                 	    break;
+         	    	   }
          	     }
          	 } 
         }
