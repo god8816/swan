@@ -35,6 +35,11 @@ public class SwanConfig {
     private Boolean started = true;
     
     /**
+     * 模式 header、cookie
+     */
+    private String mode = "cookie";
+    
+    /**
      * 服务名称
      */
     private String applicationName = "applicationName";

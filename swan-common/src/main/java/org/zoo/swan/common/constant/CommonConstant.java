@@ -39,6 +39,12 @@ public final class CommonConstant {
      * History
      */
     public final static String History = "history";
+    
+    
+    /**
+     * 模式 header、cookie
+     */
+    public final static String Mode = "header";
 
 
 }

@@ -12,6 +12,7 @@ org:
   zoo:
     swan:
       started: true
+      mode: cookie
       application-name: yst-tms-admin
       token-support: SnowId
       token-key: YST_ADMIN_KEY

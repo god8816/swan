@@ -20,6 +20,7 @@ package org.zoo.swan.core.service.handler;
 import java.lang.reflect.Method;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,8 +34,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.zoo.swan.annotation.Swan;
 import org.zoo.swan.common.config.SwanConfig;
+import org.zoo.swan.common.constant.CommonConstant;
 import org.zoo.swan.common.exception.SwanException;
-import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.core.coordinator.SwanCoordinatorService;
 import org.zoo.swan.core.service.SwanTransactionHandler;
 import org.zoo.swan.core.utils.JoinPointUtils;
@@ -49,7 +50,7 @@ import com.alibaba.fastjson.JSON;
 @Component
 public class CheckTokenHandler implements SwanTransactionHandler {
 	
-    private static final Logger LOGGER = LoggerFactory.getLogger(CheckTokenHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(CheckTokenHandler.class);
       
     @Autowired
     private SwanConfig swanConfig;
@@ -64,14 +65,25 @@ public class CheckTokenHandler implements SwanTransactionHandler {
         final String errorMsg = swan.errorMsg();
         final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        String tokenKey = request.getHeader(swanConfig.getTokenKey());
-        boolean isExistStatus = swanCoordinatorService.isExist(tokenKey);
+        
+        String tokenValue = request.getHeader(swanConfig.getTokenKey());
+        if(!CommonConstant.Mode.equals(swanConfig.getMode())) {
+         	Cookie[] cookies = request.getCookies();
+         	if(cookies != null && cookies.length > 0){
+         	     for (Cookie cookie : cookies){
+         	     	tokenValue = cookie.getValue();
+         	     	break;
+         	     }
+         	 } 
+        }
+        
+        boolean isExistStatus = swanCoordinatorService.isExist(tokenValue);
         if(!isExistStatus) {
-         	Boolean saveStatus = swanCoordinatorService.add(tokenKey);
-         	LogUtil.warn(LOGGER, () -> "用户TokenID保存状态,"+swanConfig.getTokenKey()+"=="+tokenKey+",状态："+saveStatus);
+         	Boolean saveStatus = swanCoordinatorService.add(tokenValue);
+         	logger.info("用户TokenID保存状态,"+swanConfig.getTokenKey()+"=="+tokenValue+",状态："+saveStatus);
             return point.proceed();
         }
-        LogUtil.info(LOGGER, () -> "用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenKey);
+        logger.info("用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenValue);
         
         SwanException swanException = new SwanException(-1,errorMsg);
         String errorMsgObj = JSON.toJSONString(swanException);

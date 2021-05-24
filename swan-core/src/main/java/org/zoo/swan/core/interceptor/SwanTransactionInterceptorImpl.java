@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.zoo.swan.common.utils.LogUtil;
 import org.zoo.swan.core.service.SwanTransactionAspectService;
 
 
@@ -17,11 +16,6 @@ import org.zoo.swan.core.service.SwanTransactionAspectService;
  */
 @Component
 public class SwanTransactionInterceptorImpl implements SwanTransactionInterceptor {
-
-    /**
-     * logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SwanTransactionInterceptorImpl.class);
 
     private final SwanTransactionAspectService swanTransactionAspectService;
 

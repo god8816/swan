@@ -20,8 +20,6 @@ package org.zoo.swan.common.utils;
 
 import java.util.List;
 
-import jodd.util.StringBand;
-
 /**
  * The type String utils.
  *
