@@ -57,4 +57,24 @@ public class SwanCoordinatorServiceImpl implements SwanCoordinatorService {
 	public boolean add(String tokenId) {
 		return coordinatorRepository.add(tokenId);
 	}
+
+    /**
+     * 获取分布式锁
+     * @param <T>
+     * @param tokenId  tokenId
+     */
+	@Override
+	public <T> T getLock(String tokenId) {
+		// TODO Auto-generated method stub
+		return coordinatorRepository.getLock(tokenId);
+	}
+
+    /**
+     * 分布式锁解锁
+     * @param <T>
+     */
+	@Override
+	public <T> void unlock(T t) {
+		coordinatorRepository.unlock(t);
+	}	
 }

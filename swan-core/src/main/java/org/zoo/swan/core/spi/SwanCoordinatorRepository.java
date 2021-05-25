@@ -53,6 +53,19 @@ public interface SwanCoordinatorRepository {
      * 重置存储，提高准确度和释放资源
      * @return the boolean
      */
-	boolean reset();	
+	boolean reset();
+
+    /**
+     * 获取分布式锁
+     * @param <T>
+     * @param tokenId  tokenId
+     */
+	<T> T getLock(String tokenId);
+
+    /**
+     * 分布式锁解锁
+     * @param <T>
+     */
+	<T> void unlock(T t);	
 
 }

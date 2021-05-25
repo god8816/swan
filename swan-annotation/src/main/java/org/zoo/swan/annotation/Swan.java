@@ -43,4 +43,10 @@ public @interface Swan {
      * @return the string
      */
     String errorMsg() default "请不要重复提交";
+    
+    /**
+     * 是否使用分布式锁
+     * @return the string
+     */
+    boolean hasLock() default true;
 }

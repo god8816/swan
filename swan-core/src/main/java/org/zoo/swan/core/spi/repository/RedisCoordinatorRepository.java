@@ -18,6 +18,7 @@
 package org.zoo.swan.core.spi.repository;
 
 import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.ClusterServersConfig;
 import org.redisson.config.Config;
@@ -133,4 +134,27 @@ public class RedisCoordinatorRepository implements SwanCoordinatorRepository {
 	            return false;
 	        }
 	}
+
+    /**
+     * 获取分布式锁
+     * @param <T>
+     * @param tokenId  tokenId
+     */
+	@Override
+	public RLock getLock(String tokenId) {
+		return jedisClient.getLock(tokenId);
+	}
+
+    /**
+     * 分布式锁解锁
+     * @param <T>
+     */
+	@Override
+	public <T> void unlock(T t) {
+		RLock rLock = (RLock)t;
+		rLock.unlock();
+	}
+
+
+	
 }

@@ -17,6 +17,8 @@
 
 package org.zoo.swan.common.redisson;
 
+import org.redisson.api.RLock;
+
 /**
  * JedisClient.
  *
@@ -43,5 +45,11 @@ public interface RedissonClientInterface {
      * 布隆过滤器复位，删老增新，提高布隆过滤器的准确度和释放资源
      * @return the boolean
      */
-	boolean resetRBloomFilter();	
+	boolean resetRBloomFilter();
+
+    /**
+     * 获取分布式锁
+     * @param tokenId  tokenId
+     */
+	RLock getLock(String tokenId);	
 }

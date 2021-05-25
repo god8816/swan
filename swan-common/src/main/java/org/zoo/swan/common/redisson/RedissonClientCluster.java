@@ -18,6 +18,7 @@
 package org.zoo.swan.common.redisson;
 
 import org.redisson.api.RBloomFilter;
+import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ import org.zoo.swan.common.utils.RepositoryPathUtils;
 /**
  * JedisClientCluster.
  * @author dzc
+ * @param <T>
  */
 public class RedissonClientCluster implements RedissonClientInterface {
     /**
@@ -89,5 +91,15 @@ public class RedissonClientCluster implements RedissonClientInterface {
 			bloomFilter.delete();
 		}
 		return true;
+	}
+
+    /**
+     * 获取分布式锁
+     * @param tokenId  tokenId
+     */
+	@Override
+	public RLock getLock(String tokenId) {
+		String key = swanConfig.getSwanRedisConfig().getRBloomFilterConfig().getName()+tokenId;
+		return redissonClient.getLock(key);
 	}
 }

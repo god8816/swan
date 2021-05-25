@@ -16,8 +16,14 @@
  */
 
 package com.zoo.swan.demo.springcloud.controller;
+import java.io.IOException;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.zoo.swan.annotation.Swan;
 import org.zoo.swan.annotation.TransTypeEnum;
 import org.zoo.swan.common.exception.SwanRuntimeException;
@@ -39,23 +45,26 @@ public class SpringCloudController {
     
     
     @RequestMapping("/save")
-    @Swan(value=TransTypeEnum.SAVE,errorMsg="小狗狗别重复保存")
-    public String save(String userId) {
-    	    //修改验证不通过
-        return "14543234";
+    @Swan(value=TransTypeEnum.SAVE,hasLock=true,errorMsg="小狗狗别重复保存")
+    public void save(HttpServletResponse response) throws IOException { 
+     response.setContentType("application/json; charset=utf-8");
+     ServletOutputStream sos = response.getOutputStream();
+     sos.write("sava11111".getBytes());
     }
     
     
     @RequestMapping("/save/error")
-    @Swan(value=TransTypeEnum.SAVE,errorMsg="小猫猫别重复保存")
-    public String saveError(String userId) {
+    @Swan(value=TransTypeEnum.SAVE,hasLock=true,errorMsg="小猫猫别重复保存")
+    public void saveError(HttpServletResponse response) throws IOException {
     	    try {
 			throw new SwanRuntimeException("保存异常了");
 		} catch (Exception e) {
 			SwanUtil.sendToken();
 		}
     	    //修改验证不通过
-        return "14543234";
+    	    response.setContentType("application/json; charset=utf-8");
+    	    ServletOutputStream sos = response.getOutputStream();
+    	    sos.write("sava22222".getBytes());
     }
 
 

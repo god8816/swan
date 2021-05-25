@@ -26,8 +26,7 @@ import org.zoo.swan.common.config.SwanConfig;
 public interface SwanCoordinatorService {
 
     /**
-     * init swan config.
-     *
+     * 初始化框架
      * @param swanConfig {@linkplain SwanConfig}
      * @throws Exception exception
      */
@@ -44,4 +43,17 @@ public interface SwanCoordinatorService {
      * @param tokenId  tokenId
      */
     boolean add(String tokenId);
+    
+    /**
+     * 获取分布式锁
+     * @param <T>
+     * @param tokenId  tokenId
+     */
+    <T> T getLock(String tokenId);
+    
+    /**
+     * 分布式锁解锁
+     * @param <T>
+     */
+    <T> void unlock(T t);
 }

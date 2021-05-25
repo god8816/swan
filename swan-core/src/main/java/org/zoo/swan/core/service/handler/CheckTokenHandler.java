@@ -18,6 +18,7 @@
 package org.zoo.swan.core.service.handler;
 
 import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.redisson.api.RLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,33 +68,55 @@ public class CheckTokenHandler implements SwanTransactionHandler {
         final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         
-        String tokenValue = request.getHeader(swanConfig.getTokenKey());
+        String tokenId = request.getHeader(swanConfig.getTokenKey());
         if(!CommonConstant.Mode.equals(swanConfig.getMode())) {
          	Cookie[] cookies = request.getCookies();
          	if(cookies != null && cookies.length > 0){
          	     for (Cookie cookie : cookies){
          	    	   if(cookie.getName().equals(swanConfig.getTokenKey())) {
-                	     	tokenValue = cookie.getValue();
+                	     	tokenId = cookie.getValue();
                  	    break;
          	    	   }
          	     }
          	 } 
         }
         
-        boolean isExistStatus = swanCoordinatorService.isExist(tokenValue);
-        if(!isExistStatus) {
-         	Boolean saveStatus = swanCoordinatorService.add(tokenValue);
-         	logger.info("用户TokenID保存状态,"+swanConfig.getTokenKey()+"=="+tokenValue+",状态："+saveStatus);
-            return point.proceed();
+        /**
+         * 1.间隔很短导致重复场景 - 建议使用分布式锁
+         * 2.间隔时间比较长导致重复 - 建议不使用分布式锁提高效率
+         * */
+        if(swan.hasLock()==true) {
+	    	    RLock rLock = swanCoordinatorService.getLock(tokenId);
+	            try {
+	             	  rLock.tryLock(2, TimeUnit.SECONDS);
+	             	  savaToken(point,errorMsg,requestAttributes,tokenId);
+	    		} finally {
+	    			if(rLock.isLocked()) {
+	    				swanCoordinatorService.unlock(rLock);
+	    			}
+	    		}
+        }else {
+         	savaToken(point,errorMsg,requestAttributes,tokenId);
         }
-        logger.info("用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenValue);
-        
-        SwanException swanException = new SwanException(-1,errorMsg);
-        String errorMsgObj = JSON.toJSONString(swanException);
-        HttpServletResponse response  = ((ServletRequestAttributes) requestAttributes).getResponse();
-		response.setContentType("application/json; charset=utf-8");
-        ServletOutputStream sos = response.getOutputStream();
-		sos.write(errorMsgObj.getBytes());
 		return null;
     }
+    
+    
+    public Object savaToken(final ProceedingJoinPoint point,String errorMsg,RequestAttributes requestAttributes,String tokenId) throws Throwable {
+    	    boolean isExistStatus = swanCoordinatorService.isExist(tokenId);
+        if(!isExistStatus) {
+          	Boolean saveStatus = swanCoordinatorService.add(tokenId);
+          	logger.info("用户TokenID保存状态,"+swanConfig.getTokenKey()+"=="+tokenId+",状态："+saveStatus);
+          	return point.proceed();
+         }
+         logger.info("用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenId);
+		 
+         SwanException swanException = new SwanException(-1,errorMsg);
+         String errorMsgObj = JSON.toJSONString(swanException);
+         HttpServletResponse response  = ((ServletRequestAttributes) requestAttributes).getResponse();
+ 		 response.setContentType("application/json; charset=utf-8");
+         ServletOutputStream sos = response.getOutputStream();
+ 		 sos.write(errorMsgObj.getBytes());
+ 		 return null;
+	}
 }
