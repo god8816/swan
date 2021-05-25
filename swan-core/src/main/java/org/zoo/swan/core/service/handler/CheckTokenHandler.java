@@ -82,8 +82,8 @@ public class CheckTokenHandler implements SwanTransactionHandler {
         }
         
         /**
-         * 1.间隔很短导致重复场景 - 建议使用分布式锁
-         * 2.间隔时间比较长导致重复 - 建议不使用分布式锁提高效率
+         * 1.间隔很短导致重复场景 - 建议使用分布式锁   比如：两次提交的时间间隔小于500毫秒建议使用分布式锁
+         * 2.间隔时间比较长导致重复 - 建议不使用分布式锁提高效率  比如：两次提交的时间间隔大于500毫秒可以不使用分布式锁，因为布隆过滤器已经初始化完成
          * */
         if(swan.hasLock()==true) {
 	    	    RLock rLock = swanCoordinatorService.getLock(tokenId);
