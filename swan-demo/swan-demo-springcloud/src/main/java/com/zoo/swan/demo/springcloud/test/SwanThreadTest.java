@@ -27,7 +27,7 @@ public class SwanThreadTest {
 					 String url = "http://127.0.0.1:8080/save";
 					 String json = "{}";
 					 Map<String, String> headsMap = new HashMap<>();
-					 headsMap.put("YST_ADMIN_KEY","200");
+					 headsMap.put("YST_ADMIN_KEY","202");
 					 String result = httpPostWithJsonAndHeader(url,json,headsMap);
 					 System.out.println("请求结果："+result);
 				}

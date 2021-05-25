@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.zoo.swan.annotation.Swan;
 import org.zoo.swan.annotation.TransTypeEnum;
 import org.zoo.swan.common.exception.SwanRuntimeException;
