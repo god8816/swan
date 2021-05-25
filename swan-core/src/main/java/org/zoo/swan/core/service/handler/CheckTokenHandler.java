@@ -91,9 +91,13 @@ public class CheckTokenHandler implements SwanTransactionHandler {
 	             	  rLock.tryLock(2, TimeUnit.SECONDS);
 	             	  savaToken(point,errorMsg,requestAttributes,tokenId);
 	    		} finally {
-	    			if(rLock.isLocked()) {
-	    				swanCoordinatorService.unlock(rLock);
-	    			}
+	    			try {
+	    				if(rLock.isLocked()) {
+		    				swanCoordinatorService.unlock(rLock);
+		    			}	
+				} catch (Exception e) {
+					logger.warn("屏蔽锁释放在次关闭导致异常");
+				}
 	    		}
         }else {
          	savaToken(point,errorMsg,requestAttributes,tokenId);
