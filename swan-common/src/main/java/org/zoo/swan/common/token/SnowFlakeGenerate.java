@@ -26,7 +26,7 @@ import org.zoo.swan.common.utils.IdWorkerUtils;
  *
  * @author dzc
  */
-@SwanSPI("SnowId")
+@SwanSPI("snowid")
 public class SnowFlakeGenerate implements TokenGenerate {
 
 	@Override

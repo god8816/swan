@@ -67,9 +67,10 @@ public class CheckTokenHandler implements SwanTransactionHandler {
         final String errorMsg = swan.errorMsg();
         final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        HttpServletResponse response = ((ServletRequestAttributes) requestAttributes).getResponse();
         
         String tokenId = request.getHeader(swanConfig.getTokenKey());
-        if(!CommonConstant.Mode.equals(swanConfig.getMode())) {
+        if(!CommonConstant.modeType.equals(swanConfig.getModeType())) {
          	Cookie[] cookies = request.getCookies();
          	if(cookies != null && cookies.length > 0){
          	     for (Cookie cookie : cookies){
@@ -89,7 +90,13 @@ public class CheckTokenHandler implements SwanTransactionHandler {
 	    	    RLock rLock = swanCoordinatorService.getLock(tokenId);
 	            try {
 	             	  rLock.tryLock(2, TimeUnit.SECONDS);
-	             	  savaToken(point,errorMsg,requestAttributes,tokenId);
+	             	  boolean isExistStatus = swanCoordinatorService.isExist(tokenId);
+	                  if(!isExistStatus) {
+	                   	Boolean saveStatus = swanCoordinatorService.add(tokenId);
+	                   	logger.info("用户TokenID保存状态,"+swanConfig.getTokenKey()+"=="+tokenId+",状态："+saveStatus);
+	                   	return point.proceed();
+	                   }
+	                  logger.info("用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenId);
 	    		} finally {
 	    			try {
 	    				if(rLock.isLocked()) {
@@ -100,27 +107,21 @@ public class CheckTokenHandler implements SwanTransactionHandler {
 				}
 	    		}
         }else {
-         	savaToken(point,errorMsg,requestAttributes,tokenId);
+          	boolean isExistStatus = swanCoordinatorService.isExist(tokenId);
+            if(!isExistStatus) {
+              	Boolean saveStatus = swanCoordinatorService.add(tokenId);
+              	logger.info("用户TokenID保存状态,"+swanConfig.getTokenKey()+"=="+tokenId+",状态："+saveStatus);
+              	return point.proceed();
+             }
+             logger.info("用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenId);
         }
+        
+        SwanException swanException = new SwanException(-1,errorMsg);
+        String errorMsgObj = JSON.toJSONString(swanException);
+		response.setContentType("application/json; charset=utf-8");
+        ServletOutputStream sos = response.getOutputStream();
+		sos.write(errorMsgObj.getBytes());
 		return null;
     }
     
-    
-    public Object savaToken(final ProceedingJoinPoint point,String errorMsg,RequestAttributes requestAttributes,String tokenId) throws Throwable {
-    	    boolean isExistStatus = swanCoordinatorService.isExist(tokenId);
-        if(!isExistStatus) {
-          	Boolean saveStatus = swanCoordinatorService.add(tokenId);
-          	logger.info("用户TokenID保存状态,"+swanConfig.getTokenKey()+"=="+tokenId+",状态："+saveStatus);
-          	return point.proceed();
-         }
-         logger.info("用户重复提交,"+swanConfig.getTokenKey()+"=="+tokenId);
-		 
-         SwanException swanException = new SwanException(-1,errorMsg);
-         String errorMsgObj = JSON.toJSONString(swanException);
-         HttpServletResponse response  = ((ServletRequestAttributes) requestAttributes).getResponse();
- 		 response.setContentType("application/json; charset=utf-8");
-         ServletOutputStream sos = response.getOutputStream();
- 		 sos.write(errorMsgObj.getBytes());
- 		 return null;
-	}
 }

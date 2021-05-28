@@ -28,7 +28,7 @@ import org.zoo.swan.common.exception.SwanRuntimeException;
  *
  * @author dzc
  */
-@SwanSPI("UUID")
+@SwanSPI("uuid")
 public class UUIdGenerate implements TokenGenerate {
 
 	@Override

@@ -10,11 +10,11 @@ spring:
    
 org: 
   zoo:
-    swan:
+    swan: 
       started: true
-      mode: cookie
+      mode-type: header
       application-name: yst-tms-admin
-      token-support: SnowId
+      token-support: uuid
       token-key: YST_ADMIN_KEY
       swan-redis-config:
 #       #cluster集群

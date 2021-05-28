@@ -37,7 +37,7 @@ public class SwanConfig {
     /**
      * 模式 header、cookie
      */
-    private String mode = "cookie";
+    private String modeType = "cookie";
     
     /**
      * 服务名称
@@ -50,9 +50,9 @@ public class SwanConfig {
     private String repositorySupport = "redis";
       
     /**
-     * Id生成策略 UUID、SnowId
+     * Id生成策略 uuid、snowid
      */
-    private String tokenSupport = "UUID";
+    private String tokenSupport = "uuid";
     
     /**
      * tokenKey

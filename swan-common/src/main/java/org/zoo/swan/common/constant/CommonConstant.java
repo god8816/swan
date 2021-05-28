@@ -33,18 +33,18 @@ public final class CommonConstant {
     /**
      * Now
      */
-    public final static String Now = "now";
+    public final static String now = "now";
     
     /**
      * History
      */
-    public final static String History = "history";
+    public final static String history = "history";
     
     
     /**
      * 模式 header、cookie
      */
-    public final static String Mode = "header";
+    public final static String modeType = "header";
 
 
 }

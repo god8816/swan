@@ -44,26 +44,22 @@ public class SpringCloudController {
     
     
     @RequestMapping("/save")
-    @Swan(value=TransTypeEnum.SAVE,hasLock=true,errorMsg="小狗狗别重复保存")
-    public void save(HttpServletResponse response) throws IOException { 
-     response.setContentType("application/json; charset=utf-8");
-     ServletOutputStream sos = response.getOutputStream();
-     sos.write("sava11111".getBytes());
+    @Swan(value=TransTypeEnum.SAVE,hasLock=false,errorMsg="小狗狗别重复保存")
+    public String save() throws IOException { 
+      return "sava11111";
     }
     
     
     @RequestMapping("/save/error")
-    @Swan(value=TransTypeEnum.SAVE,hasLock=true,errorMsg="小猫猫别重复保存")
-    public void saveError(HttpServletResponse response) throws IOException {
+    @Swan(value=TransTypeEnum.SAVE,hasLock=false,errorMsg="小猫猫别重复保存")
+    public String saveError(HttpServletResponse response) throws IOException {
     	    try {
 			throw new SwanRuntimeException("保存异常了");
 		} catch (Exception e) {
 			SwanUtil.sendToken();
 		}
     	    //修改验证不通过
-    	    response.setContentType("application/json; charset=utf-8");
-    	    ServletOutputStream sos = response.getOutputStream();
-    	    sos.write("sava22222".getBytes());
+    	    return "sava22222";
     }
 
 

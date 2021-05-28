@@ -35,7 +35,7 @@ public class SwanUtil {
      	try {
             final RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
             HttpServletResponse request = ((ServletRequestAttributes) requestAttributes).getResponse();
-            if(CommonConstant.Mode.equals(swanConfig.getMode())) {
+            if(CommonConstant.modeType.equals(swanConfig.getModeType())) {
             	  request.setHeader(swanConfig.getTokenKey(), tokenGenerate.getTokenId());
             }else {
                 Cookie cookie = new Cookie(swanConfig.getTokenKey(), tokenGenerate.getTokenId());
@@ -43,7 +43,7 @@ public class SwanUtil {
                 cookie.setPath("/");
                 request.addCookie(cookie);
             }
-            logger.warn("下发成功框架模式={},key={},value={}",swanConfig.getMode(),swanConfig.getTokenKey(), tokenGenerate.getTokenId());
+            logger.warn("下发成功框架模式={},key={},value={}",swanConfig.getModeType(),swanConfig.getTokenKey(), tokenGenerate.getTokenId());
         } catch (IllegalStateException ex) {
          	logger.error("下发token异常:" + ex.getLocalizedMessage());
         }
