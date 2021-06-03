@@ -25,7 +25,7 @@ Swan【天鹅】
    
    *  支持spring mvc、spring boot、spring cloud
    
-   *  存储支持reds 支持redes单点、cluster集群、哨兵集群
+   *  存储支持redis  部署方式支持redis单点、cluster集群、哨兵集群
 
    *  丰富的扩展支持 支持存储替换成其他产品需要自己实现 
 
