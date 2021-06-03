@@ -21,7 +21,7 @@ Swan【天鹅】
  
 #  特征
    
-   *  支持spiring所有版本
+   *  支持spring所有版本
    
    *  支持spring mvc、spring boot、spring cloud
    
